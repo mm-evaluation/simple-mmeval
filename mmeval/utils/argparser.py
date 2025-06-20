@@ -22,6 +22,16 @@ class ModelArguments:
 class DataArguments:
     dataset: str = field(default=None,
                            metadata={"help": "name of the dataset."})
+    dataset_dir: Optional[str] = field(default=None,
+                           metadata={"help": "HF dataset identifier or path to dataset directory."})
+    hf_home: Optional[str] = field(default=None,
+                           metadata={"help": "HF cache directory (defaults to work_dir/hf_home if not specified)."})
+    split: Optional[str] = field(default="all",
+                           metadata={"help": "Dataset split to load ('all' for all splits, or specific split name)."})
+    sample_mode: Optional[str] = field(default="all",
+                           metadata={"help": "Sampling mode: 'all', 'first', 'last', or 'random'."})
+    sample_number: Optional[int] = field(default=None,
+                           metadata={"help": "Number of samples to take (required if sample_mode != 'all')."})
     infile: Optional[str]= field(default=None,
                            metadata={"help": "input file."})
     img_dir: Optional[str] = field(default=None,

@@ -13,16 +13,22 @@ class SeedBenchDatasetLoader:
     Ensures media field is always a list of PIL Images.
     """
     
-    def __init__(self, dataset_dir: str = "lmms-lab/SEED-Bench", hf_home: str = "/MLLM_Eval/hf_home"):
+    def __init__(self, dataset_dir: str = "lmms-lab/SEED-Bench", hf_home: Optional[str] = None):
         """
         Initialize SEED-Bench dataset loader.
         
         Args:
             dataset_dir: HF dataset identifier
-            hf_home: HF cache directory
+            hf_home: HF cache directory (defaults to work_dir/hf_home)
         """
         self.dataset_dir = dataset_dir
+        # Detect current working directory and set default hf_home
+        if hf_home is None:
+            work_dir = os.getcwd()
+            self.hf_home = os.path.join(work_dir, "hf_home")
+        else:
         self.hf_home = hf_home
+        self.dataset = []
         # Ensure cache directory exists
         os.makedirs(self.hf_home, exist_ok=True)
     
@@ -53,10 +59,33 @@ class SeedBenchDatasetLoader:
         image_data = item["image"]
         media = image_data if isinstance(image_data, list) else [image_data]
         
+        # Generate image tokens based on number of images
+        num_images = len(media)
+        image_tokens = "<image>" * num_images
+        
+        # Create prompt with image tokens before question
+        original_question = item.get("question", "")
+        
+        # Format multiple choice options
+        choice_a = item.get("choice_a", "")
+        choice_b = item.get("choice_b", "")
+        choice_c = item.get("choice_c", "")
+        choice_d = item.get("choice_d", "")
+        
+        # Build the formatted choices string
+        choices_text = f"\nA. {choice_a}\nB. {choice_b}\nC. {choice_c}\nD. {choice_d}"
+        
+        # Create full question with choices
+        question_with_choices = f"{original_question}{choices_text}"
+        
+        # Create prompt with image tokens before question and choices
+        prompt = f"{image_tokens}\n{question_with_choices}" if image_tokens else question_with_choices
+        
         # Apply field mappings
         sample = {
             "id": item["question_id"],  # Rename question_id -> id
             "media": media,             # Ensure media is always a list
+            "prompt": prompt,           # Add prompt with image tokens, question and choices
             **item,                     # Copy all original fields
             "split": split_name         # Add split info
         }
@@ -99,7 +128,7 @@ class SeedBenchDatasetLoader:
             dataset = load_dataset(self.dataset_dir, cache_dir=self.hf_home)
             print(f"Fallback - loaded all splits: {list(dataset.keys())}")
         
-        samples = []
+        self.dataset = []
         
         # Process each split
         for split_name, split_data in dataset.items():
@@ -112,15 +141,31 @@ class SeedBenchDatasetLoader:
             # Process only selected samples
             for idx in selected_indices:
                 sample = self._process_sample(split_data[idx], split_name)
-                samples.append(sample)
+                self.dataset.append(sample)
         
-        print(f"✓ Processed {len(samples)} SEED-Bench samples")
-        return samples
+        print(f"✓ Processed {len(self.dataset)} SEED-Bench samples")
+        return self.dataset
+    
+    @property
+    def name(self):
+        return "SEED-Bench"
+    
+    def __iter__(self):
+        return iter(self.dataset)
+    
+    def __next__(self):
+        return next(self.dataset)  
+    
+    def __getitem__(self, index):
+        return self.dataset[index]
+    
+    def __len__(self):
+        return len(self.dataset)
 
 
 # Backward compatibility function
 def load_seed_bench_dataset(dataset_dir: str = "lmms-lab/SEED-Bench", split: str = "all", 
-                           hf_home: str = "/MLLM_Eval/hf_home",
+                           hf_home: str = None,
                            sample_mode: str = "all", sample_number: Optional[int] = None) -> List[Dict[str, Any]]:
     """
     Load SEED-Bench dataset (backward compatibility wrapper).
