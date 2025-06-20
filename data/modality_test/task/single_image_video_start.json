@@ -1,0 +1,26 @@
+[
+  {
+    "id": 0,
+    "question": "<image-placeholder: truck.png> Please provide a detailed description of the contents shown in the image.",
+    "type": "",
+    "concept_type": 0,
+    "stage_lvl": "",
+    "label": "",
+    "choices": {},
+    "image": "['truck.png']",
+    "prompt": "<image-placeholder: truck.png> Please provide a detailed description of the contents shown in the image.",
+    "hint": ""
+  },
+  {
+    "id": 1,
+    "question": "<video-placeholder: cat.mp4> Please provide a detailed description of the contents shown in the video.",
+    "type": "",
+    "concept_type": 0,
+    "stage_lvl": "",
+    "label": "",
+    "choices": {},
+    "image": "['cat.mp4']",
+    "prompt": "<video-placeholder: cat.mp4> Please provide a detailed description of the contents shown in the video.",
+    "hint": ""
+  }
+]

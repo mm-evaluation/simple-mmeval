@@ -52,10 +52,10 @@ class TaskRunner(Task):
         return ori_sample
 
     def parse_input(self, sample:dict):
-        question = sample["questions"]
+        question = sample["question"]
         # placeholder <>, can be image, video, audio, etc.
         q_chunks = re.split(r'(<[^>]*>)', question)
-        images = copy.deepcopy(sample['modality'])
+        images = copy.deepcopy(sample['media_path'])
 
         messages = [
             {

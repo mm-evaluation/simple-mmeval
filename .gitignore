@@ -172,3 +172,12 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+hf_home/
+envs/
+models/
+repo/
+
+README_dev.md
+README_ins_dev.md
+

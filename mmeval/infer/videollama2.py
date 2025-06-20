@@ -3,8 +3,8 @@ import copy
 import torch
 import transformers
 
-from mmeval.infer.videollama2 import model_init, mm_infer
-from mmeval.infer.videollama2.utils import disable_torch_init
+from mmeval.repo.videollama2 import model_init, mm_infer
+from mmeval.repo.videollama2.utils import disable_torch_init
 
 from mmeval.infer.task import Task
 from mmeval.utils import spec_tokens 
@@ -22,7 +22,7 @@ class TaskRunner(Task):
 
         ori_sample = copy.deepcopy(sample)
         question, modality = self.parse_input(sample)
-        image_file = sample["modality"][0]
+        image_file = sample["media_path"][0]
 
         media_tensor = self.processor[modality](image_file)
         output_text = mm_infer(media_tensor, question, model=self.model, tokenizer=self.tokenizer, do_sample=False, modal=modality).strip()
@@ -31,7 +31,7 @@ class TaskRunner(Task):
         return ori_sample
 
     def parse_input(self, sample:dict):
-        question = sample["questions"]
+        question = sample["question"]
         # extract placeholder
         placeholders = re.findall(r'<[^>]*>', question)
         assert len(placeholders) == 1, f"VideoLLaMA2 supports one image or video, but got {len(placeholder)}"

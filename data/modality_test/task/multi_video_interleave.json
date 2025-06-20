@@ -1,0 +1,14 @@
+[
+  {
+    "id": 0,
+    "question": "Please provide a detailed description of the contents shown in <video-placeholder: cat.mp4> and <video-placeholder: sun.mp4>.",
+    "type": "",
+    "concept_type": 0,
+    "stage_lvl": "",
+    "label": "",
+    "choices": {},
+    "image": "['cat.mp4', 'sun.mp4']",
+    "prompt": "Please provide a detailed description of the contents shown in <video-placeholder: cat.mp4> and <video-placeholder: sun.mp4>.",
+    "hint": ""
+  }
+]
