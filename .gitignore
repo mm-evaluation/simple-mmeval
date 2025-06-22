@@ -177,9 +177,12 @@ hf_home/
 envs/
 models/
 repo/
+work_dirs/
 
 README_dev.md
 README_ins_dev.md
+
+infer_<lower_case_model_name>_dev.py
 
 .DS_Store
 

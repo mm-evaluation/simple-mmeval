@@ -1,14 +1,14 @@
 [
   {
     "id": 0,
-    "question": "<image-placeholder: truck.png><image-placeholder: boat.png> Please provide a detailed description of the contents shown in the two images.",
+    "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
     "type": "",
     "concept_type": 0,
     "stage_lvl": "",
     "label": "",
     "choices": {},
     "image": "['truck.png', 'boat.png']",
-    "prompt": "<image-placeholder: truck.png><image-placeholder: boat.png> Please provide a detailed description of the contents shown in the two images.",
+    "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
     "hint": ""
   }
 ]
