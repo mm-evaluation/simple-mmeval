@@ -3,8 +3,8 @@ import copy
 import torch
 import transformers
 
-from mmeval.repo.videollama2 import model_init, mm_infer
-from mmeval.repo.videollama2.utils import disable_torch_init
+from repo.model.videollama2 import model_init, mm_infer
+from repo.model.videollama2.utils import disable_torch_init
 
 from mmeval.infer.task import Task
 from mmeval.utils import spec_tokens 
