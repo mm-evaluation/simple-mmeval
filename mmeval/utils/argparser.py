@@ -26,6 +26,8 @@ class DataArguments:
                            metadata={"help": "input file."})
     img_dir: Optional[str] = field(default=None,
                            metadata={"help": "image directory."})
+    split: Optional[str] = field(default=None,
+                           metadata={"help": "split of the dataset."})
 @dataclass
 class InferenceArguments:
     save_freq: int = field(default=3, metadata={"help": "save frequency for cache."})
