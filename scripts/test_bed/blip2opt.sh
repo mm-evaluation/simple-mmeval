@@ -5,6 +5,6 @@ python mmeval/run.py \
     --dataset local@json \
     --out_dir test_bed/test_blip2opt \
     --img_dir test_bed \
-    --model_name_or_path Salesforce/blip2-opt-2.7b \
+    --model_name_or_path blip2-opt-2.7b \
     --gpu_per_parallel 1 \
     --parallel_per_task 1 
