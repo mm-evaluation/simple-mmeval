@@ -6,20 +6,18 @@ import ast
 
 from datasets import load_dataset
 from mmeval.data.dataset import Dataset
-from mmeval.data.dataset_map import DATASET_MAP
 from mmeval.utils import constants
 
 class LMMSEvalDataset(Dataset):
     def __init__(self, args):
         self.args = args
-        self.mapping = DATASET_MAP["default"]
         self.name = self.args.infile
-        for k, v in DATASET_MAP[self.name].items():
-            self.mapping[k] = v
         self.load_dataset()
     
     def load_dataset(self):
-        self.data = load_dataset(self.name, split=self.args.split)
+        self.data = load_dataset(self.name, split=self.args.split).select(range(2))
+        if "id" not in self.data.column_names:
+            self.data = self.data.add_column(name="id", column=list(range(len(self.data))))
         data = []
         for item in self.data:
             data.append(self._process_sample(item))
@@ -27,32 +25,15 @@ class LMMSEvalDataset(Dataset):
     
     def _process_sample(self, item):
         instance = {}
-        if isinstance(self.mapping["modality"], list):
-            instance["modality"] = [item[k] for k in self.mapping["modality"] if item[k] is not None]
+        instance["id"] = item["id"]
+        if "hint" in item:
+            instance["pre-prompt"] = item["hint"]
         else:
-            instance["modality"] = item[self.mapping["modality"]]
-        if isinstance(self.mapping["options"], list):
-            instance["options"] = [item[k] for k in self.mapping["options"] if item[k] is not None and item[k] != "nan"]
-        else:
-            instance["options"] = item[self.mapping["options"]]
-        if self.mapping["pre-prompt"] is not None:
-            if self.mapping["pre-prompt"] in item:
-                instance["pre-prompt"] = item[self.mapping["pre-prompt"]]
-            else:
-                instance["pre-prompt"] = self.mapping["pre-prompt"]
-        if self.mapping["post-prompt"] is not None:
-            if self.mapping["post-prompt"] in item:
-                instance["post-prompt"] = item[self.mapping["post-prompt"]]
-            else:
-                instance["post-prompt"] = self.mapping["post-prompt"]
-        if self.mapping["options-prompt"] is not None:
-            if self.mapping["options-prompt"] in item:
-                instance["options-prompt"] = item[self.mapping["options-prompt"]]
-            else:
-                instance["options-prompt"] = self.mapping["options-prompt"]
-        instance["questions"] = self.construct_prompt(instance, item[self.mapping["question"]])
-        if self.mapping["id"] is not None:
-            instance["id"] = item[self.mapping["id"]]
+            instance["pre-prompt"] = None
+        instance["options"] = self.find_options(item)
+        instance["questions"] = item["question"]
+        instance["modality"] = self.find_modality(item)
+        instance["questions"] = self.construct_prompt(instance)
         return instance
 
     def _load_raw_data(self, **kwargs) -> List[Dict[str, Any]]:
@@ -63,16 +44,39 @@ class LMMSEvalDataset(Dataset):
         choices_str = "\n".join([f"{option_letter}. {option}" for option_letter, option in zip(option_letters, options)])
         return choices_str
 
-
-    def construct_prompt(self, doc, question):
-        if doc["options"] is not None:
-            parsed_options = self.parse_options(doc["options"])
-            if "options-prompt" in doc and doc["options-prompt"] is not None and doc["options-prompt"] != "nan":
-                question = f"{question}{doc['options-prompt']}"
-        if "pre-prompt" in doc and doc["pre-prompt"] is not None and doc["pre-prompt"] != "nan":
-            question = f"{doc['pre-prompt']}\n{question}"
-        if "post-prompt" in doc and doc["post-prompt"] is not None and doc["post-prompt"] != "nan":
-            question = f"{question}\n{doc['post-prompt']}"
-        if parsed_options is not None:
-            question = f"{question}\n{parsed_options}"
+    def construct_prompt(self, item):
+        if item["pre-prompt"] is not None:
+            question = f"{item['pre-prompt']}\n{item['questions']}"
+        else:
+            question = item["questions"]
+        if item["options"] is not None:
+            parsed_options = self.parse_options(item["options"])
+            post_prompt = "\nAnswer the question using a single word or phrase."
+            question = f"{question}\n{parsed_options}\n{post_prompt}"
+        else:
+            question = question
         return question
+    
+    def find_options(self, item):
+        '''Find if the options are in the dataset'''
+        if "options" in item and isinstance(item["options"], list):
+            return item["options"]
+        else:
+            options = []
+            for i in range(26):  # 26 letters in the alphabet
+                if chr(ord("A") + i) in item and item[chr(ord("A") + i)] is not None and item[chr(ord("A") + i)] != "nan":
+                    options.append(item[chr(ord("A") + i)])
+            return options
+    
+    def find_modality(self, item):
+        if "image" in item:
+            return item["image"]
+        elif "images" in item:
+            return item["images"]
+        elif "video" in item:
+            return item["video"]
+        elif "videos" in item:
+            return item["videos"]
+        else:
+            return None
+
