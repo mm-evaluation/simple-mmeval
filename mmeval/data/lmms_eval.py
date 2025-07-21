@@ -30,10 +30,10 @@ class LMMSEvalDataset(Dataset):
             instance["pre-prompt"] = item["hint"]
         else:
             instance["pre-prompt"] = None
-        instance["options"] = self.find_options(item)
-        instance["questions"] = item["question"]
-        instance["modality"] = self.find_modality(item)
-        instance["questions"] = self.construct_prompt(instance)
+        instance["choices"] = self.find_options(item)
+        instance["question"] = item["question"]
+        instance["media"] = self.find_modality(item)
+        instance["question"] = self.construct_prompt(instance)
         return instance
 
     def _load_raw_data(self, **kwargs) -> List[Dict[str, Any]]:
@@ -46,11 +46,11 @@ class LMMSEvalDataset(Dataset):
 
     def construct_prompt(self, item):
         if item["pre-prompt"] is not None:
-            question = f"{item['pre-prompt']}\n{item['questions']}"
+            question = f"{item['pre-prompt']}\n{item['question']}"
         else:
-            question = item["questions"]
-        if item["options"] is not None:
-            parsed_options = self.parse_options(item["options"])
+            question = item["question"]
+        if item["choices"] is not None:
+            parsed_options = self.parse_options(item["choices"])
             post_prompt = "\nAnswer the question using a single word or phrase."
             question = f"{question}\n{parsed_options}\n{post_prompt}"
         else:
