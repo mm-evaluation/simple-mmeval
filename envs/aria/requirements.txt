@@ -6,3 +6,5 @@ requests
 torch
 Pillow
 protobuf
+pandas
+python-dotenv

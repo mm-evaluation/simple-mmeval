@@ -11,4 +11,4 @@ python mmeval/run.py \
     --img_dir test_bed \
     --model_name_or_path rhymes-ai/Aria \
     --gpu_per_parallel 2 \
-    --parallel_per_task 1
+    --parallel_per_task 4

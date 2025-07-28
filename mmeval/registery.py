@@ -9,7 +9,7 @@ series_infer_env_mapping = {
         "infer_file": "qwenvl2d5.py",
     },
     "aria": {
-        "env": "/u/boqiny2/miniconda3/envs/mmeval",
+        "env": "/u/boqiny2/miniconda3/envs/aria",
         "infer_file": "aria.py",
     }
 }

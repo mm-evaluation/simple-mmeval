@@ -67,8 +67,7 @@ class TaskRunner(Task):
             max_new_tokens=256,
             stop_strings=["<|im_end|>"],
             tokenizer=self.processor.tokenizer,
-            do_sample=True,
-            temperature=0.9,
+            do_sample=False,
         )
         
         # Decode the response
