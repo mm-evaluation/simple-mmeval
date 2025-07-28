@@ -1,0 +1,165 @@
+# .github/workflows/docker-build-on-requirements.yml
+name: Build Docker on Requirements Change
+
+on:
+  push:
+    paths:
+      - '**/requirements.txt'
+  pull_request:
+    paths:
+      - '**/requirements.txt'
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      has-changes: ${{ steps.find-requirements.outputs.any_changed }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Find changed requirements.txt files
+        id: find-requirements
+        uses: tj-actions/changed-files@v40
+        with:
+          files: |
+            **/requirements.txt
+
+      - name: Set matrix for changed files
+        id: set-matrix
+        if: steps.find-requirements.outputs.any_changed == 'true'
+        run: |
+          files="${{ steps.find-requirements.outputs.all_changed_files }}"
+          
+          # Convert space-separated files to JSON array
+          matrix_json="["
+          first=true
+          for file in $files; do
+            if [ "$first" = true ]; then
+              first=false
+            else
+              matrix_json="$matrix_json,"
+            fi
+            matrix_json="$matrix_json\"$file\""
+          done
+          matrix_json="$matrix_json]"
+          
+          echo "matrix={\"requirements-file\":$matrix_json}" >> $GITHUB_OUTPUT
+          echo "Matrix: {\"requirements-file\":$matrix_json}"
+          
+          echo "Changed requirements files:"
+          for file in $files; do
+            echo "  - $file"
+          done
+
+  build-docker:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.has-changes == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
+      fail-fast: false
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get requirements file info
+        id: get-req-info
+        run: |
+          REQ_FILE="${{ matrix.requirements-file }}"
+          DIR_NAME=$(dirname "$REQ_FILE")
+          
+          # Create tag from path: replace slashes with dashes, handle root directory
+          if [ "$DIR_NAME" = "." ]; then
+            TAG_NAME="root"
+          else
+            TAG_NAME=$(echo "$DIR_NAME" | sed 's/\//-/g')
+          fi
+          
+          echo "requirements-file=$REQ_FILE" >> $GITHUB_OUTPUT
+          echo "dir-name=$DIR_NAME" >> $GITHUB_OUTPUT
+          echo "tag-name=$TAG_NAME" >> $GITHUB_OUTPUT
+          echo "Building for requirements file: $REQ_FILE in directory: $DIR_NAME"
+          echo "Docker tag will be: $TAG_NAME"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Create Dockerfile
+        run: |
+          DIR_NAME="${{ steps.get-req-info.outputs.dir-name }}"
+          
+          # Create Dockerfile in the same directory as requirements.txt
+          cat > "$DIR_NAME/Dockerfile" << 'EOF'
+          FROM mmevaluation/simple-mmeval:base-runtime-nvcc
+
+          # Set working directory
+          WORKDIR /app
+
+          # Copy requirements file
+          COPY requirements.txt .
+
+          # Upgrade pip and install requirements
+          RUN pip install --no-cache-dir --upgrade pip && \
+              pip install --no-cache-dir -r requirements.txt
+
+          # Copy the rest of the application (if needed)
+          # COPY . .
+
+          # Default command (can be overridden)
+          CMD ["python", "--version"]
+          EOF
+          
+          echo "Created Dockerfile in $DIR_NAME/"
+          cat "$DIR_NAME/Dockerfile"
+
+      - name: Generate Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/simple-mmeval
+          tags: |
+            type=raw,value=${{ steps.get-req-info.outputs.tag-name }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ steps.get-req-info.outputs.dir-name }}
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Test Docker image locally
+        if: github.event_name == 'pull_request'
+        run: |
+          DIR_NAME="${{ steps.get-req-info.outputs.dir-name }}"
+          TAG_NAME="${{ steps.get-req-info.outputs.tag-name }}"
+          
+          # Build locally for PR testing
+          docker build -t "test-image-$TAG_NAME" "$DIR_NAME/"
+          
+          # Test that the image runs and Python is installed
+          docker run --rm "test-image-$TAG_NAME" python --version
+          
+          # Test that pip packages are installed
+          docker run --rm "test-image-$TAG_NAME" pip list
+
+      - name: Clean up
+        if: always()
+        run: |
+          DIR_NAME="${{ steps.get-req-info.outputs.dir-name }}"
+          # Remove the generated Dockerfile
+          rm -f "$DIR_NAME/Dockerfile"

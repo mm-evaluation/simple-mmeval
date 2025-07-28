@@ -81,7 +81,8 @@ if __name__ == "__main__":
                         cmd.extend([f"--{key}", str(val)])
             # Build the conda-run command
             cmd = [
-                "conda", "run", "-p", infer_env, "python", os.path.join("mmeval/infer", infer_file),
+                "conda", "run", "--no-capture-output", "-p", infer_env, 
+                "python", os.path.join("mmeval/infer", infer_file),
             ]
             append_args(cur_args)
 

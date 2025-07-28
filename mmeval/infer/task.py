@@ -1,4 +1,5 @@
 import os
+import sys
 import tqdm
 
 from mmeval.data import load_dataset
@@ -6,11 +7,10 @@ from mmeval.utils.res_handler import ResponseHandler
 
 class Task:
     def __init__(self, args):
-
-
         self.max_retry = args.max_retry
         self.max_retry_sample = args.max_retry_sample
         self.out_dir = args.out_dir
+        self.rank = getattr(args, 'rank', 0)  # Store rank for display
         os.makedirs(self.out_dir, exist_ok=True)
 
         self.res_handler = ResponseHandler(args)
@@ -28,12 +28,25 @@ class Task:
         raise NotImplementedError("load_model is not implemented")
 
     def inference_dataset(self):
-
         run_count = 0
         while not self.res_handler.check_complete(self.dataset) and run_count < self.max_retry:
             run_count += 1
 
-            for sample in tqdm.tqdm(self.dataset, total=len(self.dataset), desc=f"Running {self.dataset.name}"):
+            # Format tqdm progress bar
+            for sample in tqdm.tqdm(
+                self.dataset, 
+                total=len(self.dataset), 
+                desc=f"Shard {self.rank} ({len(self.dataset)} samples)",
+                ncols=80,                   
+                bar_format='{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]',
+                colour='green',
+                position=self.rank,              
+                leave=True,                  
+                file=sys.stdout,            
+                mininterval=0.1,           
+                maxinterval=1.0,       
+                smoothing=0.3         
+            ):
                 
                 cnt = 0
                 try:
@@ -41,8 +54,8 @@ class Task:
                     self.res_handler.save(ret)
 
                 except Exception as e:
-                    print(f"Encountered Error: {e}")
+                    tqdm.tqdm.write(f"[Shard {self.rank}] ❌ Error: {e}")
                     cnt += 1
                     if cnt >= self.max_retry_sample:
-                        print("Max retries reached, skip example.")
+                        tqdm.tqdm.write(f"[Shard {self.rank}] ⚠️  Max retries reached, skipping sample")
                         continue

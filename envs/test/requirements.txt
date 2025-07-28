@@ -1,0 +1,8 @@
+transformers==4.36.2
+timm
+einops
+torch
+torchvision
+Pillow
+numpy
+pandas
