@@ -1,0 +1,24 @@
+[
+    {
+        "id": 0,
+        "question": "<image> Please provide a detailed description of the contents shown in the image.",
+        "answer": "",
+        "choices": {},
+        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+        "hint": "",
+        "comment": "Test 'single image start' modality.",
+        "eval-id": 0,
+        "response": "The image captures a moment of a GMC pickup truck in motion, driving on a dirt road. The truck, painted in a sleek black color, is moving from the left to the right of the frame, kicking up a cloud of dust behind it. The GMC logo is prominently displayed on the front of the truck, indicating its brand. The truck is equipped with black wheels and a black grille, adding to its rugged appearance. The backdrop of the image is a desert landscape, characterized by a rocky cliff and sparse vegetation, suggesting a remote or off-road location. The image does not contain any text."
+    },
+    {
+        "id": 1,
+        "question": "<image> Please provide a detailed description of the contents shown in the image.",
+        "answer": "",
+        "choices": {},
+        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+        "hint": "",
+        "comment": "Test 'single image start' modality.",
+        "eval-id": 1,
+        "response": "The image captures a dynamic scene of a white yacht speeding across the ocean. The yacht, a sleek vessel with a black stripe running along its side, is in full motion, creating a large wake behind it. The ocean beneath is a deep blue, contrasting with the clear sky above. The perspective of the image is from above, providing a bird's eye view of the yacht and its surroundings. The yacht is positioned centrally in the image, drawing the viewer's attention to its impressive size and speed. The image does not contain any text."
+    }
+]

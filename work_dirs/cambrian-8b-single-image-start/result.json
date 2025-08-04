@@ -1,0 +1,24 @@
+[
+    {
+        "id": 0,
+        "question": "<image> Please provide a detailed description of the contents shown in the image.",
+        "answer": "",
+        "choices": {},
+        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+        "hint": "",
+        "comment": "Test 'single image start' modality.",
+        "eval-id": 0,
+        "response": "The image captures a GMC truck in motion, driving on a dirt road. The truck is a dark gray color, with a black grille and black rims. It's a crew cab model, featuring four doors. The truck is in the process of driving, as evidenced by the dust being kicked up by its tires. The background of the image reveals a desert landscape, with red rock formations under a blue sky. The truck is positioned in the center of the image, with the desert landscape extending into the distance behind it. The image does not contain any text."
+    },
+    {
+        "id": 1,
+        "question": "<image> Please provide a detailed description of the contents shown in the image.",
+        "answer": "",
+        "choices": {},
+        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+        "hint": "",
+        "comment": "Test 'single image start' modality.",
+        "eval-id": 1,
+        "response": "The image captures a sleek, white yacht in motion on a serene blue sea. The yacht's design is modern and streamlined, with a pointed bow and a flat stern, suggesting high speed and efficiency. The hull is white, matching the superstructure, which includes a large cabin area and a covered deck. The yacht is leaving a trail of white spray behind, indicating its swift movement through the water. The sea is calm with only minor ripples, and the sky is clear, suggesting good weather conditions for sailing. The horizon is visible in the distance, providing a sense of depth and vastness of the sea. The image conveys a sense of luxury and freedom associated with yachting."
+    }
+]

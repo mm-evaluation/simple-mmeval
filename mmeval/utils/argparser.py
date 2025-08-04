@@ -9,6 +9,12 @@ if TYPE_CHECKING:
 @dataclass
 class ModelArguments:
     model_name_or_path: Optional[str] = field(default=None)
+
+    # model hyper-parameters
+    dtype: str = field(default=None, metadata={"help": "precision for model."})
+    low_cpu_mem_usage: bool = field(default=None, metadata={"help": "whether to use low cpu memory usage."})
+    use_flash_attn: bool = field(default=None, metadata={"help": "whether to use flash attention."})
+    use_flash_attention_2: bool = field(default=None, metadata={"help": "whether to use flash attention 2."})
     
     # inference hyper-parameters
     max_new_tokens: int = field(default=None, metadata={"help": "maximum number of new tokens to generate."})
@@ -24,11 +30,6 @@ class ModelArguments:
 
     # cache hyper-parameters
     use_cache: bool = field(default=None, metadata={"help": "whether to use cache to speed up decoding."})
-
-    # model hyper-parameters
-    dtype: str = field(default=None, metadata={"help": "precision for model."})
-    low_cpu_mem_usage: bool = field(default=None, metadata={"help": "whether to use low cpu memory usage."})
-    use_flash_attn: bool = field(default=None, metadata={"help": "whether to use flash attention."})
 
 @dataclass
 class DataArguments:

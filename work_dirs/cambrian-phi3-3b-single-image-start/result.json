@@ -1,0 +1,24 @@
+[
+    {
+        "id": 0,
+        "question": "<image> Please provide a detailed description of the contents shown in the image.",
+        "answer": "",
+        "choices": {},
+        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+        "hint": "",
+        "comment": "Test 'single image start' modality.",
+        "eval-id": 0,
+        "response": "The image showcases a GMC truck in motion on a rugged terrain, likely a desert or rocky area. The truck is captured mid-drive, kicking up a cloud of dust behind it, which emphasizes its off-road capabilities. The vehicle is painted in a sleek, dark gray color, with black accents on the rims and grille, giving it a modern and sturdy appearance. The design of the truck, with its prominent front grille and robust body, suggests it is built for durability and performance. The background features a blurred landscape with rocky formations, indicating that the truck is being driven in a remote or challenging environment. This setting highlights the truck's potential for adventure and utility in various terrains."
+    },
+    {
+        "id": 1,
+        "question": "<image> Please provide a detailed description of the contents shown in the image.",
+        "answer": "",
+        "choices": {},
+        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+        "hint": "",
+        "comment": "Test 'single image start' modality.",
+        "eval-id": 1,
+        "response": "The image captures a sleek, modern yacht cutting through the deep blue waters, leaving a trail of white foam in its wake. The yacht's white hull contrasts sharply with the blue of the sea, and its streamlined design suggests it's built for speed and efficiency. The clear sky above and the calm sea around the yacht create a serene yet dynamic backdrop, highlighting the yacht's luxurious and powerful presence."
+    }
+]

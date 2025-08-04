@@ -1,0 +1,24 @@
+[
+    {
+        "id": 0,
+        "question": "<image> Please provide a detailed description of the contents shown in the image.",
+        "answer": "",
+        "choices": {},
+        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+        "hint": "",
+        "comment": "Test 'single image start' modality.",
+        "eval-id": 0,
+        "response": "The image features a GMC truck in a dynamic outdoor setting. The truck is in motion, kicking up a trail of dust, which suggests it is driving on a rough, possibly unpaved terrain. The truck has a four-door crew cab design, which means it has a larger cabin for more interior space, accommodating passengers more comfortably.\n\nThe GMC truck has a modern and aggressive design aesthetic. It has a bold front grille with a black mesh insert and the GMC logo prominently displayed in red. The headlights are sleek and angular, with daytime running lights integrated into the design. The side profile of the truck shows a muscular stance with pronounced wheel arches, indicating its off-road capabilities. The wheels appear to be large and rugged, with black tires that would be suitable for rough terrain.\n\nThe truck's paint job is a metallic gray, which gives it a tough and durable appearance. The GMC badge is also visible on the rear of the truck, confirming the brand. The background of the image is a blurred natural landscape, likely a canyon or rocky area, which complements the ruggedness of the truck.\n\nOverall, the image conveys a sense of adventure and capability, highlighting the GMC truck's off-road prowess and stylish design. <|endoftext|>"
+    },
+    {
+        "id": 1,
+        "question": "<image> Please provide a detailed description of the contents shown in the image.",
+        "answer": "",
+        "choices": {},
+        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+        "hint": "",
+        "comment": "Test 'single image start' modality.",
+        "eval-id": 1,
+        "response": "The image depicts a sleek, white speedboat cutting through the calm blue waters of an ocean. The boat is captured from a high angle, likely taken from a drone or a camera mounted on a nearby structure, given the perspective and the clarity of the surroundings. The vessel is leaving a frothy wake trailing behind, indicating its rapid movement through the water.\n\nThe speedboat has a modern design with a low profile, a sharp bow, and a streamlined body that suggests high performance. The deck is uncluttered, with a visible windshield and a small railing along the side, which is typical for such boats designed for speed and luxury. There are no people or other objects visible on the boat, which could imply that the photo was taken when the boat was not in use or that the boat was traveling alone.\n\nThe ocean is serene, with a gradient of blue hues from the deep navy near the horizon to the lighter azure closer to the boat. The water is calm, with no visible waves or chop, which is ideal for high-speed boating. The sky is clear, with a light haze that could be due to the distance from the shore or the presence of a light mist, but it does not obscure the view.\n\nThe overall impression is one of luxury, leisure, and the freedom of open water travel. The image evokes a sense of adventure and the thrill of boating, with the boat appearing as a symbol of affluence and the ability to explore the sea with ease and speed. <|endoftext|>"
+    }
+]

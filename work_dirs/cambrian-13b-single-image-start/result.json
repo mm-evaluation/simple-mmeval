@@ -1,0 +1,24 @@
+[
+    {
+        "id": 0,
+        "question": "<image> Please provide a detailed description of the contents shown in the image.",
+        "answer": "",
+        "choices": {},
+        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+        "hint": "",
+        "comment": "Test 'single image start' modality.",
+        "eval-id": 0,
+        "response": "The image captures a dynamic scene featuring a GMC pickup truck in motion on a dirt road. The truck, painted in a sleek shade of gray, is a four-door model with a short bed. It's equipped with black rims and a black grille, adding to its rugged appeal. The truck is moving towards the right side of the frame, kicking up a cloud of dust in its wake, suggesting a sense of speed and power.\n\nThe backdrop of the image is a desert landscape, characterized by rocky terrain and sparse vegetation. The clear blue sky overhead contrasts with the earthy tones of the desert, creating a visually striking scene. The truck, the road, and the desert all come together to create a sense of adventure and exploration. The image does not contain any discernible text. The relative positions of the objects confirm that the truck is the main subject of the image, with the desert landscape serving as a dramatic backdrop. The image does not contain any other objects that can be confidently identified. The description is based solely on the visible content of the image, without any added imagination or aesthetic interpretation."
+    },
+    {
+        "id": 1,
+        "question": "<image> Please provide a detailed description of the contents shown in the image.",
+        "answer": "",
+        "choices": {},
+        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+        "hint": "",
+        "comment": "Test 'single image start' modality.",
+        "eval-id": 1,
+        "response": "The image captures a sleek, white yacht cutting through the deep blue waters, creating a dynamic wake behind it. The yacht's design is modern and streamlined, with a low profile and a series of portholes along its side. The deck is visible, suggesting ample space for passengers to enjoy the sea breeze. The sky above is a clear blue, indicating fair weather conditions. The perspective of the image is from above, providing a bird's eye view of the yacht and its surroundings. The image does not contain any text. The yacht is the only object in the image, and its position is central, drawing the viewer's attention immediately. The relative position of the yacht to the water and sky suggests it is moving forward, away from the viewer. The image does not provide any information about the yacht's speed, but the wake suggests it is moving at a moderate pace. The image does not contain any other objects or people, giving it a sense of solitude and tranquility. The image is a realistic representation of a leisurely day at sea."
+    }
+]
