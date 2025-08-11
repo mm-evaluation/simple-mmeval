@@ -19,7 +19,7 @@ from transformers import (
 
 from mmeval.infer.task import Task
 from mmeval.utils import constants
-from mmeval.utils.argparser import parse_args
+from mmeval.utils.argparser import parse_args, parse_model_kwargs, parse_gen_kwargs
 from mmeval.utils.scorer import IncrementalLMScorer, target_tokens
 
 
@@ -27,11 +27,20 @@ class TaskRunner(Task):
     """Run inference for a single shard/dataset using an Idefics-family model."""
 
     def __init__(self, args):
-        super().__init__(args)
         self.args = args  # retain reference for later methods
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         # Detect instruct models (official naming convention contains "instruct")
         self.is_instruct = "instruct" in args.model_name_or_path.lower()
+        
+        # Set up default kwargs following Gemma 3 pattern
+        self.default_model_kwargs = {"device_map": "auto"}
+        self.default_gen_kwargs = {"max_new_tokens": 128, "do_sample": False}
+        
+        # Parse kwargs from args, with fallback to defaults
+        self.model_kwargs = parse_model_kwargs(args, self.default_model_kwargs)
+        self.gen_kwargs = parse_gen_kwargs(args, self.default_gen_kwargs)
+        
+        super().__init__(args)
 
     # ---------------------------------------------------------------------
     # Model loading
@@ -79,12 +88,13 @@ class TaskRunner(Task):
             ModelClass = IdeficsForVisionText2Text
 
         def _load_model(_torch_dtype, _quant_cfg):
-            return ModelClass.from_pretrained(
-                args.model_name_or_path,
-                device_map="auto",
-                torch_dtype=_torch_dtype,
-                quantization_config=_quant_cfg,
-            )
+            # Combine parsed model kwargs with specific loading parameters
+            load_kwargs = {
+                **self.model_kwargs,
+                "torch_dtype": _torch_dtype,
+                "quantization_config": _quant_cfg,
+            }
+            return ModelClass.from_pretrained(args.model_name_or_path, **load_kwargs)
 
         try:
             # First attempt with the chosen setup
@@ -136,10 +146,13 @@ class TaskRunner(Task):
         # Common bad words (<image> tokens should not appear in text output)
         bad_words_ids = self.tokenizer(["<image>", "<fake_token_around_image>"], add_special_tokens=False).input_ids
 
+        # Combine parsed generation kwargs with model-specific parameters
         gen_kwargs = {
-            "max_new_tokens": 128,
             "bad_words_ids": bad_words_ids,
+            **self.gen_kwargs  # Use parsed generation arguments from argparser
         }
+        
+        # Add instruct-specific parameters if needed
         if self.is_instruct:
             eos_id = self.tokenizer.convert_tokens_to_ids("<end_of_utterance>")
             gen_kwargs["eos_token_id"] = eos_id
@@ -149,12 +162,6 @@ class TaskRunner(Task):
         new_tokens = generated[:, inputs["input_ids"].shape[-1]:]
 
         decoded = self.processor.batch_decode(new_tokens, skip_special_tokens=True)[0].strip()
-
-        # if "Assistant:" in decoded:
-        #     decoded = decoded.split("Assistant:")[-1]
-
-        # if "<end_of_utterance>" in decoded:
-        #     decoded = decoded.split("<end_of_utterance>", 1)[0]
 
         return decoded
 
