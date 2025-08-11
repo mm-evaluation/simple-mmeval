@@ -1,0 +1,7 @@
+[
+    {
+        "prompt": "<image>\nDescribe what you see in this image.",
+        "media": ["apple.jpg"],
+        "id": "test1"
+    }
+] 
