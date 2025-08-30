@@ -1,6 +1,7 @@
 import os
 import sys
 import tqdm
+import json
 
 from mmeval.data import load_dataset
 from mmeval.utils.res_handler import ResponseHandler
@@ -14,8 +15,26 @@ class Task:
         os.makedirs(self.out_dir, exist_ok=True)
 
         self.res_handler = ResponseHandler(args)
+        
+        prev_cache = {}
+        try:
+            tmp_dir = os.path.join(self.out_dir, "tmp")
+            fpath = os.path.join(tmp_dir, "prev_run_cache.json")
+            if os.path.exists(fpath):
+                with open(fpath, "r") as f:
+                    data = json.load(f)
+                    if isinstance(data, dict):
+                        prev_cache.update(data)
+                    elif isinstance(data, list):
+                        for item in data:
+                            if isinstance(item, dict) and "eval-id" in item:
+                                prev_cache[item["eval-id"]] = item
+        except Exception as e:
+            print(f"Warning: Failed to load cache file {fpath}: {e}")
+            
         self.dataset = load_dataset(args)
-
+        self.dataset.setup_parallel(prev_cache)
+        
         self.load_model(args)
 
     def run_sample(self, sample:dict):

@@ -5,6 +5,7 @@ import torch
 import shutil
 import json
 import copy
+import glob
 
 from mmeval.registery import series_mapping, series_infer_env_mapping
 from mmeval.utils.argparser import parse_args
@@ -32,6 +33,27 @@ if __name__ == "__main__":
         raise RuntimeError(
             f"Minimal {gpu_per_parallel} GPUs per parallel is required, but only {total_gpus} GPUs available"
         )
+        
+    # gather all cache files from resume
+    cache = {}
+    tmp_dir = os.path.join(args.out_dir, "tmp")
+    if os.path.exists(tmp_dir):
+        for fpath in glob.glob(os.path.join(tmp_dir, "*.json.tmp")):
+            try:
+                with open(fpath, "r") as f:
+                    data = json.load(f)
+                    if isinstance(data, dict):
+                        cache.update(data)
+                    elif isinstance(data, list):
+                        for item in data:
+                            if isinstance(item, dict) and "eval-id" in item:
+                                cache[item["eval-id"]] = item
+                # delete the file
+                os.remove(fpath)
+            except Exception as e:
+                print(f"Warning: Failed to load cache file {fpath}: {e}")
+    if len(cache) > 0 and args.resume:
+       json.dump(cache, open(os.path.join(tmp_dir, "prev_run_cache.json"), "w"))
 
     # Initialize GPU pool and task list
     available_gpus = list(range(total_gpus))
@@ -80,10 +102,19 @@ if __name__ == "__main__":
                     else:
                         cmd.extend([f"--{key}", str(val)])
             # Build the conda-run command
-            cmd = [
-                "conda", "run", "--no-capture-output", "-p", infer_env, 
-                "python", os.path.join("mmeval/infer", infer_file),
-            ]
+            # if infer_env is a directory, then use -p
+            if os.path.isdir(infer_env):
+                cmd = [
+                    "conda", "run", "--no-capture-output", "-p", infer_env, 
+                    "python", os.path.join("mmeval/infer", infer_file),
+                ]
+            # if infer_env is env name, then use -n
+            else:
+                cmd = [
+                    "conda", "run", "--no-capture-output", "-n", infer_env, 
+                    "python", os.path.join("mmeval/infer", infer_file),
+                ]
+                
             append_args(cur_args)
 
             #########################################################
@@ -109,8 +140,11 @@ if __name__ == "__main__":
 
     print("All inference shards completed.")
 
-    # merge all result files
-    result_files = [os.path.join(args.out_dir, "tmp", f"result_{i}.json") for i in range(args.parallel_per_task)]
+    # TODO: need to check if the cache is complete
+    
+    # merge all result files by glob
+    result_files = glob.glob(os.path.join(args.out_dir, "tmp", "*.json"))
+    
     result = [] 
     for file in result_files:
         with open(file, "r") as f:
