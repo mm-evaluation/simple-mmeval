@@ -13,7 +13,8 @@ series_mapping = {
     "ovis1d6_27b": ["Ovis1.6-Gemma2-27B"],
     "blip2_flan_t5": ["blip2-flan-t5-xl", "blip2-flan-t5-xxl"],
     "moondream1": ["moondream1"],
-    "moondream2": ["moondream2"]
+    "moondream2": ["moondream2"],
+    "blip2opt": ["blip2-opt-2.7b"]
 }
 
 series_infer_env_mapping = {
@@ -60,5 +61,10 @@ series_infer_env_mapping = {
     "moondream2": {
         "env": os.path.join(env_dir, "moondream2"),
         "infer_file": "moondream2.py",
+    },
+    "blip2opt": {
+        #"env": os.path.join(env_dir, "blip2opt"),
+        "env": "/root/yuexuanliu/simple-mmeval/envs/blip2opt",
+        "infer_file": "blip2opt.py",
     }
 }

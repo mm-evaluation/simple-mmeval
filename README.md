@@ -140,6 +140,7 @@ Currently supported model series:
 | **Ovis1.6**    | Ovis1.6-Llama3.2-3B, Ovis1.6-Gemma2-9B, Ovis1.6-Gemma2-27B                                                                                                            | [`scripts/test_bed/ovis1d6-multi-image-start.sh`](scripts/test_bed/ovis1d6-multi-image-start.sh) |
 | **Moondream1** | vikhyatk/moondream1 | [`scripts/test_bed/moondream1.sh`](scripts/test_bed/moondream1.sh) |
 | **Moondream2** | vikhyatk/moondream2                                                                                                                         | [`scripts/test_bed/moondream2.sh`](scripts/test_bed/moondream2.sh) |
+| **blip2-opt** | blip2-opt-2.7b                                                  | [`scripts/test_bed/blip2opt-single-image-start.sh`](scripts/test_bed/blip2opt.py) |
 
 ## Supported Datasets
 
