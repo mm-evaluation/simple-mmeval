@@ -63,8 +63,7 @@ series_infer_env_mapping = {
         "infer_file": "moondream2.py",
     },
     "blip2opt": {
-        #"env": os.path.join(env_dir, "blip2opt"),
-        "env": "/root/yuexuanliu/simple-mmeval/envs/blip2opt",
+        "env": os.path.join(env_dir, "blip2opt"),
         "infer_file": "blip2opt.py",
     }
 }
