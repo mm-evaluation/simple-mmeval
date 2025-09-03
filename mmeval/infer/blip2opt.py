@@ -28,7 +28,7 @@ class TaskRunner(Task):
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
 
-        question, modality = self.parse_input(sample)
+        question= self.parse_input(sample)
 
         # Instruction Format
         question = f"Question: {question} Answer:"
@@ -65,20 +65,16 @@ class TaskRunner(Task):
 
     def parse_input(self, sample:dict):
         question = sample.get("question") or sample.get("prompt")
-        placeholders = re.findall(r'<[^>]*>', question)
+        placeholders = re.findall(r'<(?:image|video)>', question)
         assert len(placeholders) == 1
 
         placeholder = placeholders[0]
-        if placeholder == constants.image:
-            modality = "image"
-        elif placeholder == constants.video:
-            raise NotImplementedError("Blip2Opt does not support video input")
-        else:
-            raise ValueError(f"Unsupported placeholder: {placeholder}")
+        if placeholder != constants.image:
+            raise ValueError(f"Blip2opt support image only, received unsupported placeholder: {placeholder}")
 
         question = question.replace(placeholder, "").strip()
 
-        return question, modality
+        return question
 
 
 
