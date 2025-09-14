@@ -17,6 +17,7 @@ from mmeval.utils.scorer import IncrementalLMScorer, target_tokens
 class TaskRunner(Task):
     def __init__(self, args):
         self.args = args
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.dtype = getattr(args, "dtype") or torch.bfloat16
         self.default_model_kwargs = {"device_map": "auto"}
         self.default_gen_kwargs = {"max_new_tokens": 100, "do_sample": False, "stop_strings": ["<|im_end|>"]}
@@ -80,7 +81,7 @@ class TaskRunner(Task):
         
         for content in messages[0]["content"]:
             if content["type"] == "image":
-                images.append(Image.open(content["image"]))
+                images.append(content["image"])  # Pass file path directly
             elif content["type"] == "video":
                 videos.append(content["video"])
         
