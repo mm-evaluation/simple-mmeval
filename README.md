@@ -145,6 +145,7 @@ Currently supported model series:
 | **InternVL2** | InternVL2-1B, InternVL2-2B, InternVL2-4B, InternVL2-8B, InternVL2-26B, InternVL2-40B, InternVL2-Llama3-76B | [`scripts/test_bed/internvl2-multi-image-video-interleave.sh`](scripts/test_bed/internvl2-multi-image-video-interleave.sh) |
 | **InternVL2.5** | InternVL2_5-1B, InternVL2_5-2B, InternVL2_5-4B, InternVL2_5-8B, InternVL2_5-26B, InternVL2_5-38B, InternVL2_5-78B, InternVL2_5-1B-MPO, InternVL2_5-2B-MPO, InternVL2_5-4B-MPO, InternVL2_5-8B-MPO, InternVL2_5-26B-MPO, InternVL2_5-38B-MPO, InternVL2_5-78B-MPO | [`scripts/test_bed/internvl2d5-multi-image-video-interleave.sh`](scripts/test_bed/internvl2d5-multi-image-video-interleave.sh) |
 | **InternVL3** | InternVL3-1B, InternVL3-2B, InternVL3-8B, InternVL3-9B, InternVL3-14B, InternVL3-38B, InternVL3-78B, InternVL3-1B-Instruct, InternVL3-2B-Instruct, InternVL3-8B-Instruct, InternVL3-9B-Instruct, InternVL3-14B-Instruct, InternVL3-38B-Instruct, InternVL3-78B-Instruct, InternVL3-1B-Pretrained, InternVL3-2B-Pretrained, InternVL3-8B-Pretrained, InternVL3-9B-Pretrained, InternVL3-14B-Pretrained, InternVL3-38B-Pretrained, InternVL3-78B-Pretrained | [`scripts/test_bed/internvl3-multi-image-video-interleave.sh`](scripts/test_bed/internvl3-multi-image-video-interleave.sh) |
+| **InternLM** | internlm/internlm-xcomposer-7b | [`scripts/test_bed/internlm-xcomposer-7b.sh`](scripts/test_bed/internlm-xcomposer-7b.sh) |
 
 ## Supported Datasets
 

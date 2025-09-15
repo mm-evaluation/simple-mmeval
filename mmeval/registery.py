@@ -30,9 +30,9 @@ series_mapping = {
                     "InternVL3_5-1B-Pretrained", "InternVL3_5-2B-Pretrained", "InternVL3_5-4B-Pretrained", "InternVL3_5-8B-Pretrained", "InternVL3_5-14B-Pretrained", "InternVL3_5-30B-A3B-Pretrained", "InternVL3_5-38B-Pretrained", "InternVL3_5-241B-A28B-Pretrained",
                     "InternVL3_5-1B-Instruct", "InternVL3_5-2B-Instruct", "InternVL3_5-4B-Instruct", "InternVL3_5-8B-Instruct", "InternVL3_5-14B-Instruct", "InternVL3_5-30B-A3B-Instruct", "InternVL3_5-38B-Instruct", "InternVL3_5-241B-A28B-Instruct"],
     "moondream1": ["moondream1"],
-    "moondream2": ["moondream2"]
+    "moondream2": ["moondream2"],
+    "internlm": ["internlm-xcomposer-7b" ]
 }
-
 series_infer_env_mapping = {
     "qwenvl2": {
         "env": os.path.join(env_dir, "qwenvl"),
@@ -109,5 +109,9 @@ series_infer_env_mapping = {
     "moondream2": {
         "env": os.path.join(env_dir, "moondream2"),
         "infer_file": "moondream2.py",
+    },
+    "internlm": {
+        "env": os.path.join(env_dir, "internlm"),
+        "infer_file": "internlm_xcomposer_7b.py",
     }
 }
