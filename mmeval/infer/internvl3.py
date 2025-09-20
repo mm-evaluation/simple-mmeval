@@ -3,21 +3,100 @@ import copy
 
 import math
 import torch
-from transformers import AutoTokenizer, AutoModel, CLIPImageProcessor
+import numpy as np
+import torchvision.transforms as T
 from decord import VideoReader, cpu
 from PIL import Image
-import numpy as np
+from torchvision.transforms.functional import InterpolationMode
+from transformers import AutoModel, AutoTokenizer, AutoConfig
 
 from mmeval.infer.task import Task
 from mmeval.utils import constants
 from mmeval.utils.argparser import parse_args, parse_model_kwargs, parse_gen_kwargs
 from mmeval.utils.scorer import IncrementalLMScorer, target_tokens
 
+IMAGENET_MEAN = (0.485, 0.456, 0.406)
+IMAGENET_STD = (0.229, 0.224, 0.225)
 
-def split_model(model_name):
+def build_transform(input_size):
+    MEAN, STD = IMAGENET_MEAN, IMAGENET_STD
+    transform = T.Compose([
+        T.Lambda(lambda img: img.convert('RGB') if img.mode != 'RGB' else img),
+        T.Resize((input_size, input_size), interpolation=InterpolationMode.BICUBIC),
+        T.ToTensor(),
+        T.Normalize(mean=MEAN, std=STD)
+    ])
+    return transform
+
+def find_closest_aspect_ratio(aspect_ratio, target_ratios, width, height, image_size):
+    best_ratio_diff = float('inf')
+    best_ratio = (1, 1)
+    area = width * height
+    for ratio in target_ratios:
+        target_aspect_ratio = ratio[0] / ratio[1]
+        ratio_diff = abs(aspect_ratio - target_aspect_ratio)
+        if ratio_diff < best_ratio_diff:
+            best_ratio_diff = ratio_diff
+            best_ratio = ratio
+        elif ratio_diff == best_ratio_diff:
+            if area > 0.5 * image_size * image_size * ratio[0] * ratio[1]:
+                best_ratio = ratio
+    return best_ratio
+
+def dynamic_preprocess(image, min_num=1, max_num=12, image_size=448, use_thumbnail=False):
+    orig_width, orig_height = image.size
+    aspect_ratio = orig_width / orig_height
+
+    # calculate the existing image aspect ratio
+    target_ratios = set(
+        (i, j) for n in range(min_num, max_num + 1) for i in range(1, n + 1) for j in range(1, n + 1) if
+        i * j <= max_num and i * j >= min_num)
+    target_ratios = sorted(target_ratios, key=lambda x: x[0] * x[1])
+
+    # find the closest aspect ratio to the target
+    target_aspect_ratio = find_closest_aspect_ratio(
+        aspect_ratio, target_ratios, orig_width, orig_height, image_size)
+
+    # calculate the target width and height
+    target_width = image_size * target_aspect_ratio[0]
+    target_height = image_size * target_aspect_ratio[1]
+    blocks = target_aspect_ratio[0] * target_aspect_ratio[1]
+
+    # resize the image
+    resized_img = image.resize((target_width, target_height))
+    processed_images = []
+    for i in range(blocks):
+        box = (
+            (i % (target_width // image_size)) * image_size,
+            (i // (target_width // image_size)) * image_size,
+            ((i % (target_width // image_size)) + 1) * image_size,
+            ((i // (target_width // image_size)) + 1) * image_size
+        )
+        # split the image
+        split_img = resized_img.crop(box)
+        processed_images.append(split_img)
+    assert len(processed_images) == blocks
+    if use_thumbnail and len(processed_images) != 1:
+        thumbnail_img = image.resize((image_size, image_size))
+        processed_images.append(thumbnail_img)
+    return processed_images
+
+def load_image(image_file, input_size=448, max_num=12):
+    if isinstance(image_file, Image.Image):
+        image = image_file
+    else:
+        image = Image.open(image_file).convert('RGB')
+    transform = build_transform(input_size=input_size)
+    images = dynamic_preprocess(image, image_size=input_size, use_thumbnail=True, max_num=max_num)
+    pixel_values = [transform(image) for image in images]
+    pixel_values = torch.stack(pixel_values)
+    return pixel_values
+
+def split_model(model_path):
     device_map = {}
     world_size = torch.cuda.device_count()
-    num_layers = {'InternVL-Chat-V1-1': 40, 'InternVL-Chat-V1-2': 60, 'InternVL-Chat-V1-2-Plus': 60}[model_name]
+    config = AutoConfig.from_pretrained(model_path, trust_remote_code=True)
+    num_layers = config.llm_config.num_hidden_layers
     # Since the first GPU will be used for ViT, treat it as half a GPU.
     num_layers_per_gpu = math.ceil(num_layers / (world_size - 0.5))
     num_layers_per_gpu = [num_layers_per_gpu] * world_size
@@ -53,17 +132,19 @@ def get_index(bound, fps, max_frame, first_idx=0, num_segments=32):
     ])
     return frame_indices
 
-def load_video(video_path, bound=None, num_segments=32):
+def load_video(video_path, bound=None, input_size=448, max_num=1, num_segments=32):
     vr = VideoReader(video_path, ctx=cpu(0), num_threads=1)
     max_frame = len(vr) - 1
     fps = float(vr.get_avg_fps())
 
     pixel_values_list, num_patches_list = [], []
-    image_processor = CLIPImageProcessor.from_pretrained(args.model_name_or_path)
+    transform = build_transform(input_size=input_size)
     frame_indices = get_index(bound, fps, max_frame, first_idx=0, num_segments=num_segments)
     for frame_index in frame_indices:
-        img = Image.fromarray(vr[frame_index].asnumpy()).convert('RGB').resize((448, 448))
-        pixel_values = image_processor(images=img, return_tensors='pt').pixel_values
+        img = Image.fromarray(vr[frame_index].asnumpy()).convert('RGB')
+        img = dynamic_preprocess(img, image_size=input_size, use_thumbnail=True, max_num=max_num)
+        pixel_values = [transform(tile) for tile in img]
+        pixel_values = torch.stack(pixel_values)
         num_patches_list.append(pixel_values.shape[0])
         pixel_values_list.append(pixel_values)
 
@@ -75,7 +156,7 @@ class TaskRunner(Task):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.dtype = getattr(args, "dtype") or torch.bfloat16
         self.num_segments = 8
-        self.default_model_kwargs = {"device_map": split_model(re.split(r'/', args.model_name_or_path)[-1]), "low_cpu_mem_usage": True}
+        self.default_model_kwargs = {"device_map": split_model(args.model_name_or_path), "low_cpu_mem_usage": True}
         # self.default_gen_kwargs = {"max_new_tokens": 1024, "do_sample": True}
         self.default_gen_kwargs = {"num_beams": 1, "top_k": 50, "top_p": 0.9, "sample": False, "max_new_tokens": 20}
         self.model_kwargs = parse_model_kwargs(args, self.default_model_kwargs)
@@ -99,7 +180,6 @@ class TaskRunner(Task):
         question = question.replace("<image>", "<image>\n")
         question = question.replace("<video>", ''.join([f'Frame{i+1}: <image>\n' for i in range(self.num_segments)]))
 
-        image_processor = CLIPImageProcessor.from_pretrained(args.model_name_or_path)
         media_list = copy.deepcopy(sample['media'])
         pixel_values_list = []
         num_patches_list = []
@@ -108,13 +188,12 @@ class TaskRunner(Task):
                 continue
             if chunk == constants.image:
                 image = media_list.pop(0)
-                resized_image = image.resize((448, 448), resample=Image.Resampling.LANCZOS)
-                image_pixel_values = image_processor(images=resized_image, return_tensors='pt').pixel_values
+                image_pixel_values = load_image(image, max_num=12)
                 pixel_values_list.append(image_pixel_values)
                 num_patches_list.append(image_pixel_values.size(0))
             elif chunk == constants.video:
                 video = media_list.pop(0)
-                video_pixel_values_list, video_num_patches_list = load_video(video, num_segments=self.num_segments)
+                video_pixel_values_list, video_num_patches_list = load_video(video, num_segments=self.num_segments, max_num=1)
                 pixel_values_list.extend(video_pixel_values_list)
                 num_patches_list.extend(video_num_patches_list)
 

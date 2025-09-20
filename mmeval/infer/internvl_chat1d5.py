@@ -156,7 +156,8 @@ class TaskRunner(Task):
         self.dtype = getattr(args, "dtype") or torch.bfloat16
         self.num_segments = 8
         self.default_model_kwargs = {"device_map": split_model(re.split(r'/', args.model_name_or_path)[-1]), "low_cpu_mem_usage": True}
-        self.default_gen_kwargs = {"max_new_tokens": 1024, "do_sample": True}
+        # self.default_gen_kwargs = {"max_new_tokens": 1024, "do_sample": True}
+        self.default_gen_kwargs = {"num_beams": 1, "top_k": 50, "top_p": 0.9, "sample": False, "max_new_tokens": 20}
         self.model_kwargs = parse_model_kwargs(args, self.default_model_kwargs)
         self.gen_kwargs = parse_gen_kwargs(args, self.default_gen_kwargs)
 
