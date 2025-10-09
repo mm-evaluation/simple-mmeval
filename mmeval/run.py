@@ -35,25 +35,34 @@ if __name__ == "__main__":
         )
         
     # gather all cache files from resume
-    cache = {}
+    cache = []
+    eval_ids_seen = set()
     tmp_dir = os.path.join(args.out_dir, "tmp")
     if os.path.exists(tmp_dir):
         for fpath in glob.glob(os.path.join(tmp_dir, "*.json.tmp")):
             try:
                 with open(fpath, "r") as f:
                     data = json.load(f)
-                    if isinstance(data, dict):
-                        cache.update(data)
-                    elif isinstance(data, list):
+                    if isinstance(data, list):
                         for item in data:
                             if isinstance(item, dict) and "eval-id" in item:
-                                cache[item["eval-id"]] = item
+                                eval_id = item["eval-id"]
+                                if eval_id not in eval_ids_seen:
+                                    eval_ids_seen.add(eval_id)
+                                    cache.append(item)
                 # delete the file
                 os.remove(fpath)
             except Exception as e:
                 print(f"Warning: Failed to load cache file {fpath}: {e}")
     if len(cache) > 0 and args.resume:
-       json.dump(cache, open(os.path.join(tmp_dir, "prev_run_cache.json"), "w"))
+        cache.sort(key=lambda x: x["eval-id"])
+        json.dump(cache, open(os.path.join(tmp_dir, "prev_run_cache.json"), "w"))
+
+    # check if result.json already exists when resume is enabled
+    result_file = os.path.join(args.out_dir, "result.json")
+    if args.resume and os.path.exists(result_file):
+        print(f"✅ Task already completed. Found existing result.json at {result_file}")
+        exit(0)
 
     # Initialize GPU pool and task list
     cvd = os.environ.get("CUDA_VISIBLE_DEVICES", "").strip()
@@ -158,6 +167,9 @@ if __name__ == "__main__":
     
     shutil.rmtree(os.path.join(args.out_dir, "tmp"))
 
+    # sort by eval-id before saving final result
+    result.sort(key=lambda x: x["eval-id"])
+    
     # save result
     with open(os.path.join(args.out_dir, "result.json"), "w") as f:
         json.dump(result, f, indent=4)

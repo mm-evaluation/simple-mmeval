@@ -30,14 +30,14 @@ class ResponseHandler:
         if os.path.exists(self.cache_file):
             self.cache = json.load(open(self.cache_file, "r"))
         else:
-            self.cache = {}
+            self.cache = []
 
     @property
     def length(self):
         return len(self.cache)
 
-    def in_cache(self, id_:str):
-        return id_ in self.cache
+    def in_cache(self, id_: int):
+        return any(item.get("eval-id") == id_ for item in self.cache)
     
     def check_complete(self, dataset):
         if len(self.cache) != len(dataset):
@@ -53,7 +53,7 @@ class ResponseHandler:
             self._dump_result()
             return True
         
-    def save(self, result:dict):
+    def save(self, result: dict):
         assert "eval-id" in result, "eval-id is required"
         assert "response" in result, f"no model response for sample {result}"
         
@@ -62,7 +62,7 @@ class ResponseHandler:
             if any(isinstance(item, Image.Image) for item in result["media"]):
                 del result["media"]
                
-        self.cache[result["eval-id"]] = result
+        self.cache.append(result)
         if len(self.cache) % self.save_freq == 0:
             self._dump_cache()
 
@@ -70,5 +70,6 @@ class ResponseHandler:
         json.dump(self.cache, open(self.cache_file, "w"), indent=4, cls=NumpyEncoder)
 
     def _dump_result(self):
-        ret = [self.cache[k] for k in sorted(self.cache.keys())]
-        json.dump(ret, open(self.output_file, "w",), indent=4, cls=NumpyEncoder)
+        # Sort by eval-id and save as list
+        sorted_cache = sorted(self.cache, key=lambda x: x["eval-id"])
+        json.dump(sorted_cache, open(self.output_file, "w"), indent=4, cls=NumpyEncoder)

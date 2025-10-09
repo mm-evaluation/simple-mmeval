@@ -43,7 +43,8 @@ class BaseDataset(ABC):
         
         indices_to_run = list(range(len(self._raw_dataset)))
         if cache is not None:
-            indices_to_run = [idx for idx in indices_to_run if idx not in cache.keys()]
+            cached_eval_ids = {item["eval-id"] for item in cache if "eval-id" in item}
+            indices_to_run = [idx for idx in indices_to_run if idx not in cached_eval_ids]
             
         self._shard_indices = indices_to_run[self.rank::self.parallel_per_task]
         self._shard_length = len(self._shard_indices)
