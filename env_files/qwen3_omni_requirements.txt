@@ -1,0 +1,7 @@
+git+https://github.com/huggingface/transformers
+torch
+torchvision
+accelerate
+qwen-omni-utils
+pandas
+flash-attn
