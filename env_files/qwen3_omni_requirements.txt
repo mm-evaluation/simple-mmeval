@@ -1,7 +1,8 @@
-git+https://github.com/huggingface/transformers
+# flash-attn==2.7.3
+
+transformers @ git+https://github.com/huggingface/transformers
 torch
 torchvision
 accelerate
 qwen-omni-utils
 pandas
-flash-attn
