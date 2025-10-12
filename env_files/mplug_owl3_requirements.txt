@@ -1,14 +1,7 @@
 torch
 torchvision
 transformers==4.37.2
-tokenizers
-sentencepiece
-accelerate
-timm
-Pillow
-numpy
-decord
-opencv-python
-einops
 modelscope
+timm
+decord
 qwen_vl_utils
