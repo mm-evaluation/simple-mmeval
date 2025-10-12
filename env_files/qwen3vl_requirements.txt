@@ -1,0 +1,6 @@
+git+https://github.com/huggingface/transformers.git
+torch
+torchvision
+accelerate
+qwen-vl-utils[decord]
+pandas
