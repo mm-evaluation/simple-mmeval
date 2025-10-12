@@ -1,6 +1,6 @@
 # flash-attn==2.7.3
 
-transformers @ git+https://github.com/huggingface/transformers
+transformers @ git+https://github.com/huggingface/transformers.git@3927ffed31e3c0d2929bf98bd05b7c61fcc48b62
 torch
 torchvision
 accelerate
