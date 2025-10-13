@@ -93,6 +93,8 @@ else:
     ori_sample.update(self._score_choices(text, image_inputs, video_inputs, sample))
 ```
 
+Recent additions follow the same pattern. For example, `mmeval/infer/wethink_qwenvl2d5.py` wires up the [WeThink-Qwen2.5VL-7B](https://huggingface.co/yangjie-cv/WeThink-Qwen2.5VL-7B) model with a WeThink-style system prompt while still supporting incremental scoring.
+
 ### 4. Dataset Loading (`mmeval/data/`)
 
 The framework provides a pluggable dataset system:
