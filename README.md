@@ -150,6 +150,7 @@ Currently supported model series:
 | **Moondream1** | moondream1 | [`scripts/test_bed/moondream1.sh`](scripts/test_bed/moondream1.sh) |
 | **Moondream2** | moondream2 | [`scripts/test_bed/moondream2.sh`](scripts/test_bed/moondream2.sh) |
 | **Ovis1.5** | Ovis1.5-Llama3-8B, Ovis1.5-Gemma2-9B | [`scripts/test_bed/ovis1d5-single-image-start.sh`](scripts/test_bed/ovis1d5-single-image-start.sh) |
+| **SAIL-VL** | SAIL-VL-2B, SAIL-VL-4B, SAIL-VL-8B, SAIL-VL-16B | [`scripts/test_bed/sail-vl-multi-image-interleave.sh`](scripts/test_bed/sail-vl-multi-image-interleave.sh) |
 
 
 ## Supported Datasets

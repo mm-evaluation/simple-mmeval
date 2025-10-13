@@ -38,6 +38,7 @@ series_mapping = {
     "moondream1": ["moondream1"],
     "moondream2": ["moondream2"],
     "ovis1d5": ["Ovis1.5-Llama3-8B", "Ovis1.5-Gemma2-9B"],
+    "sail_vl": ["SAIL-VL-2B", "SAIL-VL-4B", "SAIL-VL-8B", "SAIL-VL-16B"],
     "vintern": ["Vintern-1B-v2", "Vintern-1B-v3_5", "Vintern-3B-beta"],
     "xgen": ["xgen-mm-phi3-mini-instruct-interleave-r-v1.5"],
     # "ovis1d6": ["Ovis1.6-Llama3.2-3B", "Ovis1.6-Gemma2-9B"],
@@ -157,6 +158,10 @@ series_infer_env_mapping = {
     "ovis1d5": {
         "env": os.path.join(env_dir, "ovis1d5"),
         "infer_file": "ovis1d5.py",
+    },
+    "sail_vl": {
+        "env": os.path.join(env_dir, "sail_vl"),
+        "infer_file": "sail_vl.py",
     },
     "ovis1d6": {
         "env": os.path.join(env_dir, "ovis1d6"),
