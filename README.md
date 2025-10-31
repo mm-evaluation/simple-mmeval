@@ -132,6 +132,7 @@ Currently supported model series:
 | Model Series | Models | Usage Example |
 |--------------|--------|---------------|
 | **Qwen2.5-VL** | Qwen2.5-VL-3B-Instruct, Qwen2.5-VL-7B-Instruct, Qwen2.5-VL-32B-Instruct, Qwen2.5-VL-72B-Instruct | [`scripts/test_bed/qwen2d5.sh`](scripts/test_bed/qwen2d5.sh) |
+| **Qwen3-VL** | Qwen3-VL-2B-Instruct, Qwen3-VL-2B-Thinking, Qwen3-VL-2B-Instruct-FP8, Qwen3-VL-2B-Thinking-FP8, Qwen3-VL-4B-Instruct, Qwen3-VL-4B-Thinking, Qwen3-VL-4B-Instruct-FP8, Qwen3-VL-4B-Thinking-FP8, Qwen3-VL-8B-Instruct, Qwen3-VL-8B-Thinking, Qwen3-VL-8B-Instruct-FP8, Qwen3-VL-8B-Thinking-FP8, Qwen3-VL-30B-A3B-Instruct, Qwen3-VL-30B-A3B-Thinking, Qwen3-VL-30B-A3B-Instruct-FP8, Qwen3-VL-30B-A3B-Thinking-FP8, Qwen3-VL-32B-Instruct, Qwen3-VL-32B-Thinking, Qwen3-VL-32B-Instruct-FP8, Qwen3-VL-32B-Thinking-FP8, Qwen3-VL-235B-A22B-Instruct, Qwen3-VL-235B-A22B-Thinking, Qwen3-VL-235B-A22B-Instruct-FP8, Qwen3-VL-235B-A22B-Thinking-FP8 | [`scripts/test_bed/qwen3-vl-multi-image-video-interleave.sh`](scripts/test_bed/qwen3-vl-multi-image-video-interleave.sh) |
 | **VideoLLaMA2** | VideoLLaMA2-7B, VideoLLaMA2-13B | [`scripts/test_bed/videollama2.sh`](scripts/test_bed/videollama2.sh) |
 | **BLIP2-FLAN-T5** | Salesforce/blip2-flan-t5-xl, Salesforce/blip2-flan-t5-xxl | [`scripts/test_bed/blip2-flan-t5-xl.sh`](scripts/test_bed/blip2-flan-t5-xl.sh) |
 | **Llama3.2-Vision** | Llama-3.2-11B-Vision-Instruct, Llama-3.2-90B-Vision-Instruct | [`scripts/test_bed/llama3_2_vision.sh`](scripts/test_bed/llama3_2_vision.sh) |
