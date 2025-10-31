@@ -11,6 +11,12 @@ series_mapping = {
     "smolvlm": ["SmolVLM-Instruct", "SmolVLM-Instruct-DPO", "SmolVLM-Instruct-Base","SmolVLM-Sythetic"],
     "llava_ov_1d5": ["LLaVA-OneVision-1.5-8B-Instruct"],
     "glm_4v": ["glm-4v-9b"],
+    "glm_41v_thinking": [
+        "GLM-4.1V-9B-Thinking",
+        "GLM-4.1V-9B-Base",
+        "GLM-4.1V-9B-Thinking-API-Demo",
+        "GLM-4.1V-9B-Thinking-Demo",
+    ],
     # "instructblip": ["instructblip-vicuna-7b", "instructblip-vicuna-13b", "instructblip-flan-t5-xl", "instructblip-flan-t5-xxl"],
     "internlm_xcomposer": ["internlm-xcomposer-7b"],
     "internvl_chat": ["InternVL-Chat-V1-1", "InternVL-Chat-V1-2", "InternVL-Chat-V1-2-Plus"],
@@ -77,6 +83,10 @@ series_infer_env_mapping = {
     "glm_4v": {
         "env": os.path.join(env_dir, "glm_4v"),
         "infer_file": "glm_4v.py",
+    },
+    "glm_41v_thinking": {
+        "env": os.path.join(env_dir, "glm_41v_thinking"),
+        "infer_file": "glm_41v_thinking.py",
     },
     "instructblip": {
         "env": os.path.join(env_dir, "instructblip"),

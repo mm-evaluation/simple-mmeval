@@ -1,0 +1,8 @@
+# Environment for GLM-4.1V-Thinking models
+accelerate>=1.11.0
+datasets
+Pillow
+av
+torch
+torchvision>=0.24.0
+transformers>=4.57.1
