@@ -157,6 +157,7 @@ Currently supported model series:
 | **Internlm** | internlm-xcomposer-7b | [`scripts/test_bed/internlm-xcomposer-7b.sh`](scripts/test_bed/internlm-xcomposer-7b.sh) |
 | **Phi-3V** | Phi-3.5-vision-instruct, Phi-3-vision-128k-instruct | [`scripts/test_bed/phi3v-multi-image-interleave.sh`](scripts/test_bed/phi3v-multi-image-interleave.sh) |
 | **Phi-4MM** | Phi-4-multimodal-instruct | [`scripts/test_bed/phi4mm-multi-image-interleave.sh`](scripts/test_bed/phi4mm-multi-image-interleave.sh) |
+| **SAIL-VL** | BytedanceDouyinContent/SAIL-VL-2B, BytedanceDouyinContent/SAIL-VL-8B, BytedanceDouyinContent/SAIL-VL-1d6-8B, BytedanceDouyinContent/SAIL-VL-1d5-2B, BytedanceDouyinContent/SAIL-VL-1d5-8B | [`scripts/test_bed/sail-vl-multi-image-interleave.sh`](scripts/test_bed/sail-vl-multi-image-interleave.sh) |
 | **WeMM** | WeMM, WeMM-Chat-CN, WeMM-Chat-2k-CN | [`scripts/test_bed/wemm.sh`](scripts/test_bed/wemm.sh) |
 
 ## Supported Datasets
