@@ -40,6 +40,12 @@ series_mapping = {
     # "mantis_llava": ["Mantis-llava-7b", "Mantis-bakllava-7b"],
     "moondream1": ["moondream1"],
     "moondream2": ["moondream2"],
+    "mplug_owl3": [
+        "mPLUG-Owl3-7B-241101",
+        "mPLUG-Owl3-2B-241014",
+        "mPLUG/mPLUG-Owl3-7B-241101",
+        "mPLUG/mPLUG-Owl3-2B-241014",
+    ],
     "bunnyllama3": ["Bunny-Llama-3-8B-V"],
     "xinyuanvl": ["Xinyuan-VL-2B"],
     "ovis1d5": ["Ovis1.5-Llama3-8B", "Ovis1.5-Gemma2-9B"],
@@ -165,6 +171,10 @@ series_infer_env_mapping = {
     "moondream2": {
         "env": os.path.join(env_dir, "moondream2"),
         "infer_file": "moondream2.py",
+    },
+    "mplug_owl3": {
+        "env": os.path.join(env_dir, "mplug_owl3"),
+        "infer_file": "mplug_owl3.py",
     },
     "ovis1d5": {
         "env": os.path.join(env_dir, "ovis1d5"),

@@ -153,6 +153,7 @@ Currently supported model series:
 | **Mantis-Idefics2** | Mantis-8B-Idefics2 | [`scripts/test_bed/mantis-idefics2-multi-image-interleave.sh`](scripts/test_bed/mantis-idefics2-multi-image-interleave.sh) |
 | **Moondream1** | moondream1 | [`scripts/test_bed/moondream1.sh`](scripts/test_bed/moondream1.sh) |
 | **Moondream2** | moondream2 | [`scripts/test_bed/moondream2.sh`](scripts/test_bed/moondream2.sh) |
+| **mPLUG-Owl3** | mPLUG/mPLUG-Owl3-7B-241101, mPLUG/mPLUG-Owl3-2B-241014 | [`scripts/test_bed/mplug-owl3-multi-image-video-interleave.sh`](scripts/test_bed/mplug-owl3-multi-image-video-interleave.sh) |
 | **Ovis1.5** | Ovis1.5-Llama3-8B, Ovis1.5-Gemma2-9B | [`scripts/test_bed/ovis1d5-single-image-start.sh`](scripts/test_bed/ovis1d5-single-image-start.sh) |
 | **Internlm** | internlm-xcomposer-7b | [`scripts/test_bed/internlm-xcomposer-7b.sh`](scripts/test_bed/internlm-xcomposer-7b.sh) |
 | **Phi-3V** | Phi-3.5-vision-instruct, Phi-3-vision-128k-instruct | [`scripts/test_bed/phi3v-multi-image-interleave.sh`](scripts/test_bed/phi3v-multi-image-interleave.sh) |

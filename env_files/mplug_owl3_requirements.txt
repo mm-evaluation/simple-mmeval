@@ -1,0 +1,6 @@
+torch
+transformers
+modelscope
+decord
+pillow
+datasets
