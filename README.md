@@ -140,6 +140,7 @@ Currently supported model series:
 | **Cambrian** | cambrian-8b, cambrian-13b, cambrian-34b, cambrian-phi3-3b | [`scripts/test_bed/cambrian-multi-image-video-interleave.sh`](scripts/test_bed/cambrian-multi-image-video-interleave.sh) |
 | **Gemma3** | gemma-3-4b-it, gemma-3-12b-it, gemma-3-27b-it | [`scripts/test_bed/gemma3-multi-image-interleave.sh`](scripts/test_bed/gemma3-multi-image-interleave.sh) |
 | **GLM-4V** | glm-4v-9b | [`scripts/test_bed/glm-4v-single-image-start.sh`](scripts/test_bed/glm-4v-single-image-start.sh) |
+| **GLM-4.5V** | zai-org/GLM-4.5V | [`scripts/test_bed/glm-4d5v-multi-image-video-interleave.sh`](scripts/test_bed/glm-4d5v-multi-image-video-interleave.sh) |
 | **InternVL-Chat** | InternVL-Chat-V1-1, InternVL-Chat-V1-2, InternVL-Chat-V1-2-Plus | [`scripts/test_bed/internvl-chat-multi-image-video-interleave.sh`](scripts/test_bed/internvl-chat-multi-image-video-interleave.sh) |
 | **InternVL-Chat-1.5** | Mini-InternVL-Chat-2B-V1-5, Mini-InternVL-Chat-4B-V1-5, InternVL-Chat-V1-5 | [`scripts/test_bed/internvl-chat1d5-multi-image-video-interleave.sh`](scripts/test_bed/internvl-chat1d5-multi-image-video-interleave.sh) |
 | **InternVL2** | InternVL2-1B, InternVL2-2B, InternVL2-4B, InternVL2-8B, InternVL2-26B, InternVL2-40B, InternVL2-Llama3-76B | [`scripts/test_bed/internvl2-multi-image-video-interleave.sh`](scripts/test_bed/internvl2-multi-image-video-interleave.sh) |

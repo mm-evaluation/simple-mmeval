@@ -1,0 +1,4 @@
+torch==2.5.1
+transformers-v4.55.0-GLM-4.5V-preview
+pillow>=10.4.0
+datasets
