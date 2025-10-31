@@ -1,0 +1,9 @@
+# Requirements for Qwen3-Omni series
+python==3.10.*
+torch
+accelerate
+transformers @ git+https://github.com/huggingface/transformers
+qwen-omni-utils
+soundfile
+flash-attn
+datasets

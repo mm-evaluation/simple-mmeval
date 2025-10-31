@@ -132,6 +132,7 @@ Currently supported model series:
 | Model Series | Models | Usage Example |
 |--------------|--------|---------------|
 | **Qwen2.5-VL** | Qwen2.5-VL-3B-Instruct, Qwen2.5-VL-7B-Instruct, Qwen2.5-VL-32B-Instruct, Qwen2.5-VL-72B-Instruct | [`scripts/test_bed/qwen2d5.sh`](scripts/test_bed/qwen2d5.sh) |
+| **Qwen3-Omni** | Qwen/Qwen3-Omni-30B-A3B-Instruct, Qwen/Qwen3-Omni-30B-A3B-Thinking, Qwen/Qwen3-Omni-30B-A3B-Captioner | [`scripts/test_bed/qwen3-omni-multi-image-video-interleave.sh`](scripts/test_bed/qwen3-omni-multi-image-video-interleave.sh) |
 | **VideoLLaMA2** | VideoLLaMA2-7B, VideoLLaMA2-13B | [`scripts/test_bed/videollama2.sh`](scripts/test_bed/videollama2.sh) |
 | **BLIP2-FLAN-T5** | Salesforce/blip2-flan-t5-xl, Salesforce/blip2-flan-t5-xxl | [`scripts/test_bed/blip2-flan-t5-xl.sh`](scripts/test_bed/blip2-flan-t5-xl.sh) |
 | **Llama3.2-Vision** | Llama-3.2-11B-Vision-Instruct, Llama-3.2-90B-Vision-Instruct | [`scripts/test_bed/llama3_2_vision.sh`](scripts/test_bed/llama3_2_vision.sh) |
