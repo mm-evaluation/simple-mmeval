@@ -45,6 +45,12 @@ series_mapping = {
     "ovis1d5": ["Ovis1.5-Llama3-8B", "Ovis1.5-Gemma2-9B"],
     "phi3v": ["Phi-3.5-vision-instruct", "Phi-3-vision-128k-instruct"],
     "phi4mm": ["Phi-4-multimodal-instruct"],
+    "sail_vl2": [
+        "BytedanceDouyinContent/SAIL-VL2-2B",
+        "BytedanceDouyinContent/SAIL-VL2-8B",
+        "BytedanceDouyinContent/SAIL-VL2-2B-Thinking",
+        "BytedanceDouyinContent/SAIL-VL2-8B-Thinking",
+    ],
     "vintern": ["Vintern-1B-v2", "Vintern-1B-v3_5", "Vintern-3B-beta"],
     "xgen": ["xgen-mm-phi3-mini-instruct-interleave-r-v1.5"],
     # "ovis1d6": ["Ovis1.6-Llama3.2-3B", "Ovis1.6-Gemma2-9B"],
@@ -237,6 +243,10 @@ series_infer_env_mapping = {
     "phi4mm": {
         "env": os.path.join(env_dir, "phi4"),
         "infer_file": "phi4mm.py",
+    },
+    "sail_vl2": {
+        "env": os.path.join(env_dir, "sail_vl2"),
+        "infer_file": "sail_vl2.py",
     },
     "vlaa_thinking": {
         "env": os.path.join(env_dir, "vlaa_thinking"),
