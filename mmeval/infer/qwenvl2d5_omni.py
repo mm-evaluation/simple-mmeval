@@ -30,31 +30,24 @@ class TaskRunner(Task):
         self.model = Qwen2_5OmniForConditionalGeneration.from_pretrained(args.model_name_or_path, torch_dtype=self.dtype, **self.model_kwargs)
         self.processor = Qwen2_5OmniProcessor.from_pretrained(args.model_name_or_path)
 
-    def parse_input(self, sample:dict):
-        question = sample["prompt"]
+    def parse_input(self, msg):
+        """Parse a single message into user message format (without system message)."""
+        question = msg["prompt"]
         # placeholder <>, can be image, video, etc.
         q_chunks = re.split(r'(<(?:image|video)>)', question)
-        media_list = copy.deepcopy(sample['media'])
+        media_list = copy.deepcopy(msg["media"])
 
-        conversation = [
-            {
-                "role": "system",
-                "content": [
-                    {"type": "text", "text": "You are Qwen, a virtual human developed by the Qwen Team, Alibaba Group, capable of perceiving auditory and visual inputs, as well as generating text and speech."}
-                ],
-            },
-            {
-                "role": "user",
-                "content": []
-            }
-        ]
+        user_message = {
+            "role": "user",
+            "content": []
+        }
 
         for chunk in q_chunks:
             if len(chunk.strip()) == 0:
                 continue
             if chunk == constants.image:
                 media = media_list.pop(0)
-                conversation[1]["content"].append(
+                user_message["content"].append(
                     {
                         "type": "image",
                         "image": media
@@ -62,7 +55,7 @@ class TaskRunner(Task):
                 )       
             elif chunk == constants.video:
                 media = media_list.pop(0)
-                conversation[1]["content"].append(
+                user_message["content"].append(
                     {
                         "type": "video",
                         "video": media,
@@ -71,14 +64,14 @@ class TaskRunner(Task):
                     }
                 )
             else:
-                conversation[1]["content"].append(
+                user_message["content"].append(
                     {
                         "type": "text",
                         "text": chunk
                     }
                 )
 
-        return conversation
+        return user_message
 
     def _generate_response(self, inputs):
         # Inference: Generation of the output text and audio
@@ -106,19 +99,38 @@ class TaskRunner(Task):
 
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        conversation = self.parse_input(ori_sample)
+        responses = []
+        # Initialize conversation history with system message
+        conversation_history = [{
+            "role": "system",
+            "content": [
+                {"type": "text", "text": "You are Qwen, a virtual human developed by the Qwen Team, Alibaba Group, capable of perceiving auditory and visual inputs, as well as generating text and speech."}
+            ],
+        }]
+        
+        for msg in sample["messages"]:
+            # Parse current user message and add to history
+            user_message = self.parse_input(msg)
+            conversation_history.append(user_message)
 
-        # Preparation for inference
-        text = self.processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
-        audios, images, videos = process_mm_info(conversation, use_audio_in_video=USE_AUDIO_IN_VIDEO)
-        inputs = self.processor(text=text, audio=audios, images=images, videos=videos, return_tensors="pt", padding=True, use_audio_in_video=USE_AUDIO_IN_VIDEO)
-        inputs = inputs.to(self.model.device).to(self.model.dtype)
+            # Preparation for inference using full conversation history
+            text = self.processor.apply_chat_template(conversation_history, add_generation_prompt=True, tokenize=False)
+            audios, images, videos = process_mm_info(conversation_history, use_audio_in_video=USE_AUDIO_IN_VIDEO)
+            inputs = self.processor(text=text, audio=audios, images=images, videos=videos, return_tensors="pt", padding=True, use_audio_in_video=USE_AUDIO_IN_VIDEO)
+            inputs = inputs.to(self.model.device).to(self.model.dtype)
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(inputs)
-        else:
-            pass
+            if not self.args.score_target:
+                response = self._generate_response(inputs)
+                responses.append(response)
+                # Add assistant response to conversation history
+                conversation_history.append({
+                    "role": "assistant",
+                    "content": response[0]
+                })
+            else:
+                pass
 
+        ori_sample["response"] = responses
         return ori_sample
 
 

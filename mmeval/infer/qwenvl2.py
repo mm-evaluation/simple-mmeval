@@ -31,11 +31,11 @@ class TaskRunner(Task):
         max_pixels = 1280 * 28 * 28
         self.processor = AutoProcessor.from_pretrained(args.model_name_or_path, min_pixels=min_pixels, max_pixels=max_pixels)
 
-    def parse_input(self, sample:dict):
-        question = sample["prompt"]
+    def parse_input(self, msg):
+        question = msg["prompt"]
         # placeholder <>, can be image, video, etc.
         q_chunks = re.split(r'(<(?:image|video)>)', question)
-        media_list = copy.deepcopy(sample['media'])
+        media_list = copy.deepcopy(msg["media"])
 
         messages = [
             {
@@ -87,8 +87,8 @@ class TaskRunner(Task):
 
         return output_text
 
-    def _score_choices(self, text, image_inputs, video_inputs, sample):
-        contents = sample.get("choices")
+    def _score_choices(self, text, image_inputs, video_inputs, msg):
+        contents = msg["choices"]
         full = [text + content for content in contents]
 
         full_encoded = [self.processor(text=i, images=image_inputs, videos=video_inputs, return_tensors="pt").to(self.device) for i in full]
@@ -105,28 +105,43 @@ class TaskRunner(Task):
 
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        messages = self.parse_input(ori_sample)
+        responses = []
+        conversation_history = []  # Accumulate conversation history for multi-turn chat
         
-        text = self.processor.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
-        )
+        for msg in sample["messages"]:
+            # Parse current user message and add to history
+            user_message = self.parse_input(msg)
+            conversation_history.extend(user_message)
+            
+            # Use full conversation history for chat template
+            text = self.processor.apply_chat_template(
+                conversation_history, tokenize=False, add_generation_prompt=True
+            )
 
-        image_inputs, video_inputs = process_vision_info(messages)
+            # Extract all images/videos from conversation history
+            image_inputs, video_inputs = process_vision_info(conversation_history)
 
-        inputs = self.processor(
-            text=[text],
-            images=image_inputs,
-            videos=video_inputs,
-            padding=True,
-            return_tensors="pt",
-        )
-        inputs = inputs.to(self.device)
+            inputs = self.processor(
+                text=[text],
+                images=image_inputs,
+                videos=video_inputs,
+                padding=True,
+                return_tensors="pt",
+            )
+            inputs = inputs.to(self.device)
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(inputs)
-        else:
-            ori_sample.update(self._score_choices(text, image_inputs, video_inputs, sample))
+            if not self.args.score_target:
+                response = self._generate_response(inputs)
+                responses.append(response)
+                # Add assistant response to conversation history
+                conversation_history.append({
+                    "role": "assistant",
+                    "content": response[0]
+                })
+            else:
+                ori_sample.update(self._score_choices(text, image_inputs, video_inputs, msg))
 
+        ori_sample["response"] = responses
         return ori_sample
 
 
