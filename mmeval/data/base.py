@@ -5,6 +5,7 @@ from PIL import Image
 from io import BytesIO
 from abc import ABC, abstractmethod
 from typing import List, Dict, Any, Optional, Set, Tuple, Union
+from jinja2 import Environment
 
 
 
@@ -31,7 +32,7 @@ class BaseDataset(ABC):
         self.parallel_per_task = args.parallel_per_task
         self.rank = args.rank
         
-        self._raw_dataset = self._load_raw_data(args)
+        self._raw_dataset, self._prompt_template = self._load_raw_data(args)
         
         # self._setup_parallel()
 
@@ -125,6 +126,27 @@ class BaseDataset(ABC):
         
         raise NotImplementedError(f"Unsupported image format: {f}")
     
+    def build_prompt(self, prompt_template: str, sample: Dict[str, Any]) -> str:
+        """Build prompt from Jinja template and sample data.
+        
+        Parameters
+        ----------
+        prompt_template : str
+            Jinja template string
+        sample : Dict[str, Any]
+            Sample variables for template rendering
+            
+        Returns
+        -------
+        str
+            Rendered template string
+        """
+        env = Environment()
+        env.globals.update({'zip': zip, 'enumerate': enumerate, 'len': len, 'range': range, 'list': list, 
+        'dict': dict, 'str': str, 'int': int, 'float': float, 'bool': bool, 'sum': sum, 'max': max, 'min': min})
+        template = env.from_string(prompt_template)
+        return template.render(**sample)
+    
     def convert_circular(self, **kwargs) -> Any:
         """Prepare dataset for circular evaluation.
         
@@ -186,8 +208,7 @@ class BaseDataset(ABC):
             sample = self._process_sample(idx)
             # TODO: add more checks later (mandatory fields)
             assert "eval-id" in sample, "eval-id is mandatory."
-            assert "prompt" in sample, "prompt is mandatory."
-            assert "media" in sample, "media is mandatory."
+            assert "messages" in sample, "messages is mandatory."
             yield sample
 
     def __getitem__(self, index):
@@ -206,8 +227,7 @@ class BaseDataset(ABC):
         sample = self._process_sample(self._get_idx(index))
         # TODO: add more checks later (mandatory fields)
         assert "eval-id" in sample, "eval-id is mandatory"
-        assert "prompt" in sample, "prompt is mandatory."
-        assert "media" in sample, "media is mandatory."
+        assert "messages" in sample, "messages is mandatory."
         return sample
 
     def __len__(self):

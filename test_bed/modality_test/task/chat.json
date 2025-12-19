@@ -1,0 +1,80 @@
+[
+    {
+        "id": 0,
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> What is in the image?",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> What is in the image?",
+                "hint": ""
+            },
+            {
+                "role": "user",
+                "question": "What color is it?",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [],
+                "prompt": "What color is it?",
+                "hint": ""
+            },
+            {
+                "role": "user",
+                "question": "Describe the image in detail.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [],
+                "prompt": "Describe the image in detail.",
+                "hint": ""
+            }
+        ],
+        "comment": "Test chat functionality."
+    },
+    {
+        "id": 1,
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> What is in the image?",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> What is in the image?",
+                "hint": ""
+            },
+            {
+                "role": "user",
+                "question": "<image> What is in the image?",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],    
+                "prompt": "<image> What is in the image?",
+                "hint": ""
+            },
+            {
+                "role": "user",
+                "question": "Describe the difference between the two images in detail.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [],
+                "prompt": "Describe the difference between the two images in detail.",
+                "hint": ""
+            }
+        ],
+        "comment": "Test chat functionality."
+    }
+]

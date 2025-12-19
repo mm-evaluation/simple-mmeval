@@ -1,0 +1,12 @@
+# flash-attn==2.7.3
+
+accelerate
+torch
+torchvision
+transformers==2.7.0
+qwen-omni-utils
+soundfile
+pandas
+numpy
+datasets
+hf_transfer

@@ -5,39 +5,79 @@ from PIL import Image
 
 from mmeval.data.base import BaseDataset
 
+
 class LocalJSONDataset(BaseDataset):
-    """Dataset class for loading local JSON files.
-    """
+    """Dataset class for loading local JSON files."""
     
     def __init__(self, args):
         self.data_file = args.infile
         self.img_dir = args.img_dir
+        self.template_arg = args.template
         super().__init__(args)
+
+    def _load_template(self, template_arg):
+        """Load template from file path or use string directly."""
+        if template_arg is None:
+            return None
+        # Check if it's a file path
+        if os.path.exists(template_arg):
+            with open(template_arg, "r") as f:
+                return f.read()
+        # Otherwise treat as template string directly
+        return template_arg
 
     def _load_raw_data(self, args):
         data = json.load(open(self.data_file, "r"))
-
-        data_list = []
         for i, sample in enumerate(data):
             assert "eval-id" not in sample, "eval-id already exists"
             sample["eval-id"] = i
-            sample["media"] = [os.path.join(self.img_dir, f) for f in sample["media"]]
-            data_list.append(sample)
+        template = self._load_template(self.template_arg)
+        return data, template
+
+    def _process_message(self, msg: dict):
+        """Process a single message dict, building prompt and processing media."""
+        msg = dict(msg)
         
-        return data_list
+        # Use existing prompt if available, otherwise build from template
+        if "prompt" in msg:
+            prompt = msg["prompt"]
+        elif self._prompt_template is not None:
+            prompt = self.build_prompt(self._prompt_template, msg)
+        else:
+            raise ValueError("No prompt found and no template provided")
+        
+        # Join media paths with img_dir
+        media = [os.path.join(self.img_dir, f) for f in msg.get("media", [])]
+        
+        placeholder_list = re.findall(r"<(?:video|image)>", prompt)
+        assert len(placeholder_list) == len(media), \
+            f"Number of media placeholders ({len(placeholder_list)}) does not match number of media files ({len(media)})"
+        
+        msg["media"] = [
+            self.load_image(f) if placeholder == "<image>" else f
+            for placeholder, f in zip(placeholder_list, media)
+        ]
+        msg["prompt"] = prompt
+
+        return msg
     
     def _process_sample(self, idx: int):
-        sample = self._raw_dataset[idx]
-        placeholder_list = re.findall(r"<(?:video|image)>", sample["prompt"])
-        assert len(placeholder_list) == len(sample["media"]), "Number of media placeholders does not match number of media files"
+        sample = dict(self._raw_dataset[idx])
+        eval_id = sample.pop("eval-id")
         
-        sample["media"] = [
-            self.load_image(f) if placeholder == "<image>" else f
-            for placeholder, f in zip(placeholder_list, sample["media"])
-        ]
+        # Check if sample has "messages" key, if not wrap it
+        if "messages" in sample:
+            messages_raw = sample
+        else:
+            messages_raw = {"messages": [sample]}
+        
+        # Process each message
+        messages = [self._process_message(msg) for msg in messages_raw["messages"]]
 
-        return sample
-    
+        return {
+            "eval-id": eval_id,
+            "messages": messages,
+        }
 
     def __repr__(self):
         if self.parallel_per_task > 1:
@@ -47,4 +87,3 @@ class LocalJSONDataset(BaseDataset):
     
     def __str__(self):
         return self.__repr__()
-    

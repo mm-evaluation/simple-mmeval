@@ -21,6 +21,7 @@ class ResponseHandler:
     def __init__(self, args):
         self.rank = args.rank
         self.save_freq = args.save_freq
+        self.output_file = os.path.join(args.out_dir, f"result.json")
         self.kvstore = SQLiteKVStore(os.path.join(args.out_dir, f"cache.db"))
         self.load_cache()
 
@@ -48,10 +49,11 @@ class ResponseHandler:
         assert "eval-id" in result, "eval-id is required"
         assert "response" in result, f"no model response for sample {result}"
         
-        if "media" in result and result["media"]:
-            # Check if any item is a PIL Image, if so, remove the entire media section
-            if any(isinstance(item, Image.Image) for item in result["media"]):
-                del result["media"]
+        # Clean PIL Images from messages
+        for msg in result["messages"]:
+            if "media" in msg and msg["media"]:
+                if any(isinstance(item, Image.Image) for item in msg["media"]):
+                    del msg["media"]
         
         if len(self.cache) % self.save_freq == 0:
             self.kvstore.put(str(result["eval-id"]), result)
