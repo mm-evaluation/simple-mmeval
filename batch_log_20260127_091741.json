@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-01-27T09:17:44.567886",
+  "results": [
+    {
+      "model_name": "Qwen3-Omni-30B-A3B-Captioner",
+      "hf_path": "Qwen/Qwen3-Omni-30B-A3B-Captioner",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 2
+    },
+    {
+      "model_name": "Qwen3-Omni-30B-A3B-Instruct",
+      "hf_path": "Qwen/Qwen3-Omni-30B-A3B-Instruct",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 2
+    }
+  ]
+}

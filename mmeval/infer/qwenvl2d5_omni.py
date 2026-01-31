@@ -38,9 +38,9 @@ class TaskRunner(Task):
         media_list = copy.deepcopy(msg["media"])
 
         user_message = {
-            "role": "user",
-            "content": []
-        }
+                "role": "user",
+                "content": []
+            }
 
         for chunk in q_chunks:
             if len(chunk.strip()) == 0:

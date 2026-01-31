@@ -57,16 +57,19 @@ class TaskRunner(Task):
     
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        text = sample["prompt"]
-        images = sample.get("media", [])
+        responses = []
+        for msg in sample["messages"]:
+            text = msg["prompt"]
+            images = msg["media"]
 
-        self.gen_kwargs["pad_token_id"] = self.processor.tokenizer.eos_token_id
+            self.gen_kwargs["pad_token_id"] = self.processor.tokenizer.eos_token_id
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(text, images)
-        else:
-            pass
+            if not self.args.score_target:
+                responses.append(self._generate_response(text, images))
+            else:
+                pass
 
+        ori_sample["response"] = responses
         return ori_sample
 
     

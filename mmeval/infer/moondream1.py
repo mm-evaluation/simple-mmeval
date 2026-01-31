@@ -34,10 +34,10 @@ class TaskRunner(Task):
             self.model = self.model.cuda()
         self.tokenizer = Tokenizer.from_pretrained(args.model_name_or_path)
     
-    def _parse_input(self, sample: dict):
-        prompt = sample["prompt"]
+    def _parse_input(self, msg):
+        prompt = msg["prompt"]
         q_chunks = re.split(r'(<(?:image|video)>)', prompt)
-        media = copy.deepcopy(sample['media'])
+        media = copy.deepcopy(msg["media"])
 
         messages = [
             {
@@ -89,13 +89,16 @@ class TaskRunner(Task):
 
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        prompt, image_path = self._parse_input(ori_sample)
+        responses = []
+        for msg in sample["messages"]:
+            prompt, image_path = self._parse_input(msg)
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(prompt, image_path)
-        else:
-            ori_sample.update(self._score_choices(prompt, image_path, sample))
+            if not self.args.score_target:
+                responses.append(self._generate_response(prompt, image_path))
+            else:
+                ori_sample.update(self._score_choices(prompt, image_path, sample))
 
+        ori_sample["response"] = responses
         return ori_sample
 
     def _score_choices(self, text, image_path, sample):

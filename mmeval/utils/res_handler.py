@@ -55,5 +55,8 @@ class ResponseHandler:
                 if any(isinstance(item, Image.Image) for item in msg["media"]):
                     del msg["media"]
         
-        if len(self.cache) % self.save_freq == 0:
-            self.kvstore.put(str(result["eval-id"]), result)
+        # Update in-memory cache (critical fix for recovery to work)
+        self.cache[result["eval-id"]] = result
+        
+        # Write to kvstore
+        self.kvstore.put(str(result["eval-id"]), result)

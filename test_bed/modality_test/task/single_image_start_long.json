@@ -1,1302 +1,1802 @@
 [
     {
         "id": 0,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 1,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 2,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 3,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 4,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 5,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 6,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 7,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 8,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 9,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 10,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 11,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 12,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 13,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 14,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 15,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 16,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 17,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 18,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 19,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 20,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 21,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 22,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 23,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 24,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 25,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 26,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 27,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 28,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 29,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 30,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 31,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 32,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 33,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 34,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 35,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 36,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 37,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 38,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 39,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 40,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 41,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 42,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 43,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 44,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 45,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 46,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 47,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 48,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 49,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 50,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 51,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 52,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 53,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 54,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 55,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 56,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 57,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 58,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 59,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 60,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 61,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 62,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 63,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 64,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 65,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 66,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 67,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 68,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 69,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 70,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 71,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 72,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 73,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 74,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 75,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 76,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 77,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 78,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 79,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 80,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 81,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 82,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 83,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 84,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 85,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 86,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 87,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 88,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 89,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 90,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 91,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 92,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 93,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 94,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 95,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 96,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 97,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 98,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     },
     {
         "id": 99,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality."
     }
 ]

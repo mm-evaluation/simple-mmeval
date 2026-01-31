@@ -1,6 +1,6 @@
 torch
 torchvision
-transformers
+transformers==4.46.0
 timm
 Pillow
 numpy
@@ -10,3 +10,6 @@ av
 datasets
 accelerate
 multiprocess
+hf_transfer
+einops
+peft==0.17.1

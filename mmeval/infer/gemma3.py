@@ -1,3 +1,7 @@
+import os
+# Disable TorchDynamo before importing torch to avoid FailOnRecompileLimitHit error
+os.environ["TORCHDYNAMO_DISABLE"] = "1"
+
 import re
 import copy
 import torch
@@ -26,43 +30,38 @@ class TaskRunner(Task):
         ).eval()
         self.processor = AutoProcessor.from_pretrained(args.model_name_or_path)
         
-    def _parse_input(self, sample:dict):
-        prompt = sample["prompt"]
+    def _parse_input(self, msg):
+        """Parse a single message into user message format (without system message)."""
+        prompt = msg["prompt"]
         # placeholder <>, can be image, video, etc.
         q_chunks = re.split(r'(<(?:image|video)>)', prompt)
-        media = copy.deepcopy(sample['media'])
+        media = copy.deepcopy(msg["media"])
 
-        messages = [
-            {
-                "role": "system",
-                "content": [{"type": "text", "text": "You are a helpful assistant."}]
-            },
-            {
-                "role": "user",
-                "content": []
-            }
-        ]
+        user_message = {
+            "role": "user",
+            "content": []
+        }
 
         for chunk in q_chunks:
             if len(chunk.strip()) == 0:
                 continue
             if chunk == constants.image:
                 media_file = media.pop(0)
-                messages[1]["content"].append(
+                user_message["content"].append(
                     {
                         "type": "image",
                         "image": media_file
                     }
                 )       
             else:
-                messages[1]["content"].append(
+                user_message["content"].append(
                     {
                         "type": "text",
                         "text": chunk
                     }
                 )
 
-        return messages
+        return user_message
 
     def _generate_response(self, inputs, input_len):
         with torch.inference_mode():
@@ -75,20 +74,39 @@ class TaskRunner(Task):
     
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        messages = self._parse_input(ori_sample)
+        responses = []
+        # Initialize conversation history with system message
+        conversation_history = [
+            {
+                "role": "system",
+                "content": [{"type": "text", "text": "You are a helpful assistant."}]
+            }
+        ]
+        
+        for msg in sample["messages"]:
+            # Parse current user message and add to history
+            user_message = self._parse_input(msg)
+            conversation_history.append(user_message)
 
-        inputs = self.processor.apply_chat_template(
-            messages, add_generation_prompt=True, tokenize=True,
-            return_dict=True, return_tensors="pt"
-        ).to(self.model.device, dtype=self.dtype)
+            inputs = self.processor.apply_chat_template(
+                conversation_history, add_generation_prompt=True, tokenize=True,
+                return_dict=True, return_tensors="pt"
+            ).to(self.model.device, dtype=self.dtype)
 
-        input_len = inputs["input_ids"].shape[-1]
+            input_len = inputs["input_ids"].shape[-1]
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(inputs, input_len)
-        else:
-            pass
+            if not self.args.score_target:
+                response = self._generate_response(inputs, input_len)
+                responses.append(response)
+                # Add assistant response to conversation history
+                conversation_history.append({
+                    "role": "assistant",
+                    "content": [{"type": "text", "text": response}]
+                })
+            else:
+                pass
 
+        ori_sample["response"] = responses
         return ori_sample
 
     

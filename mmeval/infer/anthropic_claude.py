@@ -40,10 +40,10 @@ class TaskRunner(Task):
         self.client = Anthropic(api_key=api_key, **self.model_kwargs)
         self.model_name = args.model_name_or_path.split("/")[-1]
 
-    def parse_input(self, sample: dict):
-        question = sample["prompt"]
+    def parse_input(self, msg):
+        question = msg["prompt"]
         q_chunks = re.split(r'(<(?:image|video)>)', question)
-        media_list = copy.deepcopy(sample['media'])
+        media_list = copy.deepcopy(msg["media"])
 
         content = []
 
@@ -88,13 +88,16 @@ class TaskRunner(Task):
 
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        content = self.parse_input(ori_sample)
+        responses = []
+        for msg in sample["messages"]:
+            content = self.parse_input(msg)
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(content)
-        else:
-            raise NotImplementedError("Score target mode not supported for Anthropic API models")
+            if not self.args.score_target:
+                responses.append(self._generate_response(content))
+            else:
+                raise NotImplementedError("Score target mode not supported for Anthropic API models")
 
+        ori_sample["response"] = responses
         return ori_sample
 
 

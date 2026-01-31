@@ -36,10 +36,10 @@ class TaskRunner(Task):
         self.model.tokenizer = self.tokenizer
         self.model.eval()
 
-    def _parse_input(self, sample: dict):
-        prompt = sample["prompt"]
+    def _parse_input(self, msg):
+        prompt = msg["prompt"]
         q_chunks = re.split(r'(<image>)', prompt)
-        media = copy.deepcopy(sample['media'])
+        media = copy.deepcopy(msg["media"])
 
         text_content = ""
         image = None
@@ -68,8 +68,8 @@ class TaskRunner(Task):
         
         return {"text": text_content, "image": image}
 
-    def generate_output(self, sample, **generation_kwargs):
-        parsed_input = self._parse_input(sample)
+    def generate_output(self, msg, **generation_kwargs):
+        parsed_input = self._parse_input(msg)
         text_content = parsed_input["text"]
         image = parsed_input["image"]
         
@@ -93,13 +93,11 @@ class TaskRunner(Task):
     
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        
-        if not self.args.score_target:
-            ori_sample["response"] = self.generate_output(ori_sample)
-        else:
-            # Handle scoring target if needed
-            pass
-        
+        responses = []
+        for msg in sample["messages"]:
+            if not self.args.score_target:
+                responses.append(self.generate_output(msg))
+        ori_sample["response"] = responses
         return ori_sample
 
 

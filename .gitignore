@@ -173,3 +173,7 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 mydata
+
+work_dirs/
+batch_infer.py
+install_envs.sh

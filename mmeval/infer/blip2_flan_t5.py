@@ -28,10 +28,10 @@ class TaskRunner(Task):
         )
         self.processor = Blip2Processor.from_pretrained(args.model_name_or_path)
 
-    def _parse_input(self, sample: dict):
-        question = sample["prompt"]
+    def _parse_input(self, msg):
+        question = msg["prompt"]
         q_chunks = re.split(r'(<(?:image|video)>)', question)
-        images = copy.deepcopy(sample['media'])
+        images = copy.deepcopy(msg["media"])
         
         processed_question = ""
         image = None
@@ -63,13 +63,16 @@ class TaskRunner(Task):
     
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        image, question = self._parse_input(ori_sample)
+        responses = []
+        for msg in sample["messages"]:
+            image, question = self._parse_input(msg)
         
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(image, question)
-        else:
-            ori_sample.update(self._score_choices(image, question, sample))
+            if not self.args.score_target:
+                responses.append(self._generate_response(image, question))
+            else:
+                ori_sample.update(self._score_choices(image, question, sample))
 
+        ori_sample["response"] = responses
         return ori_sample
 
     def _score_choices(self, image, question, sample):

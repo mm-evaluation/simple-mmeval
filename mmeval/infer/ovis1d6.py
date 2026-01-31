@@ -37,8 +37,8 @@ class TaskRunner(Task):
         self.text_tokenizer = self.model.get_text_tokenizer()
         self.visual_tokenizer = self.model.get_visual_tokenizer()
         
-    def _parse_input(self, sample:dict):
-        prompt = sample["prompt"]
+    def _parse_input(self, msg):
+        prompt = msg["prompt"]
         query = prompt.replace("<image>", "<image>\n")
 
         return query
@@ -56,22 +56,26 @@ class TaskRunner(Task):
     
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
+        responses = []
 
-        query = self._parse_input(ori_sample)
-        images = ori_sample['media']
+        for msg in sample["messages"]:
 
-        # format conversation
-        prompt, input_ids, pixel_values = self.model.preprocess_inputs(query, images)
-        attention_mask = torch.ne(input_ids, self.text_tokenizer.pad_token_id)
-        input_ids = input_ids.unsqueeze(0).to(device=self.model.device)
-        attention_mask = attention_mask.unsqueeze(0).to(device=self.model.device)
-        pixel_values = [pixel_values.to(dtype=self.visual_tokenizer.dtype, device=self.visual_tokenizer.device)]
+            query = self._parse_input(msg)
+            images = ori_msg["media"]
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(input_ids, pixel_values, attention_mask)
-        else:
-            pass
+            # format conversation
+            prompt, input_ids, pixel_values = self.model.preprocess_inputs(query, images)
+            attention_mask = torch.ne(input_ids, self.text_tokenizer.pad_token_id)
+            input_ids = input_ids.unsqueeze(0).to(device=self.model.device)
+            attention_mask = attention_mask.unsqueeze(0).to(device=self.model.device)
+            pixel_values = [pixel_values.to(dtype=self.visual_tokenizer.dtype, device=self.visual_tokenizer.device)]
 
+            if not self.args.score_target:
+                responses.append(self._generate_response(input_ids, pixel_values, attention_mask))
+            else:
+                pass
+
+        ori_sample["response"] = responses
         return ori_sample
 
     

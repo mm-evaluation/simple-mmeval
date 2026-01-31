@@ -1,0 +1,117 @@
+{
+  "timestamp": "2026-01-30T12:12:19.469661",
+  "results": [
+    {
+      "model_name": "InternVL3-78B-Instruct",
+      "hf_path": "OpenGVLab/InternVL3-78B-Instruct",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "start_time": "2026-01-30T12:09:54.067547",
+      "status": "success",
+      "error_message": null,
+      "gpu_requirement": 4,
+      "parallel_tasks": 1,
+      "gpus_per_task": 4,
+      "stdout": "/data/ztw/mmeval_envs/test/lib/python3.10/site-packages/transformers/utils/generic.py:441: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.\n_torch_pytree._register_pytree_node(\n/data/ztw/mmeval_envs/internvl/lib/python3.10/site-packages/huggingface_hub/file_download.py:945: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.\nwarnings.warn(\n\nLoading checkpoint shards:   0%|          | 0/33 [00:00<?, ?it/s]\nLoading checkpoint shards:   3%|\u258e         | 1/33 [00:03<01:42,  3.20s/it]\nLoading checkpoint shards:   6%|\u258c         | 2/33 [00:06<01:36,  3.11s/it]\nLoading checkpoint shards:   9%|\u2589         | 3/33 [00:10<01:46,  3.55s/it]\nLoading checkpoint shards:  12%|\u2588\u258f        | 4/33 [00:15<02:05,  4.33s/it]\nLoading checkpoint shards:  15%|\u2588\u258c        | 5/33 [00:27<03:10,  6.80s/it]\nLoading checkpoint shards:  18%|\u2588\u258a        | 6/33 [00:33<02:56,  6.54s/it]\nLoading checkpoint shards:  18%|\u2588\u258a        | 6/33 [00:35<02:39,  5.92s/it]\nTraceback (most recent call last):\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/infer/internvl3.py\", line 252, in <module>\nmodel_evaluator = TaskRunner(args)\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/infer/internvl3.py\", line 165, in __init__\nsuper().__init__(args)\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/infer/task.py\", line 23, in __init__\nself.load_model(args)\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/infer/internvl3.py\", line 168, in load_model\nself.model = AutoModel.from_pretrained(\nFile \"/data/ztw/mmeval_envs/internvl/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py\", line 561, in from_pretrained\nreturn model_class.from_pretrained(\nFile \"/data/ztw/mmeval_envs/internvl/lib/python3.10/site-packages/transformers/modeling_utils.py\", line 3850, in from_pretrained\n) = cls._load_pretrained_model(\nFile \"/data/ztw/mmeval_envs/internvl/lib/python3.10/site-packages/transformers/modeling_utils.py\", line 4284, in _load_pretrained_model\nnew_error_msgs, offload_index, state_dict_index = _load_state_dict_into_meta_model(\nFile \"/data/ztw/mmeval_envs/internvl/lib/python3.10/site-packages/transformers/modeling_utils.py\", line 805, in _load_state_dict_into_meta_model\nset_module_tensor_to_device(model, param_name, param_device, **set_module_kwargs)\nFile \"/data/ztw/mmeval_envs/internvl/lib/python3.10/site-packages/accelerate/utils/modeling.py\", line 416, in set_module_tensor_to_device\nnew_value = value.to(device)\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 462.00 MiB. GPU 0 has a total capacity of 79.21 GiB of which 91.19 MiB is free. Process 1750359 has 0 bytes memory in use. Including non-PyTorch memory, this process has 0 bytes memory in use. Of the allocated memory 28.26 GiB is allocated by PyTorch, and 242.32 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\nERROR conda.cli.main_run:execute(127): `conda run python mmeval/infer/internvl3.py --model_name_or_path OpenGVLab/InternVL3-78B-Instruct --max_new_tokens 4096 --dataset local@json --split None --infile /data/ztw/data/ans5/ans5_video/p0/ans5_total_p0.json --img_dir /data/ztw/data/ans5/ans5_media --save_freq 3 --max_retry 1 --max_retry_sample 1 --out_dir /data/ztw/simple-mmeval-infer-data/work_dirs/ans5/InternVL3-78B-Instruct-ans5 --resume --gpu_per_parallel 4 --parallel_per_task 1 --rank 0` failed. (See above for error)\n\ud83c\udf1f Launched shard 0 on GPUs [0, 1, 2, 3]\n\u2705 Completed shard 0, freed GPUs [0, 1, 2, 3]\nAll inference shards completed.",
+      "end_time": "2026-01-30T12:10:51.993661",
+      "duration_seconds": 57.926114
+    },
+    {
+      "model_name": "InternVL3-38B-Instruct",
+      "hf_path": "OpenGVLab/InternVL3-38B-Instruct",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 2
+    },
+    {
+      "model_name": "InternVL3-14B-Instruct",
+      "hf_path": "OpenGVLab/InternVL3-14B-Instruct",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    },
+    {
+      "model_name": "InternVL3-9B-Instruct",
+      "hf_path": "OpenGVLab/InternVL3-9B-Instruct",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    },
+    {
+      "model_name": "InternVL3-8B-Instruct",
+      "hf_path": "OpenGVLab/InternVL3-8B-Instruct",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    },
+    {
+      "model_name": "InternVL3-2B-Instruct",
+      "hf_path": "OpenGVLab/InternVL3-2B-Instruct",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    },
+    {
+      "model_name": "InternVL3-1B-Instruct",
+      "hf_path": "OpenGVLab/InternVL3-1B-Instruct",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    },
+    {
+      "model_name": "InternVL-Chat-V1-2-Plus",
+      "hf_path": "OpenGVLab/InternVL-Chat-V1-2-Plus",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 2
+    },
+    {
+      "model_name": "InternVL-Chat-V1-2",
+      "hf_path": "OpenGVLab/InternVL-Chat-V1-2",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 2
+    },
+    {
+      "model_name": "InternVL-Chat-V1-1",
+      "hf_path": "OpenGVLab/InternVL-Chat-V1-1",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "start_time": "2026-01-30T12:10:52.216621",
+      "status": "success",
+      "error_message": null,
+      "gpu_requirement": 2,
+      "parallel_tasks": 2,
+      "gpus_per_task": 2,
+      "stdout": "/data/ztw/mmeval_envs/test/lib/python3.10/site-packages/transformers/utils/generic.py:441: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.\n_torch_pytree._register_pytree_node(\n/data/ztw/mmeval_envs/internvl/lib/python3.10/site-packages/huggingface_hub/file_download.py:945: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.\nwarnings.warn(\n/data/ztw/mmeval_envs/internvl/lib/python3.10/site-packages/huggingface_hub/file_download.py:945: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.\nwarnings.warn(\n\nLoading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]\nLoading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]\nLoading checkpoint shards:   0%|          | 0/4 [00:21<?, ?it/s]\nTraceback (most recent call last):\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/infer/internvl_chat.py\", line 172, in <module>\nmodel_evaluator = TaskRunner(args)\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/infer/internvl_chat.py\", line 84, in __init__\nsuper().__init__(args)\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/infer/task.py\", line 23, in __init__\nself.load_model(args)\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/infer/internvl_chat.py\", line 87, in load_model\nself.model = AutoModel.from_pretrained(\nFile \"/data/ztw/mmeval_envs/internvl/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py\", line 561, in from_pretrained\nreturn model_class.from_pretrained(\nFile \"/data/ztw/mmeval_envs/internvl/lib/python3.10/site-packages/transformers/modeling_utils.py\", line 3850, in from_pretrained\n) = cls._load_pretrained_model(\nFile \"/data/ztw/mmeval_envs/internvl/lib/python3.10/site-packages/transformers/modeling_utils.py\", line 4284, in _load_pretrained_model\nnew_error_msgs, offload_index, state_dict_index = _load_state_dict_into_meta_model(\nFile \"/data/ztw/mmeval_envs/internvl/lib/python3.10/site-packages/transformers/modeling_utils.py\", line 805, in _load_state_dict_into_meta_model\nset_module_tensor_to_device(model, param_name, param_device, **set_module_kwargs)\nFile \"/data/ztw/mmeval_envs/internvl/lib/python3.10/site-packages/accelerate/utils/modeling.py\", line 416, in set_module_tensor_to_device\nnew_value = value.to(device)\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 79.21 GiB of which 3.19 MiB is free. Process 1750361 has 0 bytes memory in use. Including non-PyTorch memory, this process has 0 bytes memory in use. Of the allocated memory 9.01 GiB is allocated by PyTorch, and 213.68 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n\nLoading checkpoint shards:  25%|\u2588\u2588\u258c       | 1/4 [00:22<01:06, 22.24s/it]ERROR conda.cli.main_run:execute(127): `conda run python mmeval/infer/internvl_chat.py --model_name_or_path OpenGVLab/InternVL-Chat-V1-1 --max_new_tokens 4096 --dataset local@json --split None --infile /data/ztw/data/ans5/ans5_video/p0/ans5_total_p0.json --img_dir /data/ztw/data/ans5/ans5_media --save_freq 3 --max_retry 1 --max_retry_sample 1 --out_dir /data/ztw/simple-mmeval-infer-data/work_dirs/ans5/InternVL-Chat-V1-1-ans5 --resume --gpu_per_parallel 2 --parallel_per_task 2 --rank 1` failed. (See above for error)\n\nLoading checkpoint shards:  50%|\u2588\u2588\u2588\u2588\u2588     | 2/4 [00:44<00:44, 22.05s/it]\nLoading checkpoint shards:  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c  | 3/4 [00:57<00:18, 18.02s/it]\nLoading checkpoint shards: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 4/4 [01:08<00:00, 15.25s/it]\nLoading checkpoint shards: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 4/4 [01:08<00:00, 17.10s/it]\n/data/ztw/mmeval_envs/internvl/lib/python3.10/site-packages/huggingface_hub/file_download.py:945: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.\nwarnings.warn(\n/data/ztw/mmeval_envs/internvl/lib/python3.10/site-packages/huggingface_hub/file_download.py:945: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.\nwarnings.warn(\nSpecial tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.\nTraceback (most recent call last):\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/infer/internvl_chat.py\", line 173, in <module>\nmodel_evaluator.inference_dataset()\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/infer/task.py\", line 36, in inference_dataset\nwhile not self.res_handler.check_complete(self.dataset) and run_count < self.max_retry:\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/utils/res_handler.py\", line 42, in check_complete\nfor sample in dataset:\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/data/base.py\", line 208, in __iter__\nsample = self._process_sample(idx)\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/data/local.py\", line 75, in _process_sample\nmessages = [self._process_message(msg) for msg in messages_raw[\"messages\"]]\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/data/local.py\", line 75, in <listcomp>\nmessages = [self._process_message(msg) for msg in messages_raw[\"messages\"]]\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/data/local.py\", line 56, in _process_message\nmsg[\"media\"] = [\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/data/local.py\", line 57, in <listcomp>\nself.load_image(f) if placeholder == \"<image>\" else f\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/data/base.py\", line 127, in load_image\nraise NotImplementedError(f\"Unsupported image format: {f}\")\nNotImplementedError: Unsupported image format: /data/ztw/data/ans5/ans5_media/rw_smalln/3878.jpg\nERROR conda.cli.main_run:execute(127): `conda run python mmeval/infer/internvl_chat.py --model_name_or_path OpenGVLab/InternVL-Chat-V1-1 --max_new_tokens 4096 --dataset local@json --split None --infile /data/ztw/data/ans5/ans5_video/p0/ans5_total_p0.json --img_dir /data/ztw/data/ans5/ans5_media --save_freq 3 --max_retry 1 --max_retry_sample 1 --out_dir /data/ztw/simple-mmeval-infer-data/work_dirs/ans5/InternVL-Chat-V1-1-ans5 --resume --gpu_per_parallel 2 --parallel_per_task 2 --rank 0` failed. (See above for error)\n\ud83c\udf1f Launched shard 0 on GPUs [0, 1]\n\ud83c\udf1f Launched shard 1 on GPUs [2, 3]\n\u2705 Completed shard 1, freed GPUs [2, 3]\n\u2705 Completed shard 0, freed GPUs [0, 1]\nAll inference shards completed.",
+      "end_time": "2026-01-30T12:12:19.469254",
+      "duration_seconds": 87.252633
+    }
+  ]
+}

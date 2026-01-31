@@ -37,8 +37,8 @@ class TaskRunner(Task):
         self.visual_tokenizer = self.model.get_visual_tokenizer()
         self.conversation_formatter = self.model.get_conversation_formatter()
         
-    def _parse_input(self, sample:dict):
-        prompt = sample["prompt"]
+    def _parse_input(self, msg):
+        prompt = msg["prompt"]
         query = prompt.replace("<image>", "<image>\n")
 
         return query
@@ -56,21 +56,25 @@ class TaskRunner(Task):
     
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
+        responses = []
 
-        query = self._parse_input(ori_sample)
-        prompt, input_ids = self.conversation_formatter.format_query(query)
-        input_ids = torch.unsqueeze(input_ids, dim=0).to(device=self.model.device)
-        attention_mask = torch.ne(input_ids, self.text_tokenizer.pad_token_id).to(device=self.model.device)
+        for msg in sample["messages"]:
+
+            query = self._parse_input(msg)
+            prompt, input_ids = self.conversation_formatter.format_query(query)
+            input_ids = torch.unsqueeze(input_ids, dim=0).to(device=self.model.device)
+            attention_mask = torch.ne(input_ids, self.text_tokenizer.pad_token_id).to(device=self.model.device)
         
-        image = ori_sample['media'][0]
-        pixel_values = [self.visual_tokenizer.preprocess_image(image).to(
-            dtype=self.visual_tokenizer.dtype, device=self.visual_tokenizer.device)]
+            image = ori_msg["media"][0]
+            pixel_values = [self.visual_tokenizer.preprocess_image(image).to(
+                dtype=self.visual_tokenizer.dtype, device=self.visual_tokenizer.device)]
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(input_ids, attention_mask, pixel_values)
-        else:
-            pass
+            if not self.args.score_target:
+                responses.append(self._generate_response(input_ids, attention_mask, pixel_values))
+            else:
+                pass
 
+        ori_sample["response"] = responses
         return ori_sample
 
     

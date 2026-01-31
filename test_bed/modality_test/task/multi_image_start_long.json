@@ -1,1352 +1,1852 @@
 [
     {
         "id": 0,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 1,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 2,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 3,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 4,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 5,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 6,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 7,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 8,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 9,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 10,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 11,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 12,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 13,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 14,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 15,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 16,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 17,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 18,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 19,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 20,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 21,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 22,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 23,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 24,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 25,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 26,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 27,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 28,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 29,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 30,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 31,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 32,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 33,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 34,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 35,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 36,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 37,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 38,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 39,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 40,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 41,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 42,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 43,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 44,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 45,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 46,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 47,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 48,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 49,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 50,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 51,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 52,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 53,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 54,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 55,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 56,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 57,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 58,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 59,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 60,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 61,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 62,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 63,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 64,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 65,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 66,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 67,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 68,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 69,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 70,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 71,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 72,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 73,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 74,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 75,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 76,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 77,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 78,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 79,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 80,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 81,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 82,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 83,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 84,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 85,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 86,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 87,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 88,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 89,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 90,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 91,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 92,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 93,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 94,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 95,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 96,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 97,
-        "question": "<image> Please provide a detailed description of the contents shown in the image.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png"
+                ],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
-        "hint": "",
         "comment": "Test 'single image start' modality, 'multi image start' modality should be able to handle this."
     },
     {
         "id": 98,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "truck.png",
-            "boat.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "truck.png",
+                    "boat.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     },
     {
         "id": 99,
-        "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "answer": "",
-        "options": {},
-        "choices": [],
-        "media": [
-            "boat.png",
-            "truck.png"
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "media": [
+                    "boat.png",
+                    "truck.png"
+                ],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            }
         ],
-        "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-        "hint": "",
         "comment": "Test 'multi image start' modality."
     }
 ]

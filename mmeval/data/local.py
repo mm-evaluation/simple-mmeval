@@ -74,10 +74,11 @@ class LocalJSONDataset(BaseDataset):
         # Process each message
         messages = [self._process_message(msg) for msg in messages_raw["messages"]]
 
-        return {
-            "eval-id": eval_id,
-            "messages": messages,
-        }
+        # Preserve original fields (id, concept_type, etc.) and update with processed data
+        sample["eval-id"] = eval_id
+        sample["messages"] = messages
+        
+        return sample
 
     def __repr__(self):
         if self.parallel_per_task > 1:

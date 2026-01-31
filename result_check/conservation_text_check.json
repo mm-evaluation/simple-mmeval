@@ -1,0 +1,94 @@
+{
+  "dataset": "conservation_text",
+  "check_time": "2025-11-17T21:17:59.197713",
+  "prompts_checked": [
+    "p0"
+  ],
+  "mismatches": [
+    {
+      "model": "Mantis-8B-Idefics2",
+      "work_dir": "Mantis-8B-Idefics2-conservation-text",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_text/conservation_text_frame/p0/conservation_text_total_p0.json",
+      "original_count": 2304,
+      "result_count": 0,
+      "difference": -2304
+    },
+    {
+      "model": "Mantis-8B-clip-llama3",
+      "work_dir": "Mantis-8B-clip-llama3-conservation-text",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_text/conservation_text_frame/p0/conservation_text_total_p0.json",
+      "original_count": 2304,
+      "result_count": 0,
+      "difference": -2304
+    },
+    {
+      "model": "Mantis-8B-siglip-llama3",
+      "work_dir": "Mantis-8B-siglip-llama3-conservation-text",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_text/conservation_text_frame/p0/conservation_text_total_p0.json",
+      "original_count": 2304,
+      "result_count": 0,
+      "difference": -2304
+    },
+    {
+      "model": "SmolVLM-Instruct-DPO",
+      "work_dir": "SmolVLM-Instruct-DPO-conservation-text",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_text/conservation_text_frame/p0/conservation_text_total_p0.json",
+      "original_count": 2304,
+      "result_count": 0,
+      "difference": -2304
+    },
+    {
+      "model": "llava-next-interleave-qwen-0.5b",
+      "work_dir": "llava-next-interleave-qwen-0.5b-conservation-text",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_text/conservation_text_frame/p0/conservation_text_total_p0.json",
+      "original_count": 2304,
+      "result_count": 0,
+      "difference": -2304
+    },
+    {
+      "model": "llava-next-interleave-qwen-7b",
+      "work_dir": "llava-next-interleave-qwen-7b-conservation-text",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_text/conservation_text_frame/p0/conservation_text_total_p0.json",
+      "original_count": 2304,
+      "result_count": 0,
+      "difference": -2304
+    },
+    {
+      "model": "llava-next-interleave-qwen-7b-dpo",
+      "work_dir": "llava-next-interleave-qwen-7b-dpo-conservation-text",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_text/conservation_text_frame/p0/conservation_text_total_p0.json",
+      "original_count": 2304,
+      "result_count": 0,
+      "difference": -2304
+    },
+    {
+      "model": "xgen-mm-phi3-mini-instruct-interleave-r-v1.5",
+      "work_dir": "xgen-mm-phi3-mini-instruct-interleave-r-v1.5-conservation-text",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_text/conservation_text_frame/p0/conservation_text_total_p0.json",
+      "original_count": 2304,
+      "result_count": 0,
+      "difference": -2304
+    }
+  ],
+  "summary": {
+    "total_models_checked": 84,
+    "models_with_mismatches": 8,
+    "total_mismatches": 8
+  }
+}

@@ -38,7 +38,7 @@ class TaskRunner(Task):
     def __init__(self, args):
         self.args = args
         self.dtype = getattr(args, "dtype") or torch.bfloat16
-        self.default_model_kwargs = {"device_map": "auto"}
+        self.default_model_kwargs = {"device_map": "auto", "low_cpu_mem_usage": True}
         self.default_gen_kwargs = {"max_new_tokens": 100, "do_sample": False}
         self.model_kwargs = parse_model_kwargs(args, self.default_model_kwargs)
         self.gen_kwargs = parse_gen_kwargs(args, self.default_gen_kwargs)
@@ -49,30 +49,89 @@ class TaskRunner(Task):
         self.model = LlavaOnevisionForConditionalGeneration.from_pretrained(args.model_name_or_path, **self.model_kwargs)
         self.tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
         self.processor = AutoProcessor.from_pretrained(args.model_name_or_path)
+
+    def _extract_media(self, conversation_history):
+        """Extract all images and videos from conversation history."""
+        images = []
+        videos = []
+        for msg in conversation_history:
+            if msg["role"] != "user":
+                continue
+            content = msg.get("content", [])
+            if isinstance(content, list):
+                for item in content:
+                    if isinstance(item, dict):
+                        if item.get("type") == "image" and "image" in item:
+                            img = item["image"]
+                            # Handle both PIL Image objects and file paths
+                            if isinstance(img, Image.Image):
+                                images.append(img.convert("RGB"))
+                            else:
+                                images.append(Image.open(img).convert("RGB"))
+                        elif item.get("type") == "video" and "path" in item:
+                            videos.append(item["path"])
+        return images if images else None, videos if videos else None
     
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        messages, modality = self.parse_input(sample)
+        responses = []
+        conversation_history = []  # Accumulate conversation history for multi-turn chat
+        current_modality = "text"  # Track modality across turns
+        
+        for msg in sample["messages"]:
+            # Parse current user message
+            user_message, modality = self.parse_input(msg)
+            # Update modality if this turn has media
+            if modality != "text":
+                current_modality = modality
+            # Add user message to conversation history
+            conversation_history.extend(user_message)
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(messages, modality)
-        else:
-            ori_sample.update(self._score_choices(messages, modality, sample['media'], sample))
+            if not self.args.score_target:
+                response = self._generate_response(conversation_history, current_modality)
+                responses.append(response)
+                # Add assistant response to conversation history
+                conversation_history.append({
+                    "role": "assistant",
+                    "content": [{"type": "text", "text": response}]
+                })
+            else:
+                ori_sample.update(self._score_choices(conversation_history, current_modality, sample))
 
+        ori_sample["response"] = responses
         return ori_sample
 
-    def _generate_response(self, messages, modality):
+    def _generate_response(self, conversation_history, modality):
+        # Extract all accumulated images/videos from conversation history
+        images, videos = self._extract_media(conversation_history)
+        
         if modality == "image":
-            inputs = self.processor.apply_chat_template(
-                messages, tokenize=True, add_generation_prompt=True, return_dict=True, return_tensors="pt"
+            # Generate text template first (tokenize=False)
+            text = self.processor.apply_chat_template(
+                conversation_history, tokenize=False, add_generation_prompt=True
+            )
+            # Then process text and ALL images together
+            inputs = self.processor(
+                text=text, images=images, return_tensors="pt"
             ).to(self.device, torch.float16)
         elif modality == "video":
-            inputs = self.processor.apply_chat_template(
-                messages, num_frames=8, tokenize=True, add_generation_prompt=True, return_dict=True, return_tensors="pt"
+            text = self.processor.apply_chat_template(
+                conversation_history, num_frames=8, tokenize=False, add_generation_prompt=True
+            )
+            # Load video frames
+            container = av.open(videos[0])
+            total_frames = container.streams.video[0].frames
+            indices = np.arange(0, total_frames, total_frames / 8).astype(int)
+            clip = read_video_pyav(container, indices)
+            inputs = self.processor(
+                text=text, videos=clip, return_tensors="pt"
             ).to(self.device, torch.float16)
         elif modality == "text":
-            inputs = self.processor.apply_chat_template(
-                messages, tokenize=True, add_generation_prompt=True, return_dict=True, return_tensors="pt"
+            text = self.processor.apply_chat_template(
+                conversation_history, tokenize=False, add_generation_prompt=True
+            )
+            inputs = self.processor(
+                text=text, return_tensors="pt"
             ).to(self.device)
         
         generated_ids = self.model.generate(**inputs, **self.gen_kwargs)
@@ -86,21 +145,24 @@ class TaskRunner(Task):
 
         return output_text
 
-    def _score_choices(self, messages, modality, media, sample):
+    def _score_choices(self, conversation_history, modality, sample):
         contents = sample.get("choices")
+        # Extract all accumulated images/videos from conversation history
+        images, videos = self._extract_media(conversation_history)
+        
         if modality == "image":
             text = self.processor.apply_chat_template(
-                messages, tokenize=False, add_generation_prompt=True
+                conversation_history, tokenize=False, add_generation_prompt=True
             )
             full = [text + content for content in contents]
-            full_encoded = [self.processor(text=i, images=media, return_tensors="pt").to(self.device) for i in full]
-            prompt_encoded = self.processor(text=text, images=media, return_tensors="pt").to(self.device)
+            full_encoded = [self.processor(text=i, images=images, return_tensors="pt").to(self.device) for i in full]
+            prompt_encoded = self.processor(text=text, images=images, return_tensors="pt").to(self.device)
         elif modality == "video":
             text = self.processor.apply_chat_template(
-                messages, num_frames=8, tokenize=False, add_generation_prompt=True
+                conversation_history, num_frames=8, tokenize=False, add_generation_prompt=True
             )
             full = [text + content for content in contents]
-            container = av.open(media[0])
+            container = av.open(videos[0])
 
             # sample uniformly 8 frames from the video
             total_frames = container.streams.video[0].frames
@@ -110,7 +172,7 @@ class TaskRunner(Task):
             prompt_encoded = self.processor(text=text, videos=clip, return_tensors="pt").to(self.device)
         elif modality == "text":
             text = self.processor.apply_chat_template(
-                messages, tokenize=False, add_generation_prompt=True
+                conversation_history, tokenize=False, add_generation_prompt=True
             )
             full = [text + content for content in contents]
             full_encoded = [self.processor(text=i, return_tensors="pt").to(self.device) for i in full]
@@ -127,11 +189,11 @@ class TaskRunner(Task):
         }
 
 
-    def parse_input(self, sample:dict):
-        question = sample["prompt"]
+    def parse_input(self, msg):
+        question = msg["prompt"]
         # placeholder <>, can be image, video, audio, etc.
         q_chunks = re.split(r'(<(?:image|video)>)', question)
-        images = copy.deepcopy(sample.get('media', []))
+        images = copy.deepcopy(msg["media"])
         modality = "text"
 
         messages = [

@@ -35,16 +35,16 @@ class TaskRunner(Task):
             num_crops=4
         )
         
-    def _parse_input(self, sample:dict):
-        prompt = sample["prompt"]
+    def _parse_input(self, msg, image_counter=1):
+        """Parse a single message and return user message, images, and updated image counter."""
+        prompt = msg["prompt"]
         # placeholder <>, can be image, video, etc.
         q_chunks = re.split(r'(<(?:image|video)>)', prompt)
-        media = copy.deepcopy(sample['media'])
+        media = copy.deepcopy(msg["media"])
 
         # Build the prompt with image placeholders for Phi-3.5 Vision
         text_content = []
         placeholder_content = []
-        image_counter = 1
         images = []
         
         for chunk in q_chunks:
@@ -61,16 +61,28 @@ class TaskRunner(Task):
         # Combine placeholders and text
         full_content = "".join(placeholder_content) + "\n" + "".join(text_content) if placeholder_content else "".join(text_content)
         
-        messages = [
-            {
-                "role": "user",
-                "content": full_content
-            }
-        ]
+        user_message = {
+            "role": "user",
+            "content": full_content
+        }
 
-        return messages, images
+        return user_message, images, image_counter
 
-    def _generate_response(self, inputs):
+    def _generate_response(self, conversation_history, all_images):
+        """Generate response using full conversation history and all images."""
+        # Apply chat template to full conversation history
+        prompt = self.processor.tokenizer.apply_chat_template(
+            conversation_history,
+            tokenize=False,
+            add_generation_prompt=True
+        )
+
+        # Process with all images if available, otherwise just text
+        if all_images:
+            inputs = self.processor(prompt, all_images, return_tensors="pt").to(self.model.device)
+        else:
+            inputs = self.processor(prompt, return_tensors="pt").to(self.model.device)
+
         with torch.inference_mode():
             generate_ids = self.model.generate(
                 **inputs,
@@ -90,26 +102,29 @@ class TaskRunner(Task):
     
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        messages, images = self._parse_input(ori_sample)
-
-        # Apply chat template
-        prompt = self.processor.tokenizer.apply_chat_template(
-            messages, 
-            tokenize=False, 
-            add_generation_prompt=True
-        )
+        responses = []
+        conversation_history = []  # Accumulate conversation history for multi-turn chat
+        all_images = []  # Collect all images across turns
+        image_counter = 1  # Track unique image placeholders
         
-        # Process with images if available, otherwise just text
-        if images:
-            inputs = self.processor(prompt, images, return_tensors="pt").to(self.model.device)
-        else:
-            inputs = self.processor(prompt, return_tensors="pt").to(self.model.device)
+        for msg in sample["messages"]:
+            # Parse current user message with current image_counter
+            user_message, new_images, image_counter = self._parse_input(msg, image_counter)
+            conversation_history.append(user_message)
+            all_images.extend(new_images)
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(inputs)
-        else:
-            pass
+            if not self.args.score_target:
+                response = self._generate_response(conversation_history, all_images)
+                responses.append(response)
+                # Add assistant response to conversation history
+                conversation_history.append({
+                    "role": "assistant",
+                    "content": response
+                })
+            else:
+                pass
 
+        ori_sample["response"] = responses
         return ori_sample
 
     

@@ -1,0 +1,33 @@
+{
+  "check_time": "2025-12-03T06:47:35.831821",
+  "dataset": "conservation_all (merged 16f and 3f)",
+  "criteria": {
+    "modalities": [
+      "multi_image_interleave",
+      "multi_image_video_interleave",
+      "multi_image_start"
+    ],
+    "model_type": "non-base (instruct and reasoning)",
+    "quantization": "non-quantized"
+  },
+  "summary": {
+    "total_target_models": 133,
+    "completed_models": 131,
+    "incomplete_models": 2,
+    "completion_rate": "98.5%",
+    "completed_models_from_3f": 25,
+    "completed_models_from_16f": 106
+  },
+  "incomplete_models_list": [
+    {
+      "model_name": "Qwen3-VL-235B-A22B-Instruct",
+      "source_folder": "3f",
+      "completion": "0/4608"
+    },
+    {
+      "model_name": "Qwen3-VL-235B-A22B-Thinking",
+      "source_folder": "16f",
+      "completion": "0/23040"
+    }
+  ]
+}

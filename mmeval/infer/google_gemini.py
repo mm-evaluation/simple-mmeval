@@ -57,10 +57,10 @@ class TaskRunner(Task):
             f"Current state: {file.state.name}"
         )
 
-    def parse_input(self, sample: dict):
-        question = sample["prompt"]
+    def parse_input(self, msg):
+        question = msg["prompt"]
         q_chunks = re.split(r'(<(?:image|video)>)', question)
-        media_list = copy.deepcopy(sample['media'])
+        media_list = copy.deepcopy(msg["media"])
 
         contents = []
 
@@ -93,13 +93,16 @@ class TaskRunner(Task):
 
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        contents = self.parse_input(ori_sample)
+        responses = []
+        for msg in sample["messages"]:
+            contents = self.parse_input(msg)
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(contents)
-        else:
-            raise NotImplementedError("Score target mode not supported for Google Gemini API models")
+            if not self.args.score_target:
+                responses.append(self._generate_response(contents))
+            else:
+                raise NotImplementedError("Score target mode not supported for Google Gemini API models")
 
+        ori_sample["response"] = responses
         return ori_sample
 
 

@@ -44,9 +44,9 @@ class TaskRunner(Task):
         )
         self.vl_gpt = self.vl_gpt.to(self.dtype).cuda().eval()
         
-    def _parse_input(self, sample:dict):
-        prompt = sample["prompt"]
-        images = sample["media"]
+    def _parse_input(self, msg):
+        prompt = msg["prompt"]
+        images = msg["media"]
 
         content = prompt.replace("<image>", "<image_placeholder>\n")
 
@@ -78,22 +78,25 @@ class TaskRunner(Task):
     
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        conversation = self._parse_input(ori_sample)
+        responses = []
+        for msg in sample["messages"]:
+            conversation = self._parse_input(msg)
 
-        # load images and prepare for inputs
-        pil_images = ori_sample["media"]
-        prepare_inputs = self.vl_chat_processor(
-            conversations=conversation, images=pil_images, force_batchify=True
-        ).to(self.vl_gpt.device)
+            # load images and prepare for inputs
+            pil_images = msg["media"]
+            prepare_inputs = self.vl_chat_processor(
+                conversations=conversation, images=pil_images, force_batchify=True
+            ).to(self.vl_gpt.device)
 
-        # run image encoder to get the image embeddings
-        inputs_embeds = self.vl_gpt.prepare_inputs_embeds(**prepare_inputs)
+            # run image encoder to get the image embeddings
+            inputs_embeds = self.vl_gpt.prepare_inputs_embeds(**prepare_inputs)
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(inputs_embeds, prepare_inputs)
-        else:
-            pass
+            if not self.args.score_target:
+                responses.append(self._generate_response(inputs_embeds, prepare_inputs))
+            else:
+                pass
 
+        ori_sample["response"] = responses
         return ori_sample
 
     

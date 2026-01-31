@@ -103,8 +103,8 @@ class TaskRunner(Task):
             **self.model_kwargs
         )
         
-    def _parse_input(self, sample: dict):
-        prompt = sample["prompt"]
+    def _parse_input(self, msg):
+        prompt = msg["prompt"]
         # Replace <image> placeholders with actual image processing
         conversations = []
         
@@ -140,34 +140,35 @@ class TaskRunner(Task):
     
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        conversations = self._parse_input(ori_sample)
-        
-        # Process images
-        images = ori_sample["media"]
-        image_tensors = []
-        for image in images:
-            image_tensor = self.image_processor.preprocess(image, return_tensors='pt')['pixel_values']
-            image_tensors.append(image_tensor.half().cuda())
-
-        # Set conversation mode
-        conv_mode = "qwen_1_5"
-        conv = conv_templates[conv_mode].copy()
-        
-        # Process first turn
-        qs = conversations[0]["value"]
-        conv.append_message(conv.roles[0], qs)
-        conv.append_message(conv.roles[1], None)
-        
-        # Preprocess input
-        input_ids = preprocess_qwen([conversations[0], {'from': 'gpt', 'value': None}], self.tokenizer, has_image=True).cuda()
-
-        if not self.args.score_target:
-            response = self._generate_response(input_ids, image_tensors, conv)
-            ori_sample["response"] = response
-        else:
-            # Handle scoring if needed
-            pass
-
+        responses = []
+        for msg in sample["messages"]:
+            conversations = self._parse_input(msg)
+            
+            # Process images
+            images = msg["media"]
+            image_tensors = []
+            for image in images:
+                image_tensor = self.image_processor.preprocess(image, return_tensors='pt')['pixel_values']
+                image_tensors.append(image_tensor.half().cuda())
+            
+            # Set conversation mode
+            conv_mode = "qwen_1_5"
+            conv = conv_templates[conv_mode].copy()
+            
+            # Process first turn
+            qs = conversations[0]["value"]
+            conv.append_message(conv.roles[0], qs)
+            conv.append_message(conv.roles[1], None)
+            
+            # Preprocess input
+            input_ids = preprocess_qwen([conversations[0], {'from': 'gpt', 'value': None}], self.tokenizer, has_image=True).cuda()
+            
+            if not self.args.score_target:
+                responses.append(self._generate_response(input_ids, image_tensors, conv))
+            else:
+                # Handle scoring if needed
+                pass
+        ori_sample["response"] = responses
         return ori_sample
 
     

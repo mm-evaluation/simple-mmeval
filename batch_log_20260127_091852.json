@@ -1,0 +1,91 @@
+{
+  "timestamp": "2026-01-27T09:18:59.393397",
+  "results": [
+    {
+      "model_name": "Qwen3-Omni-30B-A3B-Captioner",
+      "hf_path": "Qwen/Qwen3-Omni-30B-A3B-Captioner",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 2
+    },
+    {
+      "model_name": "Qwen3-Omni-30B-A3B-Instruct",
+      "hf_path": "Qwen/Qwen3-Omni-30B-A3B-Instruct",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 2
+    },
+    {
+      "model_name": "Qwen3-VL-8B-Instruct",
+      "hf_path": "Qwen/Qwen3-VL-8B-Instruct",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "start_time": "2026-01-27T09:18:52.671567",
+      "status": "success",
+      "error_message": null,
+      "gpu_requirement": 1,
+      "parallel_tasks": 8,
+      "gpus_per_task": 1,
+      "stdout": "/data/ztw/mmeval_envs/test/lib/python3.10/site-packages/transformers/utils/generic.py:441: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.\n_torch_pytree._register_pytree_node(\n\ud83c\udf1f Result file /data/ztw/simple-mmeval-infer-data/work_dirs/cogcontrol4/Qwen3-VL-8B-Instruct-cogcontrol4/result.json exists. Task finished, exiting...",
+      "end_time": "2026-01-27T09:18:58.857944",
+      "duration_seconds": 6.186377
+    },
+    {
+      "model_name": "Qwen3-VL-4B-Instruct",
+      "hf_path": "Qwen/Qwen3-VL-4B-Instruct",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    },
+    {
+      "model_name": "Qwen3-VL-2B-Instruct",
+      "hf_path": "Qwen/Qwen3-VL-2B-Instruct",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    },
+    {
+      "model_name": "Qwen2.5-Omni-7B",
+      "hf_path": "Qwen/Qwen2.5-Omni-7B",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 4
+    },
+    {
+      "model_name": "Qwen2.5-Omni-3B",
+      "hf_path": "Qwen/Qwen2.5-Omni-3B",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 2
+    },
+    {
+      "model_name": "Qwen2.5-VL-72B-Instruct",
+      "hf_path": "Qwen/Qwen2.5-VL-72B-Instruct",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 4
+    }
+  ]
+}

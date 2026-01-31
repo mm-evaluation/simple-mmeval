@@ -36,10 +36,10 @@ class TaskRunner(Task):
             trust_remote_code=True
         )
     
-    def _parse_input(self, sample: dict):
-        prompt = sample["prompt"]
+    def _parse_input(self, msg):
+        prompt = msg["prompt"]
         q_chunks = re.split(r'(<(?:image|video)>)', prompt)
-        media = copy.deepcopy(sample['media'])
+        media = copy.deepcopy(msg["media"])
 
         images = []
         PROMPT = "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: "
@@ -78,13 +78,16 @@ class TaskRunner(Task):
 
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        text, images = self._parse_input(ori_sample)
+        responses = []
+        for msg in sample["messages"]:
+            text, images = self._parse_input(msg)
         
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(text, images)
-        else:
-            ori_sample.update(self._score_choices(text, images, sample))
+            if not self.args.score_target:
+                responses.append(self._generate_response(text, images))
+            else:
+                ori_sample.update(self._score_choices(text, images, sample))
         
+        ori_sample["response"] = responses
         return ori_sample
     
     def _score_choices(self, text, images, sample):

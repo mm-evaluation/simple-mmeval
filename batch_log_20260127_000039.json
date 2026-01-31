@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-01-27T00:00:39.877791",
+  "results": [
+    {
+      "model_name": "gemma-3-4b-it",
+      "hf_path": "google/gemma-3-4b-it",
+      "mode": "cogcontrol3.6",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    }
+  ]
+}

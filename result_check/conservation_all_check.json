@@ -1,0 +1,74 @@
+{
+  "dataset": "conservation_all",
+  "check_time": "2025-11-17T21:17:42.645225",
+  "prompts_checked": [
+    "p0"
+  ],
+  "mismatches": [
+    {
+      "model": "Qwen3-VL-30B-A3B-Instruct",
+      "work_dir": "Qwen3-VL-30B-A3B-Instruct-conservation-all",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_all/conservation_all_video/p0/conservation_all_total_p0.json",
+      "original_count": 23040,
+      "result_count": 0,
+      "difference": -23040
+    },
+    {
+      "model": "Qwen3-VL-30B-A3B-Thinking",
+      "work_dir": "Qwen3-VL-30B-A3B-Thinking-conservation-all",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_all/conservation_all_video/p0/conservation_all_total_p0.json",
+      "original_count": 23040,
+      "result_count": 0,
+      "difference": -23040
+    },
+    {
+      "model": "gemma-3-12b-it",
+      "work_dir": "gemma-3-12b-it-conservation-all",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_all/conservation_all_frame/p0/conservation_all_total_p0.json",
+      "original_count": 23040,
+      "result_count": 4608,
+      "difference": -18432
+    },
+    {
+      "model": "gemma-3-27b-it",
+      "work_dir": "gemma-3-27b-it-conservation-all",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_all/conservation_all_frame/p0/conservation_all_total_p0.json",
+      "original_count": 23040,
+      "result_count": 4608,
+      "difference": -18432
+    },
+    {
+      "model": "gemma-3-4b-it",
+      "work_dir": "gemma-3-4b-it-conservation-all",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_all/conservation_all_frame/p0/conservation_all_total_p0.json",
+      "original_count": 23040,
+      "result_count": 4608,
+      "difference": -18432
+    },
+    {
+      "model": "llava-onevision-qwen2-72b-si-hf",
+      "work_dir": "llava-onevision-qwen2-72b-si-hf-conservation-all",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_all/conservation_all_video/p0/conservation_all_total_p0.json",
+      "original_count": 23040,
+      "result_count": 6344,
+      "difference": -16696
+    }
+  ],
+  "summary": {
+    "total_models_checked": 114,
+    "models_with_mismatches": 6,
+    "total_mismatches": 6
+  }
+}

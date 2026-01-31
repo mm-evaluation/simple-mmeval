@@ -1,0 +1,54 @@
+{
+  "dataset": "conservation_empty_image",
+  "check_time": "2025-11-17T21:18:19.026108",
+  "prompts_checked": [
+    "p0"
+  ],
+  "mismatches": [
+    {
+      "model": "Mantis-bakllava-7b",
+      "work_dir": "Mantis-bakllava-7b-conservation-empty-image",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_empty_image/conservation_empty_image_frame/p0/conservation_empty_image_total_p0.json",
+      "original_count": 9216,
+      "result_count": 0,
+      "difference": -9216
+    },
+    {
+      "model": "Mantis-llava-7b",
+      "work_dir": "Mantis-llava-7b-conservation-empty-image",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_empty_image/conservation_empty_image_frame/p0/conservation_empty_image_total_p0.json",
+      "original_count": 9216,
+      "result_count": 0,
+      "difference": -9216
+    },
+    {
+      "model": "SmolVLM-Instruct-DPO",
+      "work_dir": "SmolVLM-Instruct-DPO-conservation-empty-image",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_empty_image/conservation_empty_image_frame/p0/conservation_empty_image_total_p0.json",
+      "original_count": 9216,
+      "result_count": 0,
+      "difference": -9216
+    },
+    {
+      "model": "llava-next-72b-hf",
+      "work_dir": "llava-next-72b-hf-conservation-empty-image",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "original_file": "/data/ztw/data/conservation_empty_image/conservation_empty_image_frame/p0/conservation_empty_image_total_p0.json",
+      "original_count": 9216,
+      "result_count": 9213,
+      "difference": -3
+    }
+  ],
+  "summary": {
+    "total_models_checked": 98,
+    "models_with_mismatches": 4,
+    "total_mismatches": 4
+  }
+}

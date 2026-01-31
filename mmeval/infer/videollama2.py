@@ -24,21 +24,20 @@ class TaskRunner(Task):
         self.model, self.processor, self.tokenizer = model_init(args.model_name_or_path)
 
     def run_sample(self, sample:dict):
-
         ori_sample = copy.deepcopy(sample)
-        question, modality = self.parse_input(sample)
+        responses = []
+        for msg in sample["messages"]:
+            question, modality = self.parse_input(msg)
+            image_file = msg["media"][0]
+            media_tensor = self.processor[modality](image_file)
 
-        image_file = sample["media"][0]
-
-        media_tensor = self.processor[modality](image_file)
-
-        if not self.args.score_target:
-            output_text = mm_infer(media_tensor, question, model=self.model, tokenizer=self.tokenizer, do_sample=False, modal=modality).strip()
-            ori_sample["response"] = output_text
-
-        else:
-            ori_sample.update(self._score_choices(ori_sample, modality, question, media_tensor))
+            if not self.args.score_target:
+                output_text = mm_infer(media_tensor, question, model=self.model, tokenizer=self.tokenizer, do_sample=False, modal=modality).strip()
+                responses.append(output_text)
+            else:
+                ori_sample.update(self._score_choices(ori_sample, modality, question, media_tensor))
         
+        ori_sample["response"] = responses
         return ori_sample
     
     def _score_choices(self, sample, modality, question, media_tensor):
@@ -94,8 +93,8 @@ class TaskRunner(Task):
             "response": contents[np.argmax(scores)]
         }
     
-    def parse_input(self, sample:dict):
-        question = sample["prompt"]
+    def parse_input(self, msg):
+        question = msg["prompt"]
         # extract placeholder
         placeholders = re.findall(r'<(?:image|video)>', question)
         assert len(placeholders) == 1, f"VideoLLaMA2 supports one image or video, but got {len(placeholder)}"

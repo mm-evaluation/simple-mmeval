@@ -54,14 +54,14 @@
             },
             {
                 "role": "user",
-                "question": "<image> What is in the image?",
+                "question": "<image> What is in the second image?",
                 "answer": "",
                 "options": {},
                 "choices": [],
                 "media": [
                     "boat.png"
                 ],    
-                "prompt": "<image> What is in the image?",
+                "prompt": "<image> What is in the second image?",
                 "hint": ""
             },
             {

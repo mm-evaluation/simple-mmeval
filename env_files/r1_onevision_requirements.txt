@@ -1,6 +1,6 @@
 # flash-attn==2.7.3
 
-transformers @ git+https://github.com/huggingface/transformers.git@5f0fd1185bbaea73bbd4b7c29cf2dcaddffbbdfd
+# transformers @ git+https://github.com/huggingface/transformers.git@5f0fd1185bbaea73bbd4b7c29cf2dcaddffbbdfd
 torch
 torchvision
 wrapt==1.11.2
@@ -9,4 +9,5 @@ psutil
 pillow
 datasets
 qwen-vl-utils
+hf-transfer
 

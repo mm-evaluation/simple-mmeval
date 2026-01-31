@@ -31,8 +31,8 @@ class TaskRunner(Task):
             **self.model_kwargs
         ).to(self.device).eval()
         
-    def _parse_input(self, sample:dict):
-        prompt = sample["prompt"]
+    def _parse_input(self, msg):
+        prompt = msg["prompt"]
         query = prompt.replace("<image>", "")
 
         return query
@@ -46,25 +46,28 @@ class TaskRunner(Task):
     
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        query = self._parse_input(ori_sample)
-        image = ori_sample['media'][0] if ori_sample['media'] else None
+        responses = []
+        for msg in sample["messages"]:
+            query = self._parse_input(msg)
+            image = msg["media"][0] if msg["media"] else None
         
-        if image:
-            inputs = self.tokenizer.apply_chat_template([{"role": "user", "image": image, "content": query}],
-                                                add_generation_prompt=True, tokenize=True, return_tensors="pt",
-                                                return_dict=True)  # chat mode
-        else:
-            inputs = self.tokenizer.apply_chat_template([{"role": "user", "content": query}],
-                                                add_generation_prompt=True, tokenize=True, return_tensors="pt",
-                                                return_dict=True)
+            if image:
+                inputs = self.tokenizer.apply_chat_template([{"role": "user", "image": image, "content": query}],
+                                                    add_generation_prompt=True, tokenize=True, return_tensors="pt",
+                                                    return_dict=True)  # chat mode
+            else:
+                inputs = self.tokenizer.apply_chat_template([{"role": "user", "content": query}],
+                                                    add_generation_prompt=True, tokenize=True, return_tensors="pt",
+                                                    return_dict=True)
 
-        inputs = inputs.to(self.device)
+            inputs = inputs.to(self.device)
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(inputs)
-        else:
-            pass
+            if not self.args.score_target:
+                responses.append(self._generate_response(inputs))
+            else:
+                pass
 
+        ori_sample["response"] = responses
         return ori_sample
 
     

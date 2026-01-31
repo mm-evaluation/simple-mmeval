@@ -1,0 +1,75 @@
+{
+  "timestamp": "2026-01-30T12:06:51.790106",
+  "results": [
+    {
+      "model_name": "InternVL3-78B-Instruct",
+      "hf_path": "OpenGVLab/InternVL3-78B-Instruct",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 4
+    },
+    {
+      "model_name": "InternVL3-38B-Instruct",
+      "hf_path": "OpenGVLab/InternVL3-38B-Instruct",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 2
+    },
+    {
+      "model_name": "InternVL3-14B-Instruct",
+      "hf_path": "OpenGVLab/InternVL3-14B-Instruct",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    },
+    {
+      "model_name": "InternVL3-9B-Instruct",
+      "hf_path": "OpenGVLab/InternVL3-9B-Instruct",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    },
+    {
+      "model_name": "InternVL3-8B-Instruct",
+      "hf_path": "OpenGVLab/InternVL3-8B-Instruct",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    },
+    {
+      "model_name": "InternVL3-2B-Instruct",
+      "hf_path": "OpenGVLab/InternVL3-2B-Instruct",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    },
+    {
+      "model_name": "InternVL3-1B-Instruct",
+      "hf_path": "OpenGVLab/InternVL3-1B-Instruct",
+      "mode": "ans5",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    }
+  ]
+}

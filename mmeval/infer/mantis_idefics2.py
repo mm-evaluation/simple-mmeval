@@ -65,8 +65,7 @@ class TaskRunner(Task):
         return messages
 
     def _generate_response(self, inputs):
-        if not images:
-            images = None
+        # Generate
         generated_ids = self.model.generate(**inputs, **self.gen_kwargs)
         response = self.processor.batch_decode(generated_ids[:, inputs["input_ids"].shape[1]:], skip_special_tokens=True)
 
@@ -78,7 +77,7 @@ class TaskRunner(Task):
         messages = self._parse_input(ori_sample)
         prompt = self.processor.apply_chat_template(messages, add_generation_prompt=True)
 
-        images = sample.get("media", [])
+        images = sample["media"]
         inputs = self.processor(text=prompt, images=images, return_tensors="pt")
         inputs = {k: v.to(self.model.device) for k, v in inputs.items()}
 

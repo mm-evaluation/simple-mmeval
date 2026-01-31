@@ -1,0 +1,137 @@
+{
+  "timestamp": "2026-01-28T13:45:57.916223",
+  "results": [
+    {
+      "model_name": "internlm-xcomposer2-vl-7b",
+      "hf_path": "internlm/internlm-xcomposer2-vl-7b",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "start_time": "2026-01-28T13:45:53.598678",
+      "status": "failed",
+      "error_message": "Process exited with code 1",
+      "gpu_requirement": 1,
+      "parallel_tasks": 8,
+      "gpus_per_task": 1,
+      "stdout": "/data/ztw/mmeval_envs/test/lib/python3.10/site-packages/transformers/utils/generic.py:441: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.\n_torch_pytree._register_pytree_node(\nTraceback (most recent call last):\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/run.py\", line 24, in <module>\nseries = get_series(model_name_or_path.split(\"/\")[-1])\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/run.py\", line 18, in get_series\nraise ValueError(f\"Model {model_name} not found in registry.\")\nValueError: Model internlm-xcomposer2-vl-7b not found in registry.",
+      "end_time": "2026-01-28T13:45:55.609929",
+      "duration_seconds": 2.011251
+    },
+    {
+      "model_name": "internlm-xcomposer2-vl-1_8b",
+      "hf_path": "internlm/internlm-xcomposer2-vl-1_8b",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_interleave",
+      "prompt": "p0",
+      "start_time": "2026-01-28T13:45:55.615068",
+      "status": "failed",
+      "error_message": "Process exited with code 1",
+      "gpu_requirement": 1,
+      "parallel_tasks": 8,
+      "gpus_per_task": 1,
+      "stdout": "/data/ztw/mmeval_envs/test/lib/python3.10/site-packages/transformers/utils/generic.py:441: FutureWarning: `torch.utils._pytree._register_pytree_node` is deprecated. Please use `torch.utils._pytree.register_pytree_node` instead.\n_torch_pytree._register_pytree_node(\nTraceback (most recent call last):\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/run.py\", line 24, in <module>\nseries = get_series(model_name_or_path.split(\"/\")[-1])\nFile \"/data/ztw/simple-mmeval-infer-data/mmeval/run.py\", line 18, in get_series\nraise ValueError(f\"Model {model_name} not found in registry.\")\nValueError: Model internlm-xcomposer2-vl-1_8b not found in registry.",
+      "end_time": "2026-01-28T13:45:57.287744",
+      "duration_seconds": 1.672676
+    },
+    {
+      "model_name": "InternVL-Chat-V1-1",
+      "hf_path": "OpenGVLab/InternVL-Chat-V1-1",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 2
+    },
+    {
+      "model_name": "InternVL-Chat-V1-2",
+      "hf_path": "OpenGVLab/InternVL-Chat-V1-2",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 2
+    },
+    {
+      "model_name": "InternVL-Chat-V1-2-Plus",
+      "hf_path": "OpenGVLab/InternVL-Chat-V1-2-Plus",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 2
+    },
+    {
+      "model_name": "Mini-InternVL-Chat-2B-V1-5",
+      "hf_path": "OpenGVLab/Mini-InternVL-Chat-2B-V1-5",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    },
+    {
+      "model_name": "Mini-InternVL-Chat-4B-V1-5",
+      "hf_path": "OpenGVLab/Mini-InternVL-Chat-4B-V1-5",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    },
+    {
+      "model_name": "InternVL-Chat-V1-5",
+      "hf_path": "OpenGVLab/InternVL-Chat-V1-5",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 2
+    },
+    {
+      "model_name": "InternVL2-1B",
+      "hf_path": "OpenGVLab/InternVL2-1B",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    },
+    {
+      "model_name": "InternVL2-2B",
+      "hf_path": "OpenGVLab/InternVL2-2B",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    },
+    {
+      "model_name": "InternVL2-4B",
+      "hf_path": "OpenGVLab/InternVL2-4B",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    },
+    {
+      "model_name": "InternVL2-8B",
+      "hf_path": "OpenGVLab/InternVL2-8B",
+      "mode": "cogcontrol4",
+      "modality": "multi_image_video_interleave",
+      "prompt": "p0",
+      "status": "skipped",
+      "error_message": "Valid results already exist",
+      "gpu_requirement": 1
+    }
+  ]
+}

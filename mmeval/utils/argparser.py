@@ -53,6 +53,8 @@ class DataArguments:
                            metadata={"help": "input file."})
     img_dir: Optional[str] = field(default=None,
                            metadata={"help": "image directory."})
+    template: Optional[str] = field(default=None,
+                           metadata={"help": "template file path or template string."})
     circular: bool = field(default=False, 
                            metadata={"help": "whether to prepare data for circular evaluation."})
     resize: int = field(default=None,

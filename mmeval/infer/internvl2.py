@@ -175,13 +175,13 @@ class TaskRunner(Task):
             **self.model_kwargs).eval()
         self.tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path, trust_remote_code=True, use_fast=False)
         
-    def _parse_input(self, sample:dict):
-        question = sample["prompt"]
+    def _parse_input(self, msg):
+        question = msg["prompt"]
         q_chunks = re.split(r'(<(?:image|video)>)', question)
         question = question.replace("<image>", "<image>\n")
         question = question.replace("<video>", ''.join([f'Frame{i+1}: <image>\n' for i in range(self.num_segments)]))
 
-        media_list = copy.deepcopy(sample['media'])
+        media_list = copy.deepcopy(msg["media"])
         pixel_values_list = []
         num_patches_list = []
         for chunk in q_chunks:
@@ -205,21 +205,27 @@ class TaskRunner(Task):
                  
         return question, pixel_values, num_patches_list
 
-    def _generate_response(self, question,pixel_values, num_patches_list):
-        response = self.model.chat(self.tokenizer, pixel_values, question, self.gen_kwargs,
-                                   num_patches_list=num_patches_list, history=None, return_history=False)
-
-        return response
+    def _generate_response(self, question, pixel_values, num_patches_list, history=None):
+        response, history = self.model.chat(self.tokenizer, pixel_values, question, self.gen_kwargs,
+                                            num_patches_list=num_patches_list, history=history, return_history=True)
+        return response, history
     
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        question, pixel_values, num_patches_list = self._parse_input(ori_sample)
+        responses = []
+        history = None
+        # Note: InternVL2 has limited multi-turn multi-image support.
+        # Each turn processes only its own images. Cross-turn image references
+        # may not work correctly due to model architecture limitations.
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(question, pixel_values, num_patches_list)
-        else:
-            pass
+        for msg in sample["messages"]:
+            question, pixel_values, num_patches_list = self._parse_input(msg)
+            
+            if not self.args.score_target:
+                response, history = self._generate_response(question, pixel_values, num_patches_list, history)
+                responses.append(response)
 
+        ori_sample["response"] = responses
         return ori_sample
 
     

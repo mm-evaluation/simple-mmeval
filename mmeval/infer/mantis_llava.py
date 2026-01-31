@@ -26,8 +26,9 @@ class TaskRunner(Task):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.dtype = getattr(args, "dtype") or torch.bfloat16
         self.default_model_kwargs = {"attn_implementation": "flash_attention_2", "device_map": "auto"}
+        self.default_gen_kwargs = {"max_new_tokens": 1024}
         self.model_kwargs = parse_model_kwargs(args, self.default_model_kwargs)
-        self.gen_kwargs = parse_gen_kwargs(args)
+        self.gen_kwargs = parse_gen_kwargs(args, self.default_gen_kwargs)
 
         super().__init__(args)
 
@@ -45,14 +46,17 @@ class TaskRunner(Task):
     
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        text = sample["prompt"]
-        images = sample.get("media", [])
+        responses = []
+        for msg in sample["messages"]:
+            text = msg["prompt"]
+            images = msg["media"]
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(text, images)
-        else:
-            pass
+            if not self.args.score_target:
+                responses.append(self._generate_response(text, images))
+            else:
+                pass
 
+        ori_sample["response"] = responses
         return ori_sample
 
     

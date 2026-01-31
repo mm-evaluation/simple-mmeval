@@ -25,18 +25,21 @@ class TaskRunner(Task):
     
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        messages = self.parse_input(sample)
+        responses = []
+        for msg in sample["messages"]:
+            messages = self.parse_input(msg)
         
-        text = self.processor.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
-        )
-        image_inputs, video_inputs = process_vision_info(messages)
+            text = self.processor.apply_chat_template(
+                messages, tokenize=False, add_generation_prompt=True
+            )
+            image_inputs, video_inputs = process_vision_info(messages)
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(text, image_inputs, video_inputs)
-        else:
-            ori_sample.update(self._score_choices(text, image_inputs, video_inputs, sample))
+            if not self.args.score_target:
+                responses.append(self._generate_response(text, image_inputs, video_inputs))
+            else:
+                ori_sample.update(self._score_choices(text, image_inputs, video_inputs, sample))
 
+        ori_sample["response"] = responses
         return ori_sample
 
     def _generate_response(self, text, image_inputs, video_inputs):
@@ -62,11 +65,11 @@ class TaskRunner(Task):
     def _score_choices(self, text, image_inputs, video_inputs, sample):
         raise NotImplementedError("Scoring is not supported.")
 
-    def parse_input(self, sample:dict):
-        question = sample["prompt"]
+    def parse_input(self, msg):
+        question = msg["prompt"]
         # placeholder <>, can be image, video, audio, etc.
         q_chunks = re.split(r'(<(?:image|video)>)', question)
-        images = copy.deepcopy(sample['media'])
+        images = copy.deepcopy(msg["media"])
 
         messages = [
             {

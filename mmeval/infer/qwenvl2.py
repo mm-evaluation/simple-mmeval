@@ -107,12 +107,12 @@ class TaskRunner(Task):
         ori_sample = copy.deepcopy(sample)
         responses = []
         conversation_history = []  # Accumulate conversation history for multi-turn chat
-        
+
         for msg in sample["messages"]:
             # Parse current user message and add to history
             user_message = self.parse_input(msg)
             conversation_history.extend(user_message)
-            
+
             # Use full conversation history for chat template
             text = self.processor.apply_chat_template(
                 conversation_history, tokenize=False, add_generation_prompt=True

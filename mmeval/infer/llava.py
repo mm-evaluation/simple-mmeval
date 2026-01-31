@@ -30,9 +30,9 @@ class TaskRunner(Task):
 
         self.processor = AutoProcessor.from_pretrained(args.model_name_or_path)
         
-    def _parse_input(self, sample:dict):
-        prompt = sample["prompt"]
-        has_image = bool(sample.get("media"))
+    def _parse_input(self, msg):
+        prompt = msg["prompt"]
+        has_image = bool(msg["media"])
 
         if has_image:
             prompt = prompt.replace("<image>", "")
@@ -59,20 +59,23 @@ class TaskRunner(Task):
     
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        conversation = self._parse_input(ori_sample)
-        prompt = self.processor.apply_chat_template(conversation, add_generation_prompt=True)
+        responses = []
+        for msg in sample["messages"]:
+            conversation = self._parse_input(msg)
+            prompt = self.processor.apply_chat_template(conversation, add_generation_prompt=True)
 
-        if ori_sample.get("media"):
-            image = ori_sample["media"][0]
-            inputs = self.processor(images=image, text=prompt, return_tensors="pt").to(0, self.dtype)
-        else:
-            inputs = self.processor(text=prompt, return_tensors="pt").to(0, self.dtype)
+            if msg["media"]:
+                image = msg["media"][0]
+                inputs = self.processor(images=image, text=prompt, return_tensors="pt").to(0, self.dtype)
+            else:
+                inputs = self.processor(text=prompt, return_tensors="pt").to(0, self.dtype)
 
-        if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(inputs)
-        else:
-            pass
+            if not self.args.score_target:
+                responses.append(self._generate_response(inputs))
+            else:
+                pass
 
+        ori_sample["response"] = responses
         return ori_sample
 
     

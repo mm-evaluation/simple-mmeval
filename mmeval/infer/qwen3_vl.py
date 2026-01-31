@@ -26,7 +26,8 @@ class TaskRunner(Task):
         self.model = AutoModelForImageTextToText.from_pretrained(
             args.model_name_or_path, 
             dtype=self.dtype, 
-            **self.model_kwargs
+            **self.model_kwargs,
+            trust_remote_code=True
         )
         self.processor = AutoProcessor.from_pretrained(args.model_name_or_path)
 

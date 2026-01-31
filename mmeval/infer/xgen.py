@@ -65,8 +65,8 @@ class TaskRunner(Task):
         self.tokenizer.padding_side = "left"
         self.tokenizer.eos_token = '<|end|>'
         
-    def _parse_input(self, sample: dict):
-        prompt = sample["prompt"]
+    def _parse_input(self, msg):
+        prompt = msg["prompt"]
         return apply_prompt_template(prompt)
 
     def _generate_response(self, inputs, image_sizes):
@@ -84,38 +84,40 @@ class TaskRunner(Task):
     
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
-        prompt = self._parse_input(ori_sample)
+        responses = []
+        for msg in sample["messages"]:
+            prompt = self._parse_input(msg)
         
-        # Process images
-        images = ori_sample["media"]
-        image_list = []
-        image_sizes = []
+            # Process images
+            images = msg["media"]
+            image_list = []
+            image_sizes = []
         
-        for img in images:
-            image_list.append(self.image_processor([img], image_aspect_ratio='anyres')["pixel_values"].to(device='cuda', dtype=self.dtype))
-            image_sizes.append(img.size)
+            for img in images:
+                image_list.append(self.image_processor([img], image_aspect_ratio='anyres')["pixel_values"].to(device='cuda', dtype=self.dtype))
+                image_sizes.append(img.size)
         
-        # Prepare inputs
-        inputs = {
-            "pixel_values": [image_list]
-        }
+            # Prepare inputs
+            inputs = {
+                "pixel_values": [image_list]
+            }
         
-        # Process text
-        language_inputs = self.tokenizer([prompt], return_tensors="pt")
-        inputs.update(language_inputs)
+            # Process text
+            language_inputs = self.tokenizer([prompt], return_tensors="pt")
+            inputs.update(language_inputs)
         
-        # Move to CUDA
-        for name, value in inputs.items():
-            if isinstance(value, torch.Tensor):
-                inputs[name] = value.to(device='cuda')
+            # Move to CUDA
+            for name, value in inputs.items():
+                if isinstance(value, torch.Tensor):
+                    inputs[name] = value.to(device='cuda')
 
-        if not self.args.score_target:
-            response = self._generate_response(inputs, image_sizes)
-            ori_sample["response"] = response
-        else:
-            # Handle scoring if needed
-            pass
+            if not self.args.score_target:
+                responses.append(self._generate_response(inputs, image_sizes))
+            else:
+                # Handle scoring if needed
+                pass
 
+        ori_sample["response"] = responses
         return ori_sample
 
     
