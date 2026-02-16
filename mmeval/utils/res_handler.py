@@ -24,6 +24,7 @@ class ResponseHandler:
         self.out_dir = args.out_dir
         self.kvstore = SQLiteKVStore(os.path.join(args.out_dir, f"cache.db"))
         self.load_cache()
+        self.pending_result = []  # Pending results for batch saving
 
     def load_cache(self):
         tmp = self.kvstore.dump_dict()
@@ -70,5 +71,16 @@ class ResponseHandler:
                 for m in result["media"]
             ]
         
-        if len(self.cache) % self.save_freq == 0:
-            self.kvstore.put(str(result["eval-id"]), result)
+        # Add to in-memory cache
+        self.cache[int(result["eval-id"])] = result
+        # Add to pending list for batch saving
+        self.pending_result.append((str(result["eval-id"]), result))
+        # Flush when reaching batch size
+        if len(self.pending_result) >= self.save_freq:
+            self.flush()
+
+    def flush(self):
+        """Batch save all pending results to database."""
+        if self.pending_result:
+            self.kvstore.batch_put(self.pending_result)
+            self.pending_result.clear()

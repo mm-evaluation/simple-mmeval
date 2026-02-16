@@ -33,33 +33,37 @@ class Task:
 
     def inference_dataset(self):
         run_count = 0
-        while not self.res_handler.check_complete(self.dataset) and run_count < self.max_retry:
-            run_count += 1
+        try:
+            while not self.res_handler.check_complete(self.dataset) and run_count < self.max_retry:
+                run_count += 1
 
-            retry_count = 0
-            # Format tqdm progress bar
-            for sample in tqdm.tqdm(
-                self.dataset, 
-                total=len(self.dataset), 
-                desc=f"Shard {self.rank} ({len(self.dataset)} samples)",
-                ncols=80,                   
-                bar_format='{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]',
-                colour='green',
-                position=self.rank,              
-                leave=True,                  
-                file=sys.stdout,            
-                mininterval=0.1,           
-                maxinterval=1.0,       
-                smoothing=0.3         
-            ):
-                try:
-                    ret = self.run_sample(sample)
-                    self.res_handler.save(ret)
+                retry_count = 0
+                # Format tqdm progress bar
+                for sample in tqdm.tqdm(
+                    self.dataset, 
+                    total=len(self.dataset), 
+                    desc=f"Shard {self.rank} ({len(self.dataset)} samples)",
+                    ncols=80,                   
+                    bar_format='{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]',
+                    colour='green',
+                    position=self.rank,              
+                    leave=True,                  
+                    file=sys.stdout,            
+                    mininterval=0.1,           
+                    maxinterval=1.0,       
+                    smoothing=0.3         
+                ):
+                    try:
+                        ret = self.run_sample(sample)
+                        self.res_handler.save(ret)
 
-                except Exception as e:
-                    tqdm.tqdm.write(f"[Shard {self.rank}] ❌ Error: {e}")
-                    tqdm.tqdm.write(f"[Shard {self.rank}] Traceback: {traceback.format_exc()}")
-                    retry_count += 1
-                    if retry_count >= self.max_retry_sample:
-                        tqdm.tqdm.write(f"[Shard {self.rank}] ⚠️  Max retries reached, skipping sample")
-                        continue
+                    except Exception as e:
+                        tqdm.tqdm.write(f"[Shard {self.rank}] ❌ Error: {e}")
+                        tqdm.tqdm.write(f"[Shard {self.rank}] Traceback: {traceback.format_exc()}")
+                        retry_count += 1
+                        if retry_count >= self.max_retry_sample:
+                            tqdm.tqdm.write(f"[Shard {self.rank}] ⚠️  Max retries reached, skipping sample")
+                            continue
+        finally:
+            # Ensure all pending results are saved before exit
+            self.res_handler.flush()
