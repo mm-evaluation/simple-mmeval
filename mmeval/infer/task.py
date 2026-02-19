@@ -1,7 +1,6 @@
 import os
 import sys
 import tqdm
-import json
 import traceback
 
 from mmeval.data import load_dataset
@@ -32,38 +31,63 @@ class Task:
         raise NotImplementedError("load_model is not implemented")
 
     def inference_dataset(self):
-        run_count = 0
+        """Run inference on the dataset with two-level retry logic.
+        
+        Outer loop (max_retry): retry entire dataset iteration
+        Inner loop (max_retry_sample): retry single sample
+        """
+        incomplete_count = -1  # Sentinel: -1 means loop never ran
         try:
-            while not self.res_handler.check_complete(self.dataset) and run_count < self.max_retry:
-                run_count += 1
-
-                retry_count = 0
-                # Format tqdm progress bar
+            for retry_count_dataset in range(1, self.max_retry + 1):
+                # Create progress bar for samples
                 for sample in tqdm.tqdm(
-                    self.dataset, 
-                    total=len(self.dataset), 
+                    self.dataset,
+                    total=len(self.dataset),
                     desc=f"Shard {self.rank} ({len(self.dataset)} samples)",
-                    ncols=80,                   
+                    ncols=80,
                     bar_format='{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]',
                     colour='green',
-                    position=self.rank,              
-                    leave=True,                  
-                    file=sys.stdout,            
-                    mininterval=0.1,           
-                    maxinterval=1.0,       
-                    smoothing=0.3         
+                    position=self.rank,
+                    leave=True,
+                    file=sys.stdout,
+                    mininterval=0.1,
+                    maxinterval=1.0,
+                    smoothing=0.3
                 ):
-                    try:
-                        ret = self.run_sample(sample)
-                        self.res_handler.save(ret)
-
-                    except Exception as e:
-                        tqdm.tqdm.write(f"[Shard {self.rank}] ❌ Error: {e}")
-                        tqdm.tqdm.write(f"[Shard {self.rank}] Traceback: {traceback.format_exc()}")
-                        retry_count += 1
-                        if retry_count >= self.max_retry_sample:
-                            tqdm.tqdm.write(f"[Shard {self.rank}] ⚠️  Max retries reached, skipping sample")
-                            continue
+                    # Skip samples already in cache
+                    if self.res_handler.in_cache(sample["eval-id"]):
+                        continue
+                    
+                    # Per-sample retry loop
+                    for retry_count_sample in range(1, self.max_retry_sample + 1):
+                        try:
+                            ret = self.run_sample(sample)
+                            self.res_handler.save(ret)
+                            break  # Success, move to next sample
+                        except Exception as e:
+                            tqdm.tqdm.write(f"[Shard {self.rank}] ❌ Error (attempt {retry_count_sample}/{self.max_retry_sample}):\n{e}")
+                            tqdm.tqdm.write(f"[Shard {self.rank}] 📋 Traceback:\n{traceback.format_exc()}")
+                            if retry_count_sample >= self.max_retry_sample:
+                                tqdm.tqdm.write(f"[Shard {self.rank}] ⚠️ Max retries reached, skipping sample {sample.get('eval-id', 'unknown')}")
+                            else:
+                                tqdm.tqdm.write(f"[Shard {self.rank}] ⚠️ Retrying sample {sample.get('eval-id', 'unknown')}...")
+                
+                # Check completion after each dataset pass
+                incomplete_count = self.res_handler.check_complete(self.dataset)
+                if incomplete_count == 0:
+                    break  # All complete
+                tqdm.tqdm.write(f"[Shard {self.rank}] ⚠️ Pass {retry_count_dataset}/{self.max_retry}: {incomplete_count} samples incomplete, retrying...")
+            
+            # Exit with error if incomplete (reuse last incomplete_count)
+            if incomplete_count == -1:
+                tqdm.tqdm.write(f"[Shard {self.rank}] ❌ Inference failed.")
+                self.res_handler.flush()
+                sys.exit(1)
+            elif incomplete_count > 0:
+                tqdm.tqdm.write(f"[Shard {self.rank}] ❌ Inference incomplete: {incomplete_count} samples failed after {self.max_retry} passes.")
+                self.res_handler.flush()
+                sys.exit(1)
+                
         finally:
             # Ensure all pending results are saved before exit
             self.res_handler.flush()

@@ -2,10 +2,8 @@ import os
 import time
 import subprocess
 import torch
-import shutil
 import json
 import copy
-import glob
 
 from mmeval.registry import series_mapping, series_infer_env_mapping
 from mmeval.utils.argparser import parse_args
@@ -48,6 +46,7 @@ if __name__ == "__main__":
         available_gpus = list(range(total_gpus))
         
     running_tasks = []
+    failed_tasks = []  # Track failed tasks
     next_rank = 0
     ###########################################################################################################################################
     # FIX: how to resume when parallel_per_task is different from last time? All cache are saved in cache.db with conflict management.
@@ -119,20 +118,33 @@ if __name__ == "__main__":
 
         # Poll running tasks and reclaim GPUs as they finish
         for task in running_tasks:
-            if task["proc"].poll() is not None:  # process has exited
+            exit_code = task["proc"].poll()
+            if exit_code is not None:  # process has exited
                 running_tasks.remove(task)
                 available_gpus.extend(task["gpus"])
-                print(f"✅ Completed shard {task['rank']}, freed GPUs {task['gpus']}")
+                
+                if exit_code != 0:
+                    print(f"❌ Shard {task['rank']} failed with exit code {exit_code}, freed GPUs {task['gpus']}")
+                    failed_tasks.append({"rank": task["rank"], "exit_code": exit_code})
+                else:
+                    print(f"✅ Completed shard {task['rank']}, freed GPUs {task['gpus']}")
                 break
         else:
             # No task finished just now — wait briefly before polling again
             time.sleep(5)
+    
+    # Check for any failed tasks
+    if failed_tasks:
+        print(f"\n❌ Inference failed! {len(failed_tasks)} shard(s) failed:")
+        for task in failed_tasks:
+            print(f"   - Shard {task['rank']} (exit code: {task['exit_code']})")
+        exit(1)
 
     print("All inference shards completed.")
 
-    # TODO: need to check if the cache is complete
-    
+    # Collect results from cache and save to JSON
     from mmeval.utils.sqlitkv import SQLiteKVStore
+    
     cache = SQLiteKVStore(os.path.join(args.out_dir, "cache.db"))
     result = cache.dump_dict()
     result = sorted(list(result.values()), key=lambda x: x["eval-id"])
@@ -142,6 +154,7 @@ if __name__ == "__main__":
     
     # delete cache.db
     os.remove(os.path.join(args.out_dir, "cache.db"))
+    print(f"✅ Results saved to {os.path.join(args.out_dir, 'result.json')} ({len(result)} samples)")
 
 
 
