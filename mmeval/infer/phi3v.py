@@ -35,31 +35,26 @@ class TaskRunner(Task):
             num_crops=4
         )
         
-    def _parse_input(self, sample:dict):
-        prompt = sample["prompt"]
+    def _parse_input(self, message:dict):
+        prompt = message["prompt"]
         # placeholder <>, can be image, video, etc.
         q_chunks = re.split(r'(<(?:image|video)>)', prompt)
-        media = copy.deepcopy(sample['media'])
-
-        # Build the prompt with image placeholders for Phi-3.5 Vision
-        text_content = []
-        placeholder_content = []
-        image_counter = 1
+        media_list = message.get('media', [])
         images = []
+        media_idx = 0
+        content_parts = []
         
         for chunk in q_chunks:
             if len(chunk.strip()) == 0:
                 continue
             if chunk == constants.image:
-                if media:
-                    images.append(media.pop(0))
-                    placeholder_content.append(f"<|image_{image_counter}|>")
-                    image_counter += 1
+                images.append(media_list[media_idx])
+                content_parts.append(f"<|image_{media_idx + 1}|>")
+                media_idx += 1
             else:
-                text_content.append(chunk)
+                content_parts.append(chunk)
         
-        # Combine placeholders and text
-        full_content = "".join(placeholder_content) + "\n" + "".join(text_content) if placeholder_content else "".join(text_content)
+        full_content = "".join(content_parts)
         
         messages = [
             {
@@ -89,8 +84,9 @@ class TaskRunner(Task):
         return response
     
     def run_sample(self, sample: dict):
+        message = sample["messages"][0]
         ori_sample = copy.deepcopy(sample)
-        messages, images = self._parse_input(ori_sample)
+        messages, images = self._parse_input(message)
 
         # Apply chat template
         prompt = self.processor.tokenizer.apply_chat_template(
@@ -106,7 +102,8 @@ class TaskRunner(Task):
             inputs = self.processor(prompt, return_tensors="pt").to(self.model.device)
 
         if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(inputs)
+            response = self._generate_response(inputs)
+            ori_sample["messages"].append({"role": "assistant", "response": response})
         else:
             pass
 

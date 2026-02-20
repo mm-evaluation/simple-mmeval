@@ -2,12 +2,14 @@ import re
 import copy
 
 import torch
-from transformers import AutoModelForImageTextToText, AutoProcessor
-from qwen_vl_utils import process_vision_info
+from transformers import Qwen3OmniMoeForConditionalGeneration, Qwen3OmniMoeProcessor
+from qwen_omni_utils import process_mm_info
 
 from mmeval.infer.task import Task
 from mmeval.utils import constants
 from mmeval.utils.argparser import parse_args, parse_model_kwargs, parse_gen_kwargs
+
+USE_AUDIO_IN_VIDEO = False
 
 
 class TaskRunner(Task):
@@ -15,7 +17,7 @@ class TaskRunner(Task):
         self.args = args
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.dtype = getattr(args, "dtype") or "auto"
-        self.default_model_kwargs = {"device_map": "auto"}
+        self.default_model_kwargs = {"attn_implementation": "flash_attention_2", "device_map": "auto"}
         self.default_gen_kwargs = {"max_new_tokens": 128}
         self.model_kwargs = parse_model_kwargs(args, self.default_model_kwargs)
         self.gen_kwargs = parse_gen_kwargs(args, self.default_gen_kwargs)
@@ -23,19 +25,19 @@ class TaskRunner(Task):
         super().__init__(args)
         
     def load_model(self, args):
-        self.model = AutoModelForImageTextToText.from_pretrained(
-            args.model_name_or_path, 
-            torch_dtype=self.dtype, 
+        self.model = Qwen3OmniMoeForConditionalGeneration.from_pretrained(
+            args.model_name_or_path,
+            torch_dtype=self.dtype,
             **self.model_kwargs
         )
-        self.processor = AutoProcessor.from_pretrained(args.model_name_or_path)
+        self.processor = Qwen3OmniMoeProcessor.from_pretrained(args.model_name_or_path)
 
-    def parse_input(self, message):
+    def parse_input(self, message:dict):
         question = message["prompt"]
         q_chunks = re.split(r'(<(?:image|video)>)', question)
         media_list = message.get('media', [])
 
-        messages = [
+        conversation = [
             {
                 "role": "user",
                 "content": []
@@ -49,78 +51,65 @@ class TaskRunner(Task):
             if chunk == constants.image:
                 media = media_list[media_idx]
                 media_idx += 1
-                messages[0]["content"].append(
+                conversation[0]["content"].append(
                     {
                         "type": "image",
-                        "image": media,
-                        "min_pixels": 4 * 32 * 32,
-                        "max_pixels": 256 * 32 * 32,
+                        "image": media
                     }
                 )       
             elif chunk == constants.video:
                 media = media_list[media_idx]
                 media_idx += 1
-                messages[0]["content"].append(
+                conversation[0]["content"].append(
                     {
                         "type": "video",
-                        "video": media,
-                        "min_pixels": 4 * 32 * 32,
-                        "max_pixels": 256 * 32 * 32,
-                        "total_pixels": 20480 * 32 * 32,
+                        "video": media
                     }
                 )
             else:
-                messages[0]["content"].append(
+                conversation[0]["content"].append(
                     {
                         "type": "text",
                         "text": chunk
                     }
                 )
-        
-        return messages
+
+        return conversation
 
     def _generate_response(self, inputs):
-        generated_ids = self.model.generate(**inputs, **self.gen_kwargs)
-        generated_ids_trimmed = [
-            out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
-        ]
-
-        output_text = self.processor.batch_decode(
-            generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
+        text_ids, audio = self.model.generate(
+            **inputs, 
+            use_audio_in_video=USE_AUDIO_IN_VIDEO,
+            thinker_return_dict_in_generate=True,
+            **self.gen_kwargs
         )
 
-        return output_text
+        text = self.processor.batch_decode(
+            text_ids.sequences[:, inputs["input_ids"].shape[1] :],
+            skip_special_tokens=True,
+            clean_up_tokenization_spaces=False
+        )
+
+        return text
 
     def run_sample(self, sample: dict):
         ori_sample = copy.deepcopy(sample)
         message = sample["messages"][0]
-        
-        user_message = self.parse_input(message)
-        
+
+        conversation = self.parse_input(message)
+
         text = self.processor.apply_chat_template(
-            user_message, tokenize=False, add_generation_prompt=True
+            conversation, add_generation_prompt=True, tokenize=False
         )
-
-        images, videos, video_kwargs = process_vision_info(
-            user_message, image_patch_size=16, return_video_kwargs=True, return_video_metadata=True
+        audios, images, videos = process_mm_info(
+            conversation, use_audio_in_video=USE_AUDIO_IN_VIDEO
         )
-
-        if videos is not None:
-            videos, video_metadatas = zip(*videos)
-            videos, video_metadatas = list(videos), list(video_metadatas)
-        else:
-            video_metadatas = None
 
         inputs = self.processor(
-            text=text, 
-            images=images, 
-            videos=videos, 
-            video_metadata=video_metadatas,
-            return_tensors="pt", 
-            do_resize=False, 
-            **video_kwargs
+            text=text, audio=audios, images=images, videos=videos,
+            return_tensors="pt", padding=True, use_audio_in_video=USE_AUDIO_IN_VIDEO
         )
-        inputs = inputs.to(self.model.device)
+        inputs = inputs.to(self.model.device).to(self.model.dtype)
 
         if not self.args.score_target:
             response = self._generate_response(inputs)

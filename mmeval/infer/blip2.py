@@ -28,14 +28,14 @@ class TaskRunner(Task):
         )
         self.processor = Blip2Processor.from_pretrained(args.model_name_or_path)
 
-    def _parse_input(self, sample: dict):
-        question = sample["prompt"]
+    def _parse_input(self, message: dict):
+        question = message["prompt"]
         q_chunks = re.split(r'(<(?:image|video)>)', question)
-        images = copy.deepcopy(sample['media'])
+        media_list = message.get('media', [])
         
         processed_question = ""
         image = None
-        
+        media_idx = 0
         for chunk in q_chunks:
             if len(chunk.strip()) == 0:
                 continue
@@ -43,7 +43,8 @@ class TaskRunner(Task):
             if any(p in chunk for p in constants.all):
                 assert chunk == constants.image, f"BLIP2 only supports image input, got {chunk}"
                 
-                media_file = images.pop(0)
+                media_file = media_list[media_idx]
+                media_idx += 1
                 if isinstance(media_file, str):
                     image = Image.open(media_file).convert('RGB')
                 else:
@@ -55,24 +56,35 @@ class TaskRunner(Task):
         return image, processed_question.strip()
 
     def _generate_response(self, image, question):
-        inputs = self.processor(image, question, return_tensors="pt").to(self.device)
-        generated_ids = self.model.generate(**inputs, **self.gen_kwargs)
+        if image is not None:
+            inputs = self.processor(image, question, return_tensors="pt").to(self.device)
+            generated_ids = self.model.generate(**inputs, **self.gen_kwargs)
+        else:
+            # Text-only: use the language model directly
+            inputs = self.processor(text=question, return_tensors="pt").to(self.device)
+            generated_ids = self.model.language_model.generate(
+                input_ids=inputs["input_ids"],
+                attention_mask=inputs.get("attention_mask"),
+                **self.gen_kwargs
+            )
         output_text = self.processor.decode(generated_ids[0], skip_special_tokens=True)
         
         return output_text
     
     def run_sample(self, sample: dict):
+        message = sample["messages"][0]
         ori_sample = copy.deepcopy(sample)
-        image, question = self._parse_input(ori_sample)
+        image, question = self._parse_input(message)
         
         if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(image, question)
+            response = self._generate_response(image, question)
+            ori_sample["messages"].append({"role": "assistant", "response": response})
         else:
-            ori_sample.update(self._score_choices(image, question, sample))
+            ori_sample.update(self._score_choices(image, question, message))
 
         return ori_sample
 
-    def _score_choices(self, image, question, sample):
+    def _score_choices(self, image, question, message):
         pass
 
 

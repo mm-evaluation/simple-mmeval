@@ -3,7 +3,7 @@ import copy
 
 import torch
 import numpy as np
-from transformers import Qwen2_5OmniForConditionalGeneration, Qwen2_5OmniProcessor
+from transformers import Qwen2_5OmniForConditionalGeneration, Qwen2_5OmniProcessor, AutoConfig
 from qwen_omni_utils import process_mm_info
 
 from mmeval.infer.task import Task
@@ -27,14 +27,25 @@ class TaskRunner(Task):
         super().__init__(args)
         
     def load_model(self, args):
-        self.model = Qwen2_5OmniForConditionalGeneration.from_pretrained(args.model_name_or_path, torch_dtype=self.dtype, **self.model_kwargs)
+        config = AutoConfig.from_pretrained(args.model_name_or_path)
+        quant_config = getattr(config, 'quantization_config', None)
+        
+        if quant_config:
+            quant_config['block_name_to_quantize'] = 'thinker.model.layers'
+        
+        load_kwargs = {'torch_dtype': self.dtype, **self.model_kwargs}
+        
+        if quant_config:
+            load_kwargs['config'] = config
+        
+        self.model = Qwen2_5OmniForConditionalGeneration.from_pretrained(args.model_name_or_path, **load_kwargs)
         self.processor = Qwen2_5OmniProcessor.from_pretrained(args.model_name_or_path)
 
-    def parse_input(self, sample:dict):
-        question = sample["prompt"]
+    def parse_input(self, message:dict):
+        question = message["prompt"]
         # placeholder <>, can be image, video, etc.
         q_chunks = re.split(r'(<(?:image|video)>)', question)
-        media_list = copy.deepcopy(sample['media'])
+        media_list = message.get('media', [])
 
         conversation = [
             {
@@ -49,11 +60,13 @@ class TaskRunner(Task):
             }
         ]
 
+        media_idx = 0
         for chunk in q_chunks:
             if len(chunk.strip()) == 0:
                 continue
             if chunk == constants.image:
-                media = media_list.pop(0)
+                media = media_list[media_idx]
+                media_idx += 1
                 conversation[1]["content"].append(
                     {
                         "type": "image",
@@ -61,7 +74,8 @@ class TaskRunner(Task):
                     }
                 )       
             elif chunk == constants.video:
-                media = media_list.pop(0)
+                media = media_list[media_idx]
+                media_idx += 1
                 conversation[1]["content"].append(
                     {
                         "type": "video",
@@ -84,7 +98,8 @@ class TaskRunner(Task):
         # Inference: Generation of the output text and audio
         text_ids, audio = self.model.generate(**inputs, use_audio_in_video=USE_AUDIO_IN_VIDEO, **self.gen_kwargs)
 
-        text = self.processor.batch_decode(text_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)
+        generated_ids = text_ids[:, inputs["input_ids"].shape[1]:]
+        text = self.processor.batch_decode(generated_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)
 
         return text
 
@@ -105,8 +120,9 @@ class TaskRunner(Task):
     #     }
 
     def run_sample(self, sample: dict):
+        message = sample["messages"][0]
         ori_sample = copy.deepcopy(sample)
-        conversation = self.parse_input(ori_sample)
+        conversation = self.parse_input(message)
 
         # Preparation for inference
         text = self.processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
@@ -115,7 +131,8 @@ class TaskRunner(Task):
         inputs = inputs.to(self.model.device).to(self.model.dtype)
 
         if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(inputs)
+            response = self._generate_response(inputs)
+            ori_sample["messages"].append({"role": "assistant", "response": response})
         else:
             pass
 

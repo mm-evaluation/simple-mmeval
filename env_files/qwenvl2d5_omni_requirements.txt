@@ -1,15 +1,13 @@
 # flash-attn==2.7.3
 
 accelerate
-auto-gptq
-autoawq
-optimum
 datasets
 torch
 torchvision
 git+https://github.com/huggingface/transformers@v4.51.3-Qwen2.5-Omni-preview
-accelerate
 qwen-vl-utils[decord]
 qwen-omni-utils[decord]
 pandas
-numpy
+optimum==1.27.0
+autoawq==0.2.9
+auto-gptq
