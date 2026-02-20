@@ -39,12 +39,11 @@ class ResponseHandler:
         return id_ in self.cache
     
     def check_complete(self, dataset):
-
-        for sample in dataset:
-            if not self.in_cache(sample["eval-id"]):
-                return False
-        print(f"📖 [Shard {self.rank}] Results completed. Saved to {self.out_dir}.")
-        return True
+        """Return the number of incomplete samples. 0 means complete."""
+        incomplete = sum(1 for s in dataset if not self.in_cache(s["eval-id"]))
+        if incomplete == 0:
+            print(f"📖 [Shard {self.rank}] Results completed.")
+        return incomplete
         
     def save(self, result:dict):
         assert "eval-id" in result, "eval-id is required"
