@@ -10,9 +10,12 @@ from PIL import Image
 
 from mmeval.infer.task import Task
 from mmeval.utils import constants
-from mmeval.utils.argparser import parse_args, parse_model_kwargs, parse_gen_kwargs
+from mmeval.utils.argparser import parse_args, parse_model_kwargs, parse_gen_kwargs, filter_gen_kwargs
 
 load_dotenv()
+
+# Gemini uses different parameter names
+GEMINI_GEN_KWARGS_MAPPING = {"max_new_tokens": "max_output_tokens"}
 
 
 class TaskRunner(Task):
@@ -34,7 +37,10 @@ class TaskRunner(Task):
         self.client = genai
         self.model_name = args.model_name_or_path.split("/")[-1]
         self.model = self.client.GenerativeModel(self.model_name)
-        self.generation_config = genai.types.GenerationConfig(**self.gen_kwargs)
+        filtered_kwargs = filter_gen_kwargs(
+            self.gen_kwargs, genai.types.GenerationConfig, GEMINI_GEN_KWARGS_MAPPING
+        )
+        self.generation_config = genai.types.GenerationConfig(**filtered_kwargs)
 
     def _wait_for_file_active(self, video_file, timeout=120, poll_interval=2):
         start_time = time.time()
@@ -57,21 +63,23 @@ class TaskRunner(Task):
             f"Current state: {file.state.name}"
         )
 
-    def parse_input(self, sample: dict):
-        question = sample["prompt"]
+    def parse_input(self, message: dict):
+        question = message["prompt"]
         q_chunks = re.split(r'(<(?:image|video)>)', question)
-        media_list = copy.deepcopy(sample['media'])
-
+        media_list = message.get('media', [])
         contents = []
+        media_idx = 0
 
         for chunk in q_chunks:
             if len(chunk.strip()) == 0:
                 continue
             if chunk == constants.image:
-                image = media_list.pop(0)
+                image = media_list[media_idx]
+                media_idx += 1
                 contents.append(image)
             elif chunk == constants.video:
-                video_path = media_list.pop(0)
+                video_path = media_list[media_idx]
+                media_idx += 1
                 print(f"Uploading video: {video_path}")
                 video_file = self.client.upload_file(path=video_path)
                 print(f"Waiting for video file to become ACTIVE: {video_file.name}")
@@ -92,11 +100,13 @@ class TaskRunner(Task):
         return response.text
 
     def run_sample(self, sample: dict):
+        message = sample["messages"][0]
         ori_sample = copy.deepcopy(sample)
-        contents = self.parse_input(ori_sample)
+        contents = self.parse_input(message)
 
         if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(contents)
+            response = self._generate_response(contents)
+            ori_sample["messages"].append({"role": "assistant", "response": response})
         else:
             raise NotImplementedError("Score target mode not supported for Google Gemini API models")
 

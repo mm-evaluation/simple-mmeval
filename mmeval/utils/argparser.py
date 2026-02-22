@@ -1,5 +1,8 @@
+import inspect
+import warnings
 from dataclasses import dataclass, field
 from typing import Dict, Optional, Sequence, TYPE_CHECKING
+
 import transformers
 
 
@@ -118,4 +121,34 @@ def parse_gen_kwargs(args, default_kwargs=None):
             gen_kwargs[key] = value
 
     return gen_kwargs
+
+
+# Default parameter name mapping (Transformers -> OpenAI-compatible API)
+GEN_KWARGS_MAPPING = {
+    "max_new_tokens": "max_completion_tokens",
+}
+
+
+def filter_gen_kwargs(gen_kwargs, api_method, mapping=None):
+    """Filter and map gen_kwargs to match target API method signature."""
+    if mapping is None:
+        mapping = GEN_KWARGS_MAPPING
+
+    sig = inspect.signature(api_method)
+    supported = set(sig.parameters.keys())
+
+    filtered_kwargs = {}
+    unsupported_kwargs = []
+
+    for key, value in gen_kwargs.items():
+        mapped_key = mapping.get(key, key)
+        if mapped_key in supported:
+            filtered_kwargs[mapped_key] = value
+        else:
+            unsupported_kwargs.append(key)
+
+    if unsupported_kwargs:
+        warnings.warn(f"Unsupported generation parameters will be ignored: {unsupported_kwargs}")
+
+    return filtered_kwargs
 
