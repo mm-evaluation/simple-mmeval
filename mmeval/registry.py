@@ -5,9 +5,9 @@ load_dotenv()
 env_dir = os.getenv('ENV_DIR') or ""
 
 series_mapping = {
-    "blip2_flan_t5": ["blip2-flan-t5-xl", "blip2-flan-t5-xxl"],
+    "blip2": ["blip2-flan-t5-xl", "blip2-flan-t5-xxl"],
     "cambrian": ["cambrian-8b", "cambrian-13b", "cambrian-34b", "cambrian-phi3-3b"],
-    "fuyu": ["fuyu-8B"],
+    "fuyu": ["fuyu-8b"],
     "gemma3": ["gemma-3-4b-it", "gemma-3-12b-it", "gemma-3-27b-it"],
     "llama3d2_vision": ["Llama-3.2-11B-Vision-Instruct", "Llama-3.2-90B-Vision-Instruct"],
     "llama4": ["Llama-4-Scout-17B-16E-Instruct", "Llama-4-Scout-17B-16E", "Llama-4-Maverick-17B-128E-Instruct", "Llama-4-Maverick-17B-128E"],
@@ -35,8 +35,8 @@ series_mapping = {
     "llava_next": ["llava-v1.6-mistral-7b-hf", "llava-v1.6-vicuna-7b-hf", "llava-v1.6-vicuna-13b-hf", "llava-v1.6-34b-hf", "llama3-llava-next-8b-hf", "llava-next-72b-hf", "llava-next-110b-hf"],
     "llava_next_interleave": ["llava-next-interleave-qwen-0.5b", "llava-next-interleave-qwen-7b", "llava-next-interleave-qwen-7b-dpo"],
     "llava_ov": ["llava-onevision-qwen2-0.5b-si-hf",  "llava-onevision-qwen2-7b-si-hf", "llava-onevision-qwen2-72b-si-hf", 
-    "llava-onevision-qwen2-0.5b-ov-hf","llava-onevision-qwen2-7b-ov-hf", "llava-onevision-qwen2-72b-ov-hf",  
-    "llava-onevision-qwen2-7b-ov-chat-hf", "llava-onevision-qwen2-72b-ov-chat-hf"],
+                 "llava-onevision-qwen2-0.5b-ov-hf","llava-onevision-qwen2-7b-ov-hf", "llava-onevision-qwen2-72b-ov-hf",  
+                 "llava-onevision-qwen2-7b-ov-chat-hf", "llava-onevision-qwen2-72b-ov-chat-hf"],
     "mantis": ["Mantis-8B-clip-llama3", "Mantis-8B-siglip-llama3"],
     "mantis_fuyu": ["Mantis-8B-Fuyu"],
     "mantis_idefics2": ["Mantis-8B-Idefics2"],
@@ -53,36 +53,38 @@ series_mapping = {
     "ovis1d6": ["Ovis1.6-Llama3.2-3B", "Ovis1.6-Gemma2-9B"],
     "ovis1d6_27b": ["Ovis1.6-Gemma2-27B"],
     "ovis2d5": ["Ovis2.5-2B", "Ovis2.5-9B"],
-    # "qwenvl2": ["Qwen2-VL-2B-Instruct", "Qwen2-VL-7B-Instruct", "Qwen2-VL-72B-Instruct",
-    #             "Qwen2-VL-2B-Instruct-AWQ", "Qwen2-VL-7B-Instruct-AWQ", "Qwen2-VL-72B-Instruct-AWQ",
-    #             "Qwen2-VL-2B-Instruct-GPTQ-Int4", "Qwen2-VL-7B-Instruct-GPTQ-Int4", "Qwen2-VL-72B-Instruct-GPTQ-Int4"],
-    # "qwenvl2d5": ["Qwen2.5-VL-3B-Instruct", "Qwen2.5-VL-7B-Instruct", "Qwen2.5-VL-32B-Instruct", "Qwen2.5-VL-72B-Instruct",
-    #               "Qwen2.5-VL-3B-Instruct-AWQ", "Qwen2.5-VL-7B-Instruct-AWQ", "Qwen2.5-VL-32B-Instruct-AWQ", "Qwen2.5-VL-72B-Instruct-AWQ"],
-    # "qwenvl2d5_omni": ["Qwen2.5-Omni-3B", "Qwen2.5-Omni-7B", "Qwen2.5-Omni-7B-AWQ", "Qwen2.5-Omni-7B-GPTQ-Int4"],
-    "qwenvl2": ["Qwen2-VL-2B-Instruct", "Qwen2-VL-7B-Instruct", "Qwen2-VL-72B-Instruct"],
-    "qwenvl2d5": ["Qwen2.5-VL-3B-Instruct", "Qwen2.5-VL-7B-Instruct", "Qwen2.5-VL-32B-Instruct", "Qwen2.5-VL-72B-Instruct"],
-    "qwenvl2d5_omni": ["Qwen2.5-Omni-3B", "Qwen2.5-Omni-7B"],
-    "qwen3_vl": ["Qwen3-VL-2B-Instruct", "Qwen3-VL-4B-Instruct", "Qwen3-VL-8B-Instruct", "Qwen3-VL-30B-A3B-Instruct", "Qwen3-VL-32B-Instruct", "Qwen3-VL-235B-A22B-Instruct", 
-                 "Qwen3-VL-2B-Thinking", "Qwen3-VL-4B-Thinking", "Qwen3-VL-8B-Thinking", "Qwen3-VL-30B-A3B-Thinking", "Qwen3-VL-32B-Thinking", "Qwen3-VL-235B-A22B-Thinking", 
-                 "Qwen3-VL-2B-Instruct-FP8", "Qwen3-VL-4B-Instruct-FP8", "Qwen3-VL-8B-Instruct-FP8", "Qwen3-VL-30B-A3B-Instruct-FP8", "Qwen3-VL-32B-Instruct-FP8", "Qwen3-VL-235B-A22B-Instruct-FP8", 
-                 "Qwen3-VL-2B-Thinking-FP8", "Qwen3-VL-4B-Thinking-FP8", "Qwen3-VL-8B-Thinking-FP8", "Qwen3-VL-30B-A3B-Thinking-FP8", "Qwen3-VL-32B-Thinking-FP8", "Qwen3-VL-235B-A22B-Thinking-FP8"],
+    "qwenvl2": ["Qwen2-VL-2B-Instruct", "Qwen2-VL-7B-Instruct", "Qwen2-VL-72B-Instruct",
+                "Qwen2-VL-2B-Instruct-AWQ", "Qwen2-VL-7B-Instruct-AWQ", "Qwen2-VL-72B-Instruct-AWQ",
+                "Qwen2-VL-2B-Instruct-GPTQ-Int4", "Qwen2-VL-7B-Instruct-GPTQ-Int4", "Qwen2-VL-72B-Instruct-GPTQ-Int4"],
+    "qwenvl2d5": ["Qwen2.5-VL-3B-Instruct", "Qwen2.5-VL-7B-Instruct", "Qwen2.5-VL-32B-Instruct", "Qwen2.5-VL-72B-Instruct",
+                  "Qwen2.5-VL-3B-Instruct-AWQ", "Qwen2.5-VL-7B-Instruct-AWQ", "Qwen2.5-VL-32B-Instruct-AWQ", "Qwen2.5-VL-72B-Instruct-AWQ"],
+    "qwenvl2d5_omni": ["Qwen2.5-Omni-3B", "Qwen2.5-Omni-7B", "Qwen2.5-Omni-7B-GPTQ-Int4"],
+    "qwen3_vl": ["Qwen3-VL-2B-Instruct", "Qwen3-VL-4B-Instruct", "Qwen3-VL-8B-Instruct", "Qwen3-VL-32B-Instruct", "Qwen3-VL-30B-A3B-Instruct", "Qwen3-VL-235B-A22B-Instruct", 
+                 "Qwen3-VL-2B-Thinking", "Qwen3-VL-4B-Thinking", "Qwen3-VL-8B-Thinking", "Qwen3-VL-32B-Thinking", "Qwen3-VL-30B-A3B-Thinking", "Qwen3-VL-235B-A22B-Thinking"],
+    "qwen3_omni": ["Qwen3-Omni-30B-A3B-Instruct", "Qwen3-Omni-30B-A3B-Thinking", "Qwen3-Omni-30B-A3B-Captioner"],
     "videollama2": ["VideoLLaMA2-7B"],
     "vlaa_thinking": ["VLAA-Thinker-Qwen2VL-2B", "VLAA-Thinker-Qwen2VL-7B", "VLAA-Thinker-Qwen2VL-7B-Zero", "VLAA-Thinker-Qwen2.5VL-3B", "VLAA-Thinker-Qwen2.5VL-7B"],
     "r1_onevision": ["R1-Onevision-7B"],
     "wemm": ["WeMM", "WeMM-Chat-CN", "WeMM-Chat-2k-CN"],
-    "openai_gpt": ["gpt-4o", "gpt-4o-mini", "gpt-4-turbo", "gpt-4.1", "gpt-4.1-mini", "gpt-4.1-nano", "gpt-5.1", "gpt-5", "gpt-5-mini"],
-    "google_gemini": ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash", "gemini-2.0-flash-lite"],
-    "anthropic_claude": ["claude-sonnet-4-5", "claude-opus-4-1", "claude-haiku-4-5"],
-    "xai_grok": ["grok-4-fast-reasoning", "grok-4-fast-non-reasoning", "grok-4-0709", "grok-2-vision-1212"],
-    "doubao_ark": ["doubao-seed-1-6-vision-250815"],
-    "hunyuan_vision": ["hunyuan-vision", "hunyuan-t1-vision", "hunyuan-turbos-vision", "hunyuan-large-vision"],
+    "openai_gpt": ["gpt-4o-mini", "gpt-4o", "gpt-4.1-nano", "gpt-4.1-mini", "gpt-4.1", "gpt-5-nano", "gpt-5-mini", "gpt-5", "gpt-5.1", "gpt-5.2"],
+    "google_gemini": ["gemini-2.5-flash-lite", "gemini-2.5-flash", "gemini-2.5-pro",
+                      "gemini-3-flash-preview", "gemini-3-pro-preview", "gemini-3-pro-image-preview"],
+    "anthropic_claude": [
+        "claude-haiku-4-5",
+        "claude-sonnet-4-0", "claude-sonnet-4-5", "claude-sonnet-4-6",
+        "claude-opus-4-0", "claude-opus-4-1", "claude-opus-4-5", "claude-opus-4-6",
+    ],
+    "xai_grok": ["grok-2-vision-1212", "grok-4-0709", "grok-4-fast-non-reasoning", "grok-4-fast-reasoning", "grok-4-1-fast-non-reasoning", "grok-4-1-fast-reasoning"],
+    "doubao_ark": ["doubao-seed-1-6-vision-250815", "doubao-seed-1-6-flash-250828", "doubao-seed-1-6-lite-251015", "doubao-seed-1-8-251228", "doubao-seed-code-preview-251028",
+                   "doubao-seed-2-0-mini-260215", "doubao-seed-2-0-lite-260215", "doubao-seed-2-0-code-preview-260215", "doubao-seed-2-0-pro-260215"],
+    "hunyuan_vision": ["hunyuan-vision", "hunyuan-vision-1.5-instruct", "hunyuan-t1-vision", "hunyuan-turbos-vision", "hunyuan-large-vision"],
     "cosmos_reason2": ["Cosmos-Reason2-2B", "Cosmos-Reason2-8B"],
 }
 
 series_infer_env_mapping = {
-    "blip2_flan_t5": {
-        "env": os.path.join(env_dir, "blip2_flan_t5"),
-        "infer_file": "blip2_flan_t5.py",
+    "blip2": {
+        "env": os.path.join(env_dir, "blip2"),
+        "infer_file": "blip2.py",
     },
     "cambrian": {
         "env": os.path.join(env_dir, "cambrian"),
@@ -105,7 +107,7 @@ series_infer_env_mapping = {
         "infer_file": "instructblip.py",
     },
     "internlm_xcomposer": {
-        "env": os.path.join(env_dir, "internlm"),
+        "env": os.path.join(env_dir, "internlm_xcomposer"),
         "infer_file": "internlm_xcomposer.py",
     },
     "internvl2": {
@@ -259,6 +261,10 @@ series_infer_env_mapping = {
     "qwen3_vl": {
         "env": os.path.join(env_dir, "qwen3_vl"),
         "infer_file": "qwen3_vl.py",
+    },
+    "qwen3_omni": {
+        "env": os.path.join(env_dir, "qwen3_omni"),
+        "infer_file": "qwen3_omni.py",
     },
     "videollama2": {
         "env": os.path.join(env_dir, "videollama2"),
