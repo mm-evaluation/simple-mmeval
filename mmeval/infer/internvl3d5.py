@@ -143,7 +143,7 @@ class TaskRunner(Task):
         self.num_segments = 8
         self.default_model_kwargs = {"device_map": "auto", "low_cpu_mem_usage": True}
         # self.default_gen_kwargs = {"max_new_tokens": 1024, "do_sample": True}
-        self.default_gen_kwargs = {"num_beams": 1, "top_k": 50, "top_p": 0.9, "sample": False, "max_new_tokens": 1024}
+        self.default_gen_kwargs = {"num_beams": 1, "top_k": 50, "top_p": 0.9, "do_sample": False, "max_new_tokens": 1024}
         self.model_kwargs = parse_model_kwargs(args, self.default_model_kwargs)
         self.gen_kwargs = parse_gen_kwargs(args, self.default_gen_kwargs)
 
@@ -166,19 +166,22 @@ class TaskRunner(Task):
         question = question.replace("<image>", "<image>\n")
         question = question.replace("<video>", ''.join([f'Frame{i+1}: <image>\n' for i in range(self.num_segments)]))
 
-        media_list = copy.deepcopy(message['media'])
+        media_list = message.get('media', [])
         pixel_values_list = []
         num_patches_list = []
+        media_idx = 0
         for chunk in q_chunks:
             if len(chunk.strip()) == 0:
                 continue
             if chunk == constants.image:
-                image = media_list.pop(0)
+                image = media_list[media_idx]
+                media_idx += 1
                 image_pixel_values = load_image(image, max_num=12)
                 pixel_values_list.append(image_pixel_values)
                 num_patches_list.append(image_pixel_values.size(0))
             elif chunk == constants.video:
-                video = media_list.pop(0)
+                video = media_list[media_idx]
+                media_idx += 1
                 video_pixel_values_list, video_num_patches_list = load_video(video, num_segments=self.num_segments, max_num=1)
                 pixel_values_list.extend(video_pixel_values_list)
                 num_patches_list.extend(video_num_patches_list)
