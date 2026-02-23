@@ -77,7 +77,7 @@ class TaskRunner(Task):
         self.num_segments = 8
         self.default_model_kwargs = {"device_map": split_model(re.split(r'/', args.model_name_or_path)[-1]), "low_cpu_mem_usage": True}
         # self.default_gen_kwargs = {"max_new_tokens": 1024, "do_sample": True}
-        self.default_gen_kwargs = {"num_beams": 1, "top_k": 50, "top_p": 0.9, "sample": False, "max_new_tokens": 20}
+        self.default_gen_kwargs = {"num_beams": 1, "top_k": 50, "top_p": 0.9, "do_sample": False, "max_new_tokens": 20}
         self.model_kwargs = parse_model_kwargs(args, self.default_model_kwargs)
         self.gen_kwargs = parse_gen_kwargs(args, self.default_gen_kwargs)
 
@@ -93,27 +93,30 @@ class TaskRunner(Task):
             **self.model_kwargs).eval()
         self.tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path, trust_remote_code=True, use_fast=False)
         
-    def _parse_input(self, sample:dict):
-        question = sample["prompt"]
+    def _parse_input(self, message:dict):
+        question = message["prompt"]
         q_chunks = re.split(r'(<(?:image|video)>)', question)
         question = question.replace("<image>", "<image>\n")
         question = question.replace("<video>", ''.join([f'Frame{i+1}: <image>\n' for i in range(self.num_segments)]))
 
-        image_processor = CLIPImageProcessor.from_pretrained(args.model_name_or_path)
-        media_list = copy.deepcopy(sample['media'])
+        image_processor = CLIPImageProcessor.from_pretrained(self.args.model_name_or_path)
+        media_list = message.get('media', [])
         pixel_values_list = []
         num_patches_list = []
+        media_idx = 0
         for chunk in q_chunks:
             if len(chunk.strip()) == 0:
                 continue
             if chunk == constants.image:
-                image = media_list.pop(0)
+                image = media_list[media_idx]
+                media_idx += 1
                 resized_image = image.resize((448, 448), resample=Image.Resampling.LANCZOS)
                 image_pixel_values = image_processor(images=resized_image, return_tensors='pt').pixel_values
                 pixel_values_list.append(image_pixel_values)
                 num_patches_list.append(image_pixel_values.size(0))
             elif chunk == constants.video:
-                video = media_list.pop(0)
+                video = media_list[media_idx]
+                media_idx += 1
                 video_pixel_values_list, video_num_patches_list = load_video(video, num_segments=self.num_segments)
                 pixel_values_list.extend(video_pixel_values_list)
                 num_patches_list.extend(video_num_patches_list)
@@ -131,11 +134,13 @@ class TaskRunner(Task):
         return response
     
     def run_sample(self, sample: dict):
+        message = sample["messages"][0]
         ori_sample = copy.deepcopy(sample)
-        question, pixel_values, num_patches_list = self._parse_input(ori_sample)
+        question, pixel_values, num_patches_list = self._parse_input(message)
 
         if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(question, pixel_values, num_patches_list)
+            response = self._generate_response(question, pixel_values, num_patches_list)
+            ori_sample["messages"].append({"role": "assistant", "response": response})
         else:
             pass
 
