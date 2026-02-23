@@ -10,7 +10,7 @@ from PIL import Image
 
 from mmeval.infer.task import Task
 from mmeval.utils import constants
-from mmeval.utils.argparser import parse_args, parse_model_kwargs, parse_gen_kwargs
+from mmeval.utils.argparser import parse_args, parse_model_kwargs, parse_gen_kwargs, filter_gen_kwargs
  
 load_dotenv()
 
@@ -39,19 +39,21 @@ class TaskRunner(Task):
         
         self.client = OpenAI(api_key=api_key, **self.model_kwargs)
         self.model_name = args.model_name_or_path.split("/")[-1]
+        self.gen_kwargs = filter_gen_kwargs(self.gen_kwargs, self.client.chat.completions.create)
 
-    def parse_input(self, sample: dict):
-        question = sample["prompt"]
+    def parse_input(self, message: dict):
+        question = message["prompt"]
         q_chunks = re.split(r'(<(?:image|video)>)', question)
-        media_list = copy.deepcopy(sample['media'])
-
+        media_list = message.get('media', [])
         content = []
+        media_idx = 0
 
         for chunk in q_chunks:
             if len(chunk.strip()) == 0:
                 continue
             if chunk == constants.image:
-                image = media_list.pop(0)
+                image = media_list[media_idx]
+                media_idx += 1
                 base64_image = encode_image(image)
                 content.append({
                     "type": "image_url",
@@ -84,11 +86,13 @@ class TaskRunner(Task):
         return response.choices[0].message.content
 
     def run_sample(self, sample: dict):
+        message = sample["messages"][0]
         ori_sample = copy.deepcopy(sample)
-        content = self.parse_input(ori_sample)
+        content = self.parse_input(message)
 
         if not self.args.score_target:
-            ori_sample["response"] = self._generate_response(content)
+            response = self._generate_response(content)
+            ori_sample["messages"].append({"role": "assistant", "response": response})
         else:
             raise NotImplementedError("Score target mode not supported for OpenAI API models")
 
