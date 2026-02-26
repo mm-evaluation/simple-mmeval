@@ -1,0 +1,283 @@
+# Usage Guide
+
+This document covers how to run evaluations with Simple-MMEval, including quick start examples, the full command-line reference, prompt template configuration, caching and resume behavior, and output format. For general overview, see the main [README](../../README.md).
+
+---
+
+- [Quick Start](#quick-start)
+- [Command-Line Reference](#command-line-reference)
+- [Prompt Template System](#prompt-template-system)
+- [Resume and Caching](#resume-and-caching)
+- [Output Format](#output-format)
+
+---
+
+## Quick Start
+
+All examples assume you are in the project root with `PYTHONPATH` set:
+
+```bash
+export PYTHONPATH=./:$PYTHONPATH
+```
+
+### Example 1: Local JSON dataset
+
+Evaluate a model on a local JSON file containing image/video samples:
+
+```bash
+python mmeval/run.py \
+    --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct \
+    --dataset local@json \
+    --infile tests/samples/multi_image_video_interleave.json \
+    --img_dir tests/media/448 \
+    --out_dir work_dirs/local_test \
+    --gpu_per_parallel 1 \
+    --parallel_per_task 1
+```
+
+### Example 2: HuggingFace dataset (mm-eval format)
+
+Run evaluation on a HuggingFace-hosted dataset with built-in prompt templates:
+
+```bash
+python mmeval/run.py \
+    --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct \
+    --dataset mmeval_hf@mm-eval/MMBench-en-V11 \
+    --split test \
+    --out_dir work_dirs/mmbench_test \
+    --gpu_per_parallel 1 \
+    --parallel_per_task 8
+```
+
+### Example 3: VLMEvalKit dataset
+
+Use any of 100+ datasets from VLMEvalKit (auto-downloaded):
+
+```bash
+# By dataset name (auto-downloads TSV from HuggingFace)
+python mmeval/run.py \
+    --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct \
+    --dataset evalkit@MM-Math \
+    --out_dir work_dirs/mm_math_test \
+    --gpu_per_parallel 1 \
+    --parallel_per_task 8
+
+# By direct TSV URL
+python mmeval/run.py \
+    --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct \
+    --dataset https://huggingface.co/datasets/mm-eval/VLMEvalKit/resolve/main/3DSRBench.tsv \
+    --out_dir work_dirs/3dsrbench_test \
+    --gpu_per_parallel 1 \
+    --parallel_per_task 8
+
+# By local TSV path
+python mmeval/run.py \
+    --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct \
+    --dataset datasets/MM-Math.tsv \
+    --out_dir work_dirs/mm_math_local \
+    --gpu_per_parallel 1 \
+    --parallel_per_task 8
+```
+
+### Example 4: Text-only (no media)
+
+```bash
+python mmeval/run.py \
+    --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct \
+    --dataset local@json \
+    --infile tests/samples/no_media.json \
+    --out_dir work_dirs/text_test \
+    --gpu_per_parallel 1 \
+    --parallel_per_task 1
+```
+
+### Example 5: Multi-GPU parallel inference
+
+Distribute inference across multiple GPUs with automatic data sharding:
+
+```bash
+python mmeval/run.py \
+    --model_name_or_path Qwen/Qwen2.5-VL-72B-Instruct \
+    --dataset mmeval_hf@mm-eval/MMBench-en-V11 \
+    --split test \
+    --out_dir work_dirs/mmbench_72b \
+    --gpu_per_parallel 4 \
+    --parallel_per_task 2
+```
+
+This allocates 4 GPUs per worker and runs 2 parallel workers (requiring 8 GPUs total).
+
+---
+
+## Command-Line Reference
+
+All arguments are passed to `python mmeval/run.py` and organized into the following groups.
+
+### Model Arguments
+
+| Argument | Type | Default | Description |
+|----------|------|---------|-------------|
+| `--model_name_or_path` | str | -- | HuggingFace model ID, local path, or API model name |
+| `--dtype` | str | None | Override default dtype (e.g., `float16`, `bfloat16`) |
+| `--device_map` | str | None | Device placement strategy (e.g., `auto`) |
+| `--attn_implementation` | str | None | Attention implementation (e.g., `flash_attention_2`) |
+| `--low_cpu_mem_usage` | bool | None | Reduce CPU memory usage during model loading |
+
+### Data Arguments
+
+| Argument | Type | Default | Description |
+|----------|------|---------|-------------|
+| `--dataset` | str | -- | Dataset specifier (see [Supported Datasets](SUPPORTED.md#supported-datasets)) |
+| `--infile` | str | None | Input file path (required for `local@json`) |
+| `--img_dir` | str | None | Base directory for resolving relative media paths |
+| `--split` | str | None | Dataset split (for HuggingFace datasets, e.g., `test`, `dev`) |
+| `--template` | str | None | Path to a Jinja2 template file or a template string |
+| `--resize` | int | None | Resize all images to this pixel size (e.g., `448`) |
+
+### Inference Arguments
+
+| Argument | Type | Default | Description |
+|----------|------|---------|-------------|
+| `--out_dir` | str | -- | Output directory for results and cache |
+| `--resume` | bool | True | Resume from existing cache (skip completed samples) |
+| `--save_freq` | int | 3 | Number of results to buffer before flushing to SQLite |
+| `--max_retry` | int | 1 | Maximum number of full-dataset retry passes |
+| `--max_retry_sample` | int | 1 | Maximum retries per sample within a pass |
+
+### Generation Arguments
+
+| Argument | Type | Default | Description |
+|----------|------|---------|-------------|
+| `--max_new_tokens` | int | None | Maximum tokens to generate |
+| `--max_length` | int | None | Maximum total sequence length |
+| `--min_new_tokens` | int | None | Minimum tokens to generate |
+| `--min_length` | int | None | Minimum total sequence length |
+| `--temperature` | float | None | Sampling temperature |
+| `--top_k` | int | None | Top-k sampling |
+| `--top_p` | float | None | Nucleus sampling threshold |
+| `--min_p` | float | None | Minimum token probability (scaled by top token probability) |
+| `--do_sample` | bool | None | Enable sampling (vs. greedy decoding) |
+| `--num_beams` | int | None | Beam search width |
+| `--early_stopping` | bool | None | Stopping condition for beam-based methods |
+| `--max_time` | float | None | Maximum generation time in seconds |
+| `--use_cache` | bool | None | Use KV cache to speed up decoding |
+| `--cache_implementation` | str | None | Cache class for `generate` (e.g., `quantized`) |
+| `--repetition_penalty` | float | None | Repetition penalty (1.0 = no penalty) |
+| `--diversity_penalty` | float | None | Diversity penalty for group beam search |
+| `--length_penalty` | float | None | Exponential length penalty for beam search |
+
+### Experiment Arguments
+
+| Argument | Type | Default | Description |
+|----------|------|---------|-------------|
+| `--gpu_per_parallel` | int | 1 | Number of GPUs allocated to each parallel worker |
+| `--parallel_per_task` | int | 4 | Number of parallel workers to spawn |
+
+---
+
+## Prompt Template System
+
+Simple-MMEval uses [Jinja2](https://jinja.palletsprojects.com/) templates to construct prompts from structured sample data. Templates are resolved in the following priority order:
+
+1. **User template** (`--template` argument) -- highest priority
+2. **Dataset template** -- provided by the dataset itself (e.g., HuggingFace `jinja_template` in metadata)
+3. **Default template** ([`mmeval/data/default_template.txt`](mmeval/data/default_template.txt)) -- fallback
+
+The default template renders `question`, `options`, and `hint` fields:
+
+```jinja2
+{{ question }}{% if options %}
+Options:
+{% for k, v in options.items() %}{{ k }}. {{ v }}{% if not loop.last %}
+{% endif %}{% endfor %}{% endif %}{% if hint %}
+Hint: {{ hint }}{% endif %}
+```
+
+**Example**: Given a sample with `question`, `options`, and `hint`, the default template produces:
+
+```
+What is shown in the image?
+Options:
+A. A truck
+B. A dog
+C. A boat
+D. A plane
+Hint: Please choose the correct option.
+```
+
+To use a custom template, either pass a file path or an inline string:
+
+```bash
+# File path
+--template path/to/my_template.txt
+
+# Inline string
+--template "Answer the question: {{ question }}"
+```
+
+If a sample's message already contains a `prompt` field, it is used directly and template rendering is skipped for that message.
+
+---
+
+## Resume and Caching
+
+Simple-MMEval uses an SQLite-based key-value store (`cache.db`) for multi-process safe incremental result persistence.
+
+**How it works:**
+
+- Each completed sample is written to `cache.db` in the output directory
+- Results are buffered in memory and flushed every `--save_freq` samples (default: 3)
+- On restart with `--resume True` (the default), completed samples are skipped automatically
+- The cache is shared across all parallel workers using SQLite WAL mode with retry logic for lock contention
+- After all workers finish, `run.py` merges the cache into a final `result.json` and deletes `cache.db`
+
+```bash
+# Resume an interrupted run (default behavior)
+python mmeval/run.py \
+    --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct \
+    --dataset local@json \
+    --infile tests/samples/multi_image_video_interleave.json \
+    --img_dir tests/media/448 \
+    --out_dir work_dirs/resume_test \
+    --gpu_per_parallel 1 \
+    --parallel_per_task 8 \
+    --resume True
+```
+
+If a `result.json` already exists in `--out_dir` and `--resume` is set, the runner exits immediately without re-running inference.
+
+---
+
+## Output Format
+
+After inference completes, results are saved to `<out_dir>/result.json` -- a JSON array sorted by `eval-id`. Each entry contains the original sample fields plus an appended assistant message with the model's response:
+
+```json
+[
+  {
+    "id": 0,
+    "media": ["truck.png"],
+    "messages": [
+      {
+        "role": "user",
+        "question": "<image> Please provide a detailed description of the contents shown in the image.",
+        "prompt": "<image> Please provide a detailed description of the contents shown in the image."
+      },
+      {
+        "role": "assistant",
+        "response": ["The image shows a dark gray GMC Sierra pickup truck ..."]
+      }
+    ],
+    "eval-id": 0
+  }
+]
+```
+
+Key output fields:
+
+| Field | Description |
+|-------|-------------|
+| `eval-id` | Framework-assigned integer index (used for sharding and caching) |
+| `messages[-1].role` | Always `"assistant"` for the model's response |
+| `messages[-1].response` | Model output -- a list of strings containing the generated text |
+| `media` | Original media paths (PIL Image objects are replaced with `"Image Object"` placeholder) |

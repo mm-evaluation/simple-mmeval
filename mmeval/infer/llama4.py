@@ -30,7 +30,7 @@ class TaskRunner(Task):
         prompt = message["prompt"]
         # placeholder <>, can be image, video, audio, etc.
         q_chunks = re.split(r'(<(?:image|video)>)', prompt)
-        media = copy.deepcopy(message['media'])
+        media_list = message.get('media', [])
 
         messages = [
             {
@@ -39,11 +39,13 @@ class TaskRunner(Task):
             }
         ]
 
+        media_idx = 0
         for chunk in q_chunks:
             if len(chunk.strip()) == 0:
                 continue
             if chunk == constants.image:
-                media_file = media.pop(0)
+                media_file = media_list[media_idx]
+                media_idx += 1
                 messages[0]["content"].append(
                     {
                         "type": "image",

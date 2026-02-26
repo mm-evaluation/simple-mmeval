@@ -34,7 +34,7 @@ class TaskRunner(Task):
     def _parse_input(self, message):
         question = message["prompt"]
         q_chunks = re.split(r'(<(?:image|video)>)', question)
-        media_list = copy.deepcopy(message["media"])
+        media_list = message.get('media', [])
 
         messages = [
             {
@@ -52,11 +52,13 @@ class TaskRunner(Task):
             }
         ]
 
+        media_idx = 0
         for chunk in q_chunks:
             if len(chunk.strip()) == 0:
                 continue
             if chunk == constants.image:
-                media = media_list.pop(0)
+                media = media_list[media_idx]
+                media_idx += 1
                 messages[1]["content"].append(
                     {
                         "type": "image",
@@ -64,7 +66,8 @@ class TaskRunner(Task):
                     }
                 )       
             elif chunk == constants.video:
-                media = media_list.pop(0)
+                media = media_list[media_idx]
+                media_idx += 1
                 messages[1]["content"].append(
                     {
                         "type": "video",
