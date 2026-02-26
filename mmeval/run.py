@@ -1,7 +1,6 @@
 import os
 import time
 import subprocess
-import torch
 import json
 import copy
 
@@ -25,7 +24,18 @@ if __name__ == "__main__":
     infer_env = series_infer_env_mapping[series]["env"]
     parallel_per_task  = args.parallel_per_task
     gpu_per_parallel = args.gpu_per_parallel
-    total_gpus = torch.cuda.device_count()
+    # Get GPU count via nvidia-smi (respects CUDA_VISIBLE_DEVICES)
+    result = subprocess.run(
+        ["nvidia-smi", "-L"],
+        capture_output=True,
+        text=True,
+        env=os.environ.copy(),
+    )
+    total_gpus = (
+        len([l for l in result.stdout.strip().splitlines() if l.strip()])
+        if result.returncode == 0
+        else 0
+    )
 
     if os.path.exists(os.path.join(args.out_dir, "result.json")) and args.resume:
         # exit and return success

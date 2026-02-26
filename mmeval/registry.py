@@ -1,7 +1,5 @@
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
 env_dir = os.getenv('ENV_DIR') or ""
 
 series_mapping = {
