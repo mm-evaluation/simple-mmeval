@@ -28,7 +28,8 @@ if __name__ == "__main__":
     # Initialize GPU pool: respect CUDA_VISIBLE_DEVICES
     cvd = os.environ.get("CUDA_VISIBLE_DEVICES", "").strip()
     if cvd:
-        available_gpus = [int(x.strip()) for x in cvd.split(",") if x.strip()]
+        # Treat CUDA_VISIBLE_DEVICES entries as opaque strings (supports numeric IDs and GPU/MIG UUIDs)
+        available_gpus = [x.strip() for x in cvd.split(",") if x.strip()]
         total_gpus = len(available_gpus)
     else:
         # Get GPU count via nvidia-smi when CVD not set (handles MIG)
