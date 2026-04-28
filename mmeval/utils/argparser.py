@@ -9,6 +9,7 @@ from typing import Dict, Optional, Sequence, get_args
 @dataclass
 class ModelArguments:
     model_name_or_path: Optional[str] = field(default=None)
+    model_series: Optional[str] = field(default=None)
 
     # parameters for model
     low_cpu_mem_usage: Optional[bool] = field(default=None, metadata={"help": "Tries to not use more than 1x model size in CPU memory (including peak memory) while loading the model."})
