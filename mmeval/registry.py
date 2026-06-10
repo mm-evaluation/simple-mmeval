@@ -77,6 +77,7 @@ series_mapping = {
                    "doubao-seed-2-0-mini-260215", "doubao-seed-2-0-lite-260215", "doubao-seed-2-0-code-preview-260215", "doubao-seed-2-0-pro-260215"],
     "hunyuan_vision": ["hunyuan-vision", "hunyuan-vision-1.5-instruct", "hunyuan-t1-vision", "hunyuan-turbos-vision", "hunyuan-large-vision"],
     "cosmos_reason2": ["Cosmos-Reason2-2B", "Cosmos-Reason2-8B"],
+    "aria": ["Aria"],
 }
 
 series_infer_env_mapping = {
@@ -315,5 +316,9 @@ series_infer_env_mapping = {
     "cosmos_reason2": {
         "env": os.path.join(env_dir, "cosmos_reason2"),
         "infer_file": "cosmos_reason2.py",
+    },
+    "aria": {
+        "env": os.path.join(env_dir, "aria"),
+        "infer_file": "aria.py",
     },
 }
