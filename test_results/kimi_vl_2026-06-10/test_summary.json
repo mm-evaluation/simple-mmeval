@@ -1,0 +1,20 @@
+{
+  "model_series": "kimi_vl",
+  "model_name": "moonshotai/Kimi-VL-A3B-Instruct",
+  "test_date": "2026-06-10",
+  "conda_env": "/raid/ztw/envs/kimi_vl",
+  "env_summary": "transformers==4.48.2",
+  "status": "PASS",
+  "modalities_tested": {
+    "no_media": {
+      "status": "pass",
+      "rows": 2,
+      "result_path": "/raid/ztw/simple-mmeval-test-result/work_dirs/kimi_vl/2026-06-10/no_media/result.json"
+    },
+    "single_image_start": {
+      "status": "pass",
+      "rows": 2,
+      "result_path": "/raid/ztw/simple-mmeval-test-result/work_dirs/kimi_vl/2026-06-10/single_image_start/result.json"
+    }
+  }
+}
