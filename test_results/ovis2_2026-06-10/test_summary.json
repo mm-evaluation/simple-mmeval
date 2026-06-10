@@ -1,0 +1,20 @@
+{
+  "model_series": "ovis2",
+  "model_name": "AIDC-AI/Ovis2-8B",
+  "test_date": "2026-06-10",
+  "conda_env": "/raid/ztw/envs/ovis2",
+  "env_summary": "transformers==4.46.2 + flash_attn==2.6.3",
+  "status": "PASS",
+  "modalities_tested": {
+    "no_media": {
+      "status": "pass",
+      "rows": 2,
+      "result_path": "/raid/ztw/simple-mmeval-test-result/work_dirs/ovis2/2026-06-10/no_media/result.json"
+    },
+    "single_image_start": {
+      "status": "pass",
+      "rows": 2,
+      "result_path": "/raid/ztw/simple-mmeval-test-result/work_dirs/ovis2/2026-06-10/single_image_start/result.json"
+    }
+  }
+}
