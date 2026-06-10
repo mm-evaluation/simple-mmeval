@@ -1,0 +1,48 @@
+[
+    {
+        "id": 0,
+        "media": [
+            "truck.png"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": "The image features a GMC pickup truck prominently displayed in an outdoor setting, likely on sandy or dusty terrain. The vehicle is captured from a front three-quarter angle, showcasing its bold and robust design. It has a dark metallic gray exterior finish which gives it a sleek yet rugged appearance.\n\nThe front fascia of the truck includes"
+            }
+        ],
+        "comment": "Test 'single image start' modality.",
+        "eval-id": 0
+    },
+    {
+        "id": 1,
+        "media": [
+            "boat.png"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": "The image depicts a sleek, modern yacht cruising at high speed across the ocean. The vessel is predominantly white with clean lines and an aerodynamic design, emphasizing luxury and performance. It features large windows along the side of the cabin area, suggesting spacious interiors likely equipped with advanced amenities for comfort and entertainment.\n\nThe yacht has two"
+            }
+        ],
+        "comment": "Test 'single image start' modality.",
+        "eval-id": 1
+    }
+]
