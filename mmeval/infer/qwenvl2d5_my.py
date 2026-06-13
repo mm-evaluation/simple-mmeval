@@ -11,6 +11,18 @@ from mmeval.utils import constants
 from mmeval.utils.argparser import parse_args, parse_model_kwargs, parse_gen_kwargs
 from mmeval.utils.scorer import IncrementalLMScorer, target_tokens
 
+SYSTEM_PROMPT = (
+    "You are a helpful assistant. When the user asks a question, your response must include two parts: "
+    "first, the reasoning process enclosed in <think>...</think> tags, then the final answer enclosed in <answer>...</answer> tags."
+    "Please provide a clear, concise response within <answer>...</answer> tags that directly addresses the question."
+    "Example:<think>\nThis is my reasoning.\n</think>\n<answer>\nThis is my answer.\n</answer>.\n"
+)
+
+# Appended to the user turn so the eval prompt matches OPSD training
+# (data_collator.py / data_collator_swa.py student message ends with this exact line).
+USER_ANSWER_INSTRUCTION = (
+    "\n\nPlease reason step by step, and put your final answer within <answer>...</answer>."
+)
 
 class TaskRunner(Task):
     def __init__(self, args):
@@ -45,6 +57,12 @@ class TaskRunner(Task):
 
         messages = [
             {
+                "role": "system",
+                "content": [
+                    {"type": "text", "text": SYSTEM_PROMPT}
+                ],
+            },
+            {
                 "role": "user",
                 "content": []
             }
@@ -57,7 +75,7 @@ class TaskRunner(Task):
             if chunk == constants.image:
                 media = media_list[media_idx]
                 media_idx += 1
-                messages[0]["content"].append(
+                messages[1]["content"].append(
                     {
                         "type": "image",
                         "image": media
@@ -66,7 +84,7 @@ class TaskRunner(Task):
             elif chunk == constants.video:
                 media = media_list[media_idx]
                 media_idx += 1
-                messages[0]["content"].append(
+                messages[1]["content"].append(
                     {
                         "type": "video",
                         "video": media,
@@ -75,12 +93,21 @@ class TaskRunner(Task):
                     }
                 )
             else:
-                messages[0]["content"].append(
+                messages[1]["content"].append(
                     {
                         "type": "text",
                         "text": chunk
                     }
                 )
+
+        # Align with training: end the user turn with the same reasoning/answer-format
+        # instruction the OPSD collators append after the problem.
+        messages[1]["content"].append(
+            {
+                "type": "text",
+                "text": USER_ANSWER_INSTRUCTION,
+            }
+        )
 
         return messages
 

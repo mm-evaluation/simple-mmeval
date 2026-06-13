@@ -53,10 +53,13 @@ class TaskRunner(Task):
                     {
                         "type": "image",
                         "image": media,
-                        "min_pixels": 4 * 32 * 32,
-                        "max_pixels": 256 * 32 * 32,
+                        # Aligned with VLMEvalKit: no hardcoded min/max_pixels, so the
+                        # processor's defaults apply (shortest_edge=65536,
+                        # longest_edge=16777216). The previous cap of max_pixels=256*32*32
+                        # (262144 ≈ 512x512) downscaled ~17% of MMStar images and hurt
+                        # fine-perception accuracy.
                     }
-                )       
+                )
             elif chunk == constants.video:
                 media = media_list[media_idx]
                 media_idx += 1

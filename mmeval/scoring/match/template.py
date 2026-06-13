@@ -3,6 +3,7 @@ import re
 from mmeval.scoring.match.base import BaseMatcher, MatchResult
 from mmeval.scoring.schema import (
     extract_mcq_option,
+    infer_mcq_option,
     normalize_for_exact,
     normalize_open_answer,
     normalize_text,
@@ -27,23 +28,21 @@ class TemplateMatcher(BaseMatcher):
         pred_raw = context["pred"]
         gt_raw = context["gt"]
         candidates = context["options"]
+        option_text_map = context.get("option_text_map", {})
 
-        option = extract_mcq_option(pred_raw, candidates)
-        gt_option = extract_mcq_option(gt_raw, candidates) or normalize_for_exact(gt_raw).upper()
+        # Robust extraction (VLMEvalKit can_infer + our patches): strip
+        # punctuation/markdown/CJW, token-match the option letter near the end,
+        # honour <answer> tags and explicit answer cues, then fall back to
+        # matching a restated option's text.
+        option = infer_mcq_option(pred_raw, candidates, option_text_map)
+        # GT is itself a clean label like "A" / "(D)"; reuse the same extractor,
+        # then fall back to a bare normalized letter.
+        gt_option = (
+            infer_mcq_option(gt_raw, candidates, option_text_map)
+            or normalize_for_exact(gt_raw).upper()
+        )
         if option and gt_option and option == gt_option:
             return MatchResult(is_match=True, matched=gt_option)
-
-        # fallback: match option text in prediction body
-        option_text_map = context.get("option_text_map", {})
-        pred_norm = normalize_for_exact(pred_raw)
-        for label, text in option_text_map.items():
-            if not text:
-                continue
-            text_norm = normalize_for_exact(text)
-            if text_norm and text_norm in pred_norm:
-                if label == gt_option:
-                    return MatchResult(is_match=True, matched=gt_option)
-                return MatchResult(is_match=False)
         return MatchResult(is_match=False)
 
     def _match_open(self, context):

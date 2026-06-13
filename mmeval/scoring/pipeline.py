@@ -4,9 +4,10 @@ import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Dict, List
 
-from mmeval.scoring.match import MATCHER_REGISTRY
+from mmeval.scoring.match import LLM_MATCHER_NAMES, MATCHER_REGISTRY
 from mmeval.scoring.report import build_summary
 from mmeval.scoring.schema import (
+    MCQ_OPTIONS_DEFAULT,
     extract_options,
     get_field,
     get_question,
@@ -31,14 +32,27 @@ def discover_result_files(out_dir: str, pattern: str = "**/result.json", recursi
 
 def _build_option_text_map(sample: Dict[str, Any], options: List[str]) -> Dict[str, str]:
     messages = sample.get("messages") or []
-    if messages and isinstance(messages[0], dict):
-        msg_options = messages[0].get("options")
-        if isinstance(msg_options, dict):
+    msg = messages[0] if messages and isinstance(messages[0], dict) else None
+    if isinstance(msg, dict):
+        msg_options = msg.get("options")
+        if isinstance(msg_options, dict) and msg_options:
             return {str(k).strip().upper(): str(v) for k, v in msg_options.items()}
+        # BLINK-style: `choices` holds the option *values* positionally (A,B,C,...).
+        msg_choices = msg.get("choices")
+        if isinstance(msg_choices, list) and msg_choices:
+            vals = [str(c) for c in msg_choices]
+            if not all(len(v.strip()) == 1 and v.strip().upper() in MCQ_OPTIONS_DEFAULT for v in vals):
+                return {MCQ_OPTIONS_DEFAULT[i]: vals[i] for i in range(min(len(vals), len(MCQ_OPTIONS_DEFAULT)))}
 
+    # Flat per-letter option keys. HRBench stores option *values* as top-level keys
+    # inside the user message (msg["A"]="27B", msg["B"]="37B", ...) with empty
+    # options/choices; TSV-style datasets keep them at the sample top level. Read msg
+    # first, then sample.
     option_text_map = {}
     for label in options:
-        if label in sample:
+        if isinstance(msg, dict) and label in msg:
+            option_text_map[label] = str(msg[label])
+        elif label in sample:
             option_text_map[label] = str(sample[label])
     return option_text_map
 
@@ -50,7 +64,7 @@ def build_matchers(args):
         if name not in MATCHER_REGISTRY:
             raise ValueError(f"Unknown matcher `{name}` in --matching_order")
         matcher_cls = MATCHER_REGISTRY[name]
-        if name == "llm":
+        if name in LLM_MATCHER_NAMES:
             matchers.append(matcher_cls(args))
         else:
             matchers.append(matcher_cls())
@@ -104,6 +118,7 @@ def _score_single_sample(sample: Dict[str, Any], args, matchers) -> Dict[str, An
         sample=sample,
         score_force_question_type=args.score_force_question_type,
         score_type_field=args.score_type_field,
+        gt=gt,
     )
     options = extract_options(sample) if question_type == "mcq" else []
     option_text_map = _build_option_text_map(sample, options)

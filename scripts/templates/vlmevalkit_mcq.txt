@@ -1,0 +1,5 @@
+{{ question }}{% if options %}
+Options:
+{% for k, v in options.items() %}{{ k }}. {{ v }}
+{% endfor %}{% endif %}
+Please select the correct answer from the options above.
