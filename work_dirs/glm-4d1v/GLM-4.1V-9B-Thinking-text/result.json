@@ -1,0 +1,44 @@
+[
+    {
+        "id": 0,
+        "media": [],
+        "messages": [
+            {
+                "role": "user",
+                "question": "What is the result of 1 plus 1?",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "What is the result of 1 plus 1?",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": "<think>Got it, let's see. The question is asking for the result of 1 plus 1. That's a basic arithmetic operation. In mathematics, when you add 1 and 1, you get 2. So the solution is straightforward. Just need to confirm that addition of two 1s equals 2. Yep, that's right.</think><answer>To find the result of 1 plus 1, we perform the basic addition operation. Adding 1 and 1 together gives 2.  \nSo, the final answer is <|begin_of_box|>2<|end_of_box|>.</answer>"
+            }
+        ],
+        "comment": "Test 'no media' modality.",
+        "eval-id": 0
+    },
+    {
+        "id": 1,
+        "media": [],
+        "messages": [
+            {
+                "role": "user",
+                "question": "What is the capital city of China?",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "What is the capital city of China?",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": "<think>Got it, let's think about this. The question is asking for the capital city of China. From general knowledge, I know that Beijing is the capital of China. So the answer should be Beijing.</think><answer>To determine the capital city of China, we rely on general knowledge. The capital city of China is Beijing. Thus, the final result is <|begin_of_box|>Beijing<|end_of_box|>.</answer>"
+            }
+        ],
+        "comment": "Test 'no media' modality.",
+        "eval-id": 1
+    }
+]

@@ -1,0 +1,48 @@
+[
+    {
+        "id": 0,
+        "media": [],
+        "messages": [
+            {
+                "role": "user",
+                "question": "What is the result of 1 plus 1?",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "What is the result of 1 plus 1?",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "Thinking Process:\n\n1.  **Analyze the Request:** The user is asking a very basic arithmetic question: \"What is the result of 1 plus 1?\"\n\n2.  **Identify the Core Operation:** The operation is addition ($1 + 1$).\n\n3.  **Calculate the Result:** $1 + 1 = 2$.\n\n4.  **Formulate the Answer:** The answer should be direct and clear. \"2\" or \"The result is 2.\"\n\n5.  **Review for Constraints/Context:** There are no special constraints (e.g., \"in binary,\" \"in a specific context\"). The standard base-10 arithmetic is implied.\n\n6.  **Final Output:** \"2\" or \"The result is 2.\" I'll go with a simple, direct sentence.\n\n7.  **Final Check:** Does this answer the user's question accurately? Yes.cw\n</think>\n\nThe result of 1 plus 1 is **2**.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'no media' modality.",
+        "eval-id": 0
+    },
+    {
+        "id": 1,
+        "media": [],
+        "messages": [
+            {
+                "role": "user",
+                "question": "What is the capital city of China?",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "What is the capital city of China?",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "Thinking Process:\n\n1.  **Identify the core question:** The user is asking for the capital city of China.\n2.  **Access knowledge base:** Retrieve information about China's capital.\n3.  **Verify information:** The capital of the People's Republic of China is Beijing.\n4.  **Formulate the answer:** State the answer clearly and concisely.\n5.  **Final Output:** \"The capital city of China is Beijing.\" or simply \"Beijing.\"\n\n*Self-Correction/Refinement:* Keep it direct. \"Beijing\" is the most direct answer, but a full sentence is often more polite and clear.\n\n*Decision:* \"The capital city of China is Beijing.\"\n</think>\n\nThe capital city of China is **Beijing**.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'no media' modality.",
+        "eval-id": 1
+    }
+]

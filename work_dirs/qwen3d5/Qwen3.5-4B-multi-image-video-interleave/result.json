@@ -1,0 +1,466 @@
+[
+    {
+        "id": 0,
+        "media": [
+            "truck.png"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of the image.\n\n1.  **Identify the main subject:** It's a dark grey GMC pickup truck.\n2.  **Identify the specific model:** Looking at the grille, it says \"GMC\". The body style looks like a mid-size truck, likely a Canyon based on the headlight shape and grille design. It has a \"Elevation\" badge on the front fender.\n3.  **Describe the action:** The truck is driving on a dirt road, kicking up dust. It's angled slightly towards the right.\n4.  **Describe the setting:** It's an outdoor, desert-like environment. There are reddish-brown rock formations in the background, suggesting a canyon or desert landscape. The lighting suggests daytime, possibly late afternoon given the shadows.\n5.  **Detail the vehicle features:**\n    *   **Color:** Dark metallic grey.\n    *   **Wheels:** Black multi-spoke wheels.\n    *   **Tires:** All-terrain tires, thick tread.\n    *   **Front:** Large black grille with the red GMC logo. Aggressive headlights. Black front bumper with a skid plate area.\n    *   **Side:** Four-door crew cab. Black side mirrors. \"Elevation\" badge on the front fender.\n    *   **Rear:** Short bed (looks like a standard or short bed, actually looks like a standard bed but the angle makes it hard to be 100% sure, let's just say \"pickup bed\").\n6.  **Synthesize the description:** Start with the main subject, then move to details, then the background and action.\n\n*Drafting the description:*\nThe image shows a dark grey GMC pickup truck driving on a dirt road. The truck is a four-door crew cab model. It has black wheels and black accents on the mirrors and grille. The front grille is large and black with the red GMC logo in the center. The headlights are sleek and angular. There is a badge on the front fender that says \"Elevation\". The truck is kicking up dust from the tires, indicating movement. The background features reddish-brown rock formations, typical of a desert or canyon landscape. The lighting is bright, casting shadows on the side of the truck.\n\n*Refining:* Make it more descriptive. Mention the specific \"Canyon\" look if possible (though \"GMC pickup truck\" is safer if I'm not 100% sure, but the grille is very distinctively Canyon). Let's stick to \"GMC pickup truck\" to be safe but mention the specific features. The \"Elevation\" badge confirms the trim level.\n\n*Final Polish:*\n- Subject: Dark grey GMC Canyon (likely) pickup truck.\n- Action: Driving on dirt, kicking up dust.\n- Details: Black wheels, black grille, red GMC logo, \"Elevation\" badge, aggressive styling.\n- Background: Red rock formations, desert landscape.\n\nLet's write it out fully.\n</think>\n\nBased on the image provided, here is a detailed description:\n\n**Subject and Action**\nThe central focus of the image is a dark metallic grey GMC pickup truck, specifically a four-door crew cab model. The vehicle is captured in motion, driving from left to right across a dusty, reddish-brown dirt road. As the tires spin, they are kicking up a small cloud of dust behind the rear wheels, emphasizing the off-road capability and movement.\n\n**Vehicle Details**\n*   **Front:** The truck features a large, aggressive black grille with a prominent red \"GMC\" logo in the center. The headlights are sleek and angular, integrated into the bodywork. Below the grille is a heavy-duty black front bumper with a skid plate area.\n*   **Side Profile:** The truck has a modern, muscular design. It features black side mirrors and black multi-spoke wheels that contrast with the grey body. On the front fender, just behind the wheel arch, there is a small badge that reads \"Elevation,\" indicating the trim level. The bed of the truck is visible, appearing to be a standard length.\n*   **Rear:** The rear of the truck is partially visible, showing the tailgate and the rear bumper.\n\n**Setting and Background**\nThe background suggests a rugged, outdoor environment, likely a desert or canyon area. Behind the truck, there are large, layered rock formations in shades of rust, orange, and brown, typical of the American Southwest. The lighting appears to be natural daylight, casting soft shadows on the side of the truck and highlighting the texture of the dust and the rock formations.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'single image start' modality, 'multi image video interleave' modality should be able to handle this.",
+        "eval-id": 0
+    },
+    {
+        "id": 1,
+        "media": [
+            "boat.png"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image> Please provide a detailed description of the contents shown in the image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of the image.\n\n1.  **Identify the main subject:** It's a white luxury speedboat or yacht.\n2.  **Describe the boat's features:**\n    *   Color: Primarily white with a dark (black or dark blue) stripe running along the hull.\n    *   Structure: It has a sleek, modern design. There's a lower deck and an upper cabin area.\n    *   Details: I see windows on the cabin. There's a railing along the side. There's a windshield. There's a small structure on top (maybe a radar or antenna).\n    *   Action: It's moving very fast, creating a large wake.\n3.  **Describe the water:**\n    *   Color: Deep blue, transitioning to a lighter turquoise/green near the wake.\n    *   Texture: The wake is white, foamy, and turbulent. The water behind the boat is relatively calm with small ripples.\n4.  **Describe the background/sky:**\n    *   Sky: Clear, light blue, almost white near the horizon. No clouds visible.\n    *   Horizon: A straight line separating the sea and sky.\n    *   Distant objects: There's a faint landmass or island visible in the far distance on the left side.\n5.  **Composition/Framing:**\n    *   The boat is angled towards the right, moving diagonally across the frame.\n    *   The image has black bars at the top and bottom, suggesting it's a cropped video frame or a widescreen image displayed in a letterbox format.\n\n**Drafting the description:**\n*   Start with the boat: A white luxury speedboat cutting through the water.\n*   Mention the motion: It's speeding, creating a large white wake.\n*   Detail the boat: Sleek design, dark stripe, windows, railing.\n*   Detail the water: Deep blue ocean, foamy wake.\n*   Detail the background: Clear blue sky, distant land.\n*   Mention the framing: Black bars at top and bottom.\n\n**Refining the description:**\n*   \"A white luxury speedboat is captured in motion...\"\n*   \"...cutting diagonally across the frame from left to right.\"\n*   \"The boat has a sleek, modern design with a dark stripe running horizontally along its hull.\"\n*   \"A large, foamy white wake trails behind it, indicating high speed.\"\n*   \"The water is a deep, rich blue, turning a lighter turquoise where the boat is churning.\"\n*   \"The sky is a clear, pale blue with no clouds.\"\n*   \"In the distance, a faint outline of land is visible on the horizon.\"\n*   \"The image is framed with black bars at the top and bottom.\"\n\nLet's combine these into a cohesive paragraph.\n\n*   **Subject:** White speedboat/yacht.\n*   **Action:** Speeding, wake.\n*   **Setting:** Ocean, sunny day.\n*   **Visuals:** Blue water, white foam, clear sky.\n\nFinal Polish:\nThe image displays a white luxury speedboat speeding across a calm, blue ocean. The boat is angled towards the right side of the frame, moving diagonally. It features a sleek, modern design with a dark stripe running along the side of the hull. The vessel is generating a significant amount of white, foamy water as it cuts through the surface, creating a large wake that trails behind it to the left. The water surrounding the boat is a deep teal-blue, transitioning to a lighter turquoise near the churning wake. In the background, the horizon line is straight and clear, separating the sea from a pale blue sky that is almost cloudless. A faint, distant landmass is visible on the horizon to the left. The image itself has black bars at the top and bottom, suggesting it is a cropped video frame or a widescreen image.\n\nThis looks complete and accurate.\n</think>\n\nBased on the image provided, here is a detailed description:\n\n**Subject and Action**\nThe central focus is a sleek, white luxury speedboat moving at high speed. The boat is angled diagonally across the frame, heading towards the right. It is cutting through the water with significant force, creating a large, turbulent wake of white foam that trails behind it to the left.\n\n**The Boat**\nThe vessel has a modern, streamlined design. It is primarily white with a dark (likely black or dark blue) stripe running horizontally along the side of the hull. You can see the cabin structure with tinted windows, a windshield, and a metal railing along the side deck. There appears to be a small structure or radar equipment on the roof of the cabin.\n\n**The Environment**\n*   **Water:** The ocean is a deep, rich blue, transitioning to a lighter turquoise color where the boat is churning the water. The wake is bright white and frothy, contrasting sharply with the deep blue of the surrounding sea.\n*   **Sky:** The sky is a clear, pale blue, indicating a sunny day with no visible clouds.\n*   **Background:** In the far distance on the left side, a faint outline of a landmass or island is visible on the horizon.\n\n**Composition**\nThe image is framed with thick black bars at the top and bottom, suggesting it is a cropped video frame or a widescreen image displayed in a letterbox format.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'single image start' modality, 'multi image video interleave' modality should be able to handle this.",
+        "eval-id": 1
+    },
+    {
+        "id": 2,
+        "media": [
+            "truck.png",
+            "boat.png"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of the two images provided.\n\n**Image 1 Analysis:**\n- **Subject:** A dark grey GMC pickup truck. It looks like a Denali model based on the grille and badging.\n- **Action:** It is driving on a dirt road, kicking up dust. The front wheels are turned slightly.\n- **Setting:** A desert-like environment with reddish rock formations in the background. The lighting suggests late afternoon or early morning (golden hour).\n- **Details:**\n    - The truck has a four-door crew cab.\n    - It has black wheels and blacked-out trim (grille, mirrors, door handles).\n    - The GMC logo is prominent on the grille.\n    - There's a \"Denali\" badge on the front fender.\n    - The bed of the truck is visible.\n    - Dust is swirling around the rear tires.\n\n**Image 2 Analysis:**\n- **Subject:** A large white luxury yacht or speedboat.\n- **Action:** It is moving very fast across the water, creating a large wake and spray.\n- **Setting:** Open ocean or a large bay with calm blue water. The sky is clear and blue.\n- **Details:**\n    - The boat is white with a dark stripe running along the hull.\n    - It has a flybridge (upper deck) with a cabin.\n    - There are railings along the side.\n    - The bow is cutting through the water, creating a significant white wake.\n    - The water is a deep blue-green color.\n    - The horizon line is visible in the distance.\n\n**Synthesizing the Description:**\nI will structure the response by describing each image separately, starting with the truck and then the boat. I will focus on the vehicle type, color, action, and environment for each.\n\n*   **Image 1:** Start with the GMC truck. Mention the color (dark grey/silver), the model (Denali), the setting (dirt road, desert rocks), and the motion (kicking up dust). Note the specific details like the grille and wheels.\n*   **Image 2:** Start with the yacht. Mention it's a white luxury vessel. Describe the speed and the wake. Describe the water and sky.\n\nLet's refine the description for clarity and flow.\n- Image 1: A dark grey GMC Denali pickup truck is captured in motion on a dusty, reddish dirt road. The truck is angled slightly towards the right. It features a large black grille with the red GMC logo, black wheels, and blacked-out accents. Dust is billowing from the rear tires, indicating speed. The background shows rugged, reddish rock formations typical of a desert landscape, bathed in warm sunlight.\n- Image 2: A large, white luxury yacht is speeding across a calm, blue ocean. The boat is angled towards the left, cutting through the water and generating a massive, foamy white wake behind it. The vessel has a sleek design with a dark stripe along the hull and a flybridge cabin at the top. The sky is a clear, bright blue, suggesting a sunny day.\n\nThis covers all the key elements. I will combine these into the final response.\n</think>\n\nHere are detailed descriptions of the two images:\n\n**Image 1**\nThis image features a dark grey GMC Denali pickup truck driving on a dusty, reddish dirt road. The vehicle is captured in motion, kicking up a cloud of dust from its rear tires, which suggests it is moving at a decent speed. The truck is a four-door crew cab model with a modern, rugged design. It features a large, blacked-out front grille with the red \"GMC\" logo prominently displayed in the center. The truck has black wheels, black side mirrors, and black trim along the door handles and window frames. A \"Denali\" badge is visible on the front fender. The background consists of rugged, reddish-brown rock formations and desert terrain, illuminated by warm, natural sunlight, likely indicating late afternoon or early morning.\n\n**Image 2**\nThis image shows a large, white luxury yacht speeding across a calm, deep blue ocean. The boat is angled towards the left side of the frame, cutting through the water with significant speed. This movement creates a large, foamy white wake and spray trailing behind the stern. The yacht has a sleek, modern design with a dark stripe running horizontally along the hull. It features a flybridge (an upper deck) with a cabin structure and railings along the sides. The sky above is a clear, bright blue, and the horizon line is visible in the distance, indicating open water.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'multi image start' modality, 'multi image video interleave' modality should be able to handle this.",
+        "eval-id": 2
+    },
+    {
+        "id": 3,
+        "media": [
+            "boat.png",
+            "truck.png"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of the two images provided.\n\n**Image 1 Analysis:**\n- **Subject:** A white luxury yacht or speedboat.\n- **Action:** It is moving at high speed, creating a large wake of white foam behind it.\n- **Setting:** Open ocean, blue water, clear sky.\n- **Details:**\n    - The boat is white with a dark stripe running along the hull.\n    - It has a sleek, modern design with a curved bow.\n    - There's a cabin structure on top with windows.\n    - A railing runs along the side deck.\n    - The wake is significant, indicating speed.\n    - The water is a deep blue-green.\n    - The sky is a pale blue, suggesting a sunny day.\n    - There's a faint landmass or horizon line in the distance.\n\n**Image 2 Analysis:**\n- **Subject:** A grey GMC pickup truck.\n- **Action:** It is driving on a dirt road, kicking up dust. It looks like it's in motion.\n- **Setting:** A desert-like environment with red rock formations in the background.\n- **Details:**\n    - The truck is a four-door crew cab model.\n    - It's a metallic grey color.\n    - It has black wheels and black trim (grille, bumper).\n    - The GMC logo is clearly visible on the front grille.\n    - The headlights are modern and angular.\n    - There's a \"Elevation\" badge on the side, indicating the trim level.\n    - The background features reddish-brown rock cliffs, typical of places like Moab, Utah.\n    - The lighting suggests late afternoon or early morning sun (golden hour).\n\n**Synthesizing the Description:**\nI will structure the response by describing each image separately, starting with the boat and then the truck. I'll focus on the visual elements like color, action, setting, and specific details.\n\n*   **Image 1:** Focus on the white yacht, the speed, the wake, the blue water, and the sunny weather.\n*   **Image 2:** Focus on the grey GMC truck, the off-road setting, the dust, the red rocks, and the rugged look.\n\nLet's refine the descriptions.\n- Image 1: \"A white luxury yacht speeding across the ocean...\" Mention the wake, the cabin, the railing.\n- Image 2: \"A grey GMC pickup truck driving on a dirt trail...\" Mention the dust, the red rock background, the specific model details (grille, wheels).\n\nFinal check of the prompt: \"Please provide a detailed description of the contents shown in the two images.\" Okay, I will do exactly that.\n</think>\n\nHere are detailed descriptions of the two images:\n\n**Image 1**\nThis image captures a sleek, white luxury yacht speeding across a vast expanse of blue ocean. The boat is angled slightly towards the right, cutting through the water with significant speed, evidenced by the large, foamy white wake trailing behind its stern. The vessel features a modern design with a curved bow, a dark stripe running horizontally along the hull, and a raised cabin structure with large windows. A metal railing lines the side deck, and the deck appears to have wooden accents. The sky above is a clear, pale blue, suggesting a bright, sunny day. In the far distance, a faint outline of land or a horizon line is visible against the sky.\n\n**Image 2**\nThis image shows a metallic grey GMC pickup truck, specifically an Elevation model, driving on a dusty, unpaved road. The truck is captured in motion, kicking up a small cloud of reddish-brown dust from its rear tires. It is a four-door crew cab with black wheels, black side mirrors, and a rugged front bumper. The large, black grille features the red \"GMC\" logo prominently in the center. The setting appears to be a desert landscape, likely in the American Southwest, characterized by towering red rock cliffs and canyon walls in the background. The lighting is warm, casting soft shadows and highlighting the texture of the truck's paint and the surrounding terrain.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'multi image start' modality, 'multi image video interleave' modality should be able to handle this.",
+        "eval-id": 3
+    },
+    {
+        "id": 4,
+        "media": [
+            "truck.png",
+            "boat.png"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "Please provide a detailed description of the contents shown in <image> and <image>.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "Please provide a detailed description of the contents shown in <image> and <image>.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of the contents in two separate images.\n\n**Image 1 Analysis:**\n- **Subject:** A dark grey or charcoal-colored pickup truck.\n- **Brand:** The grille clearly shows the \"GMC\" logo in red.\n- **Model/Trim:** It looks like a Chevrolet Colorado or GMC Canyon based on the body style, but the grille is GMC. Wait, looking closer at the grille and headlights, this is actually a GMC Canyon. The \"Canyon\" badge is visible on the side fender.\n- **Action:** The truck is driving on a dirt road, kicking up dust. It's angled slightly towards the right.\n- **Setting:** A desert-like environment with reddish rock formations in the background. The lighting suggests late afternoon or early morning (golden hour).\n- **Details:**\n    - Black wheels with a rugged design.\n    - Black side mirrors.\n    - Black front bumper with a winch mount (though no winch is installed).\n    - LED headlights.\n    - \"Elevation\" or similar trim level might be implied by the styling, but \"Canyon\" is the model. Actually, looking at the grille, it's the 2022+ GMC Canyon.\n    - The bed is open.\n    - Dust is visible around the rear tires.\n\n**Image 2 Analysis:**\n- **Subject:** A large, white luxury speedboat or yacht.\n- **Action:** It is moving very fast across the water, creating a large wake and spray.\n- **Setting:** Open ocean or a large bay. The water is a deep blue-green. The sky is clear and blue.\n- **Details:**\n    - The boat is white with a dark stripe running along the hull.\n    - It has a flybridge (upper deck) with a cabin.\n    - There are railings along the side.\n    - The bow is cutting through the water.\n    - The wake is white and foamy.\n    - The angle is from the side/front, showing the speed.\n\n**Synthesizing the Description:**\nI need to describe both images clearly, focusing on the main subject, the action, the setting, and specific details like color and branding.\n\n*Drafting Image 1 Description:*\nThe first image features a dark grey GMC Canyon pickup truck driving on a dusty, reddish dirt road. The truck is angled towards the right side of the frame. It has a rugged, off-road appearance with black wheels, black side mirrors, and a black front bumper. The GMC logo is prominent on the grille. The background shows a desert landscape with reddish rock formations, suggesting a warm, sunny day. Dust is kicking up from the rear tires, indicating movement.\n\n*Drafting Image 2 Description:*\nThe second image shows a large, white luxury speedboat speeding across a body of deep blue water. The boat is captured from a side angle as it cuts through the waves, creating a significant white wake and spray behind it. The vessel has a sleek design with a dark stripe running horizontally along its hull. It features an upper deck (flybridge) with a cabin structure and railings. The sky above is clear and bright blue, indicating a sunny day on the open water.\n\n*Refining and Formatting:*\nCombine these into a coherent response. I will present them as separate descriptions for clarity.\n\n*Self-Correction during drafting:*\n- Make sure to identify the truck correctly. It's definitely a GMC Canyon.\n- For the boat, \"speedboat\" or \"luxury yacht\" is appropriate. It looks like a high-performance cruiser.\n\nFinal Polish:\n- Image 1: Dark grey GMC Canyon, desert setting, kicking up dust, rugged tires.\n- Image 2: White speedboat, blue water, fast movement, wake, sunny day.\n\nLet's write the final output based on these points.\n</think>\n\nBased on the images provided, here are detailed descriptions of their contents:\n\n**Image 1: The Pickup Truck**\nThis image features a dark grey GMC Canyon pickup truck driving through a rugged, desert-like environment. The truck is captured in motion, kicking up a cloud of reddish-brown dust from its rear tires, which suggests it is traversing a dirt road.\n*   **Vehicle Details:** The truck has a modern, rugged design with a prominent black front grille featuring the red \"GMC\" logo. It is equipped with black wheels, black side mirrors, and a heavy-duty black front bumper that includes a winch mount. The headlights are sleek LED units.\n*   **Setting:** The background consists of layered, reddish rock formations typical of a canyon or desert landscape. The lighting is warm, suggesting it is either early morning or late afternoon.\n\n**Image 2: The Speedboat**\nThis image displays a large, white luxury speedboat speeding across a vast expanse of deep blue water.\n*   **Vehicle Details:** The boat is sleek and modern, featuring a dark stripe running horizontally along its hull. It has a multi-level deck structure, including a lower deck and an upper flybridge with a cabin. White railings line the sides of the deck.\n*   **Action and Setting:** The boat is moving at high speed, evidenced by the large, foamy white wake trailing behind it and the spray rising from the bow. The water is a rich teal-blue, and the sky above is a clear, bright blue, indicating a sunny day on the open ocean.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'multi image interleave' modality, 'multi image video interleave' modality should be able to handle this.",
+        "eval-id": 4
+    },
+    {
+        "id": 5,
+        "media": [
+            "boat.png",
+            "truck.png"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "Please provide a detailed description of the contents shown in <image> and <image>.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "Please provide a detailed description of the contents shown in <image> and <image>.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of the contents in the two provided images.\n\n**Image 1 Analysis:**\n- **Subject:** A white luxury speedboat or yacht.\n- **Action:** It is moving at high speed, creating a large wake of white foam behind it.\n- **Setting:** Open blue ocean water. The horizon is visible in the distance. The sky is clear and blue.\n- **Details of the boat:**\n    - It's white with a dark stripe running along the hull.\n    - It has a sleek, modern design.\n    - There's a cabin structure with windows.\n    - There's a flybridge area (upper deck) with railings.\n    - The bow is pointed.\n    - There are people visible on the deck, though small.\n    - The wake is significant, indicating speed.\n    - The water is a deep blue-green.\n\n**Image 2 Analysis:**\n- **Subject:** A dark grey or black pickup truck.\n- **Brand:** GMC logo is clearly visible on the front grille.\n- **Model:** Looks like a GMC Canyon based on the grille and body shape.\n- **Action:** It is driving on a dirt road, kicking up dust. It looks like it's in motion.\n- **Setting:** A desert-like environment with red rock formations in the background.\n- **Details of the truck:**\n    - It has black wheels (off-road tires).\n    - It has a black front bumper with a winch mount.\n    - The grille is large and black with the red GMC letters.\n    - The side mirrors are black.\n    - The paint looks metallic grey.\n    - There are red accents on the side mirrors and door handles.\n    - The bed of the truck is visible.\n\n**Synthesizing the Description:**\nI will structure the response by addressing each image separately, providing a comprehensive description of the vehicle, the action, and the environment.\n\n*   **Image 1:** Focus on the white yacht, the speed, the wake, and the sunny ocean setting.\n*   **Image 2:** Focus on the GMC truck, the off-road capability (dust, terrain), and the rugged landscape.\n\nLet's refine the details.\n- Image 1: \"White luxury speedboat,\" \"cutting through the water,\" \"spray of white foam,\" \"blue ocean,\" \"clear sky.\"\n- Image 2: \"Dark grey GMC pickup truck,\" \"off-road tires,\" \"dirt road,\" \"red rock canyon background,\" \"kicking up dust.\"\n\nFinal check of the prompt: \"Please provide a detailed description of the contents shown in [Image 1] and [Image 2].\"\n\nOkay, I'm ready to write the response. I will break it down clearly.\n</think>\n\nBased on the images provided, here are detailed descriptions of their contents:\n\n**Image 1: The Speedboat**\nThis image features a sleek, white luxury speedboat cutting through the open ocean at high speed.\n*   **The Vessel:** The boat is a modern, white yacht with a dark stripe running horizontally along its hull. It has a streamlined design with a cabin structure featuring large windows and an upper deck (flybridge) equipped with safety railings.\n*   **Action:** The boat is moving rapidly towards the right side of the frame, creating a dramatic, large wake of white foam and spray trailing behind its stern.\n*   **Setting:** The scene takes place on a vast expanse of deep blue water under a clear, bright sky. In the far distance, a faint landmass or horizon line is visible. The lighting suggests a sunny day with strong sunlight reflecting off the water and the boat's white surface.\n\n**Image 2: The GMC Pickup Truck**\nThis image showcases a rugged, dark grey GMC pickup truck navigating an off-road environment.\n*   **The Vehicle:** The truck is a GMC Canyon, identifiable by the large, black front grille featuring the red \"GMC\" lettering. It is equipped with black off-road tires and black wheels, giving it a tough, utilitarian look. The truck has a black front bumper with a winch mount and red accent details on the side mirrors and door handles.\n*   **Action:** The truck is captured in motion on a dusty, reddish-brown dirt road. Dust is being kicked up around the rear tires, emphasizing the rough terrain and speed.\n*   **Setting:** The background features a desert landscape with reddish rock formations and cliffs, typical of a canyon environment. The lighting is warm, suggesting late afternoon or early morning sun, which highlights the metallic texture of the truck's paint.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'multi image interleave' modality, 'multi image video interleave' modality should be able to handle this.",
+        "eval-id": 5
+    },
+    {
+        "id": 6,
+        "media": [
+            "truck.png",
+            "boat.png"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "Given the Image A <image> and Image B <image>. Please provide a detailed description of the contents shown in each image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "Given the Image A <image> and Image B <image>. Please provide a detailed description of the contents shown in each image.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of two images.\n\n**Image A Analysis:**\n- **Subject:** A grey pickup truck.\n- **Brand:** GMC logo is clearly visible on the front grille.\n- **Model/Trim:** It looks like a Chevrolet/GMC Sierra or Canyon. The grille design and headlights suggest a newer model, possibly the 2022+ Sierra or Canyon. The \"Elevation\" badge is visible on the side, indicating a specific trim level.\n- **Action:** It is driving on a dirt road, kicking up dust. It's angled slightly towards the right.\n- **Setting:** A desert-like environment with red rock formations in the background. The lighting suggests late afternoon or early morning (golden hour).\n- **Details:** Black wheels, black side mirrors, black grille insert. The bed is covered with a tonneau cover (or just looks like a closed bed).\n\n**Image B Analysis:**\n- **Subject:** A white luxury speedboat or yacht.\n- **Action:** It is moving fast across the water, creating a large wake and spray.\n- **Setting:** Open ocean or a large bay with calm blue water. The sky is clear and blue.\n- **Details:** The boat has a sleek design, a cabin with windows, a flybridge area (top deck), and railings. There's a dark stripe running along the hull. The name \"M7\" is visible on the stern.\n\n**Drafting the descriptions:**\n- **Image A:** Start with the main subject (GMC truck). Describe its color (grey/silver), the setting (dirt road, red rocks), and the action (kicking up dust). Mention specific details like the GMC logo, the \"Elevation\" badge, and the black wheels.\n- **Image B:** Start with the main subject (white speedboat). Describe its action (speeding through water, wake). Mention the setting (blue ocean, clear sky). Note the design features (cabin, railings, dark stripe).\n\n**Refining the descriptions:**\n- Make sure to distinguish between the two clearly.\n- Use descriptive adjectives (sleek, rugged, dusty, pristine).\n\n**Final Polish:**\n- Image A: A grey GMC pickup truck is captured in motion on a dusty, reddish dirt road. The truck is angled towards the right, kicking up a cloud of dust behind its rear tires. It features a prominent black grille with the red \"GMC\" logo, sleek LED headlights, and black alloy wheels. The side of the truck displays a badge that reads \"Elevation.\" The background consists of rugged, reddish-brown rock formations typical of a desert landscape, bathed in warm sunlight.\n- Image B: A sleek, white luxury speedboat is speeding across a calm, deep blue ocean. The boat is captured from a side-front angle, cutting through the water and creating a large, foamy white wake that trails behind it. The vessel has a modern design with a cabin featuring large windows, a flybridge area at the top, and stainless steel railings along the side. A dark stripe runs horizontally along the hull. The name \"M7\" is visible on the stern. The sky above is a clear, bright blue, indicating a sunny day.\n\nThis looks complete and accurate.\n</think>\n\n**Image A**\nThis image features a rugged, grey GMC pickup truck driving on a dusty, reddish-brown dirt road. The vehicle is captured in motion, kicking up a cloud of dust from its rear tires as it moves toward the right side of the frame. The truck has a modern design with a large, black front grille featuring the red \"GMC\" logo in the center. It is equipped with black alloy wheels and black side mirrors. A badge on the side of the truck bed indicates it is an \"Elevation\" model. The background showcases a desert landscape with layered, reddish rock formations, suggesting a location like the American Southwest. The lighting is warm, highlighting the texture of the dust and the vehicle's metallic paint.\n\n**Image B**\nThis image displays a sleek, white luxury speedboat cutting through the open ocean. The boat is moving at speed, evidenced by the large, foamy white wake and spray trailing behind it. The vessel has a modern, streamlined design with a cabin featuring large tinted windows and a flybridge area at the top. Stainless steel railings line the deck. A dark stripe runs horizontally along the side of the hull, and the name \"M7\" is visible on the stern. The water is a deep, calm blue, and the sky above is a clear, bright blue, indicating a sunny day on the water.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'multi image interleave' modality, 'multi image video interleave' modality should be able to handle this.",
+        "eval-id": 6
+    },
+    {
+        "id": 7,
+        "media": [
+            "boat.png",
+            "truck.png"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "Given the Image A <image> and Image B <image>. Please provide a detailed description of the contents shown in each image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "Given the Image A <image> and Image B <image>. Please provide a detailed description of the contents shown in each image.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of two images.\n\n**Image A Analysis:**\n- **Subject:** A white luxury yacht or speedboat.\n- **Action:** It is moving quickly through the water, creating a large wake.\n- **Setting:** Open ocean, blue water, clear sky.\n- **Details:**\n    - The boat is white with a dark stripe running along the hull.\n    - It has a sleek, modern design.\n    - There's a cabin structure on top with windows.\n    - A railing runs along the side deck.\n    - The wake is white and foamy, indicating speed.\n    - The water is a deep blue-green.\n    - The sky is a pale blue, suggesting a sunny day.\n    - There's a faint landmass or horizon line in the distance.\n\n**Image B Analysis:**\n- **Subject:** A grey pickup truck.\n- **Brand:** GMC (visible on the front grille).\n- **Action:** Driving on a dirt road, kicking up dust.\n- **Setting:** A desert-like environment with red rock formations in the background.\n- **Details:**\n    - The truck is a crew cab model (four doors).\n    - It has black wheels and blacked-out accents (grille, bumpers).\n    - The front grille has the red GMC logo.\n    - The headlights are modern and angular.\n    - Dust is visible around the tires, suggesting off-road capability.\n    - The background features reddish-brown rock cliffs, typical of places like Utah or Arizona.\n    - The lighting suggests daytime, possibly late afternoon given the shadows.\n\n**Drafting the response:**\n- Start with Image A. Describe the boat, its movement, the water, and the sky.\n- Move to Image B. Describe the truck, its color, the GMC logo, the terrain, and the dust.\n- Ensure the descriptions are detailed as requested.\n\n**Refining Image A description:**\n- \"A white luxury yacht speeding across the ocean.\"\n- \"Large white wake trailing behind.\"\n- \"Blue water and clear sky.\"\n- \"Sleek design with a dark stripe.\"\n\n**Refining Image B description:**\n- \"A grey GMC pickup truck.\"\n- \"Driving on a dirt road.\"\n- \"Dust kicking up.\"\n- \"Red rock background.\"\n- \"Black wheels and grille accents.\"\n\n**Final Polish:** Combine these observations into a coherent text.\n</think>\n\n**Image A**\nThis image captures a sleek, white luxury yacht speeding across a vast expanse of blue ocean. The boat is angled slightly towards the right, cutting through the water and generating a large, foamy white wake that trails behind it, emphasizing its speed. The vessel features a modern design with a dark stripe running horizontally along the hull and a cabin structure on the upper deck with large windows. A metal railing lines the side deck. The sky above is a clear, pale blue, and the horizon line is visible in the distance, suggesting a calm, sunny day on the open sea.\n\n**Image B**\nThis image shows a grey GMC pickup truck driving on a dusty, unpaved road. The truck is a crew cab model with a rugged, off-road appearance, featuring black wheels, a blacked-out front grille with the red GMC logo, and aggressive styling on the headlights and bumper. It is kicking up a small cloud of dust from its tires, indicating movement. The background consists of reddish-brown rock formations and cliffs, typical of a desert landscape, bathed in warm sunlight that suggests it might be late afternoon.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'multi image interleave' modality, 'multi image video interleave' modality should be able to handle this.",
+        "eval-id": 7
+    },
+    {
+        "id": 8,
+        "media": [
+            "cat.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "<video> Please provide a detailed description of the contents shown in the video.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "<video> Please provide a detailed description of the contents shown in the video.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of the video.\n\n1.  **Analyze the video content:**\n    *   **Subject:** An orange tabby kitten. It has fluffy fur, a bushy tail, and white paws.\n    *   **Setting:** A grassy field. The grass is green and looks somewhat long, suggesting a lawn or a meadow. The lighting is bright, indicating daytime, likely sunny.\n    *   **Action:** The kitten is walking towards the camera. It starts further back and gets closer. Its tail is held up high, slightly curved. It looks curious and alert.\n    *   **Camera movement:** The camera seems relatively static or follows the kitten slightly as it approaches. The framing is a medium shot, capturing the kitten from head to tail.\n\n2.  **Break down the video chronologically:**\n    *   **00:00 - 00:01:** The kitten is in the middle of the frame, facing slightly left but moving forward. Its tail is up. It's walking through the grass.\n    *   **00:01 - 00:02:** The kitten continues walking forward, now more directly towards the camera. Its front left paw is lifted.\n    *   **00:02 - 00:03:** The kitten is closer. It's looking straight ahead. The tail is very fluffy and prominent.\n    *   **00:03 - 00:04:** The kitten is quite close now. It's taking steps. The fur texture is visible.\n    *   **00:04 - 00:05:** The kitten is very close to the camera, filling more of the frame. It's still walking forward.\n\n3.  **Draft the description:**\n    *   Start with the main subject: An orange tabby kitten.\n    *   Describe the environment: Green grassy field.\n    *   Describe the action: Walking towards the camera.\n    *   Add details: Fluffy tail, white paws, bright lighting.\n    *   Combine into a coherent narrative.\n\n4.  **Refine the description:**\n    *   \"The video features a fluffy orange tabby kitten walking across a patch of green grass.\"\n    *   \"The kitten is moving from the background towards the foreground.\"\n    *   \"Its tail is held high and bushy.\"\n    *   \"The lighting is bright, casting shadows on the grass.\"\n    *   \"The kitten looks alert as it approaches the camera.\"\n\n5.  **Final Polish:** Ensure the tone is descriptive and accurate. Mention the specific colors (orange, white paws, green grass). Note the progression of the kitten getting closer.\n\n    *   *Self-Correction during drafting:* Make sure to mention the white paws, they are visible as it walks. The grass looks a bit long, not perfectly manicured. The kitten's expression is neutral/curious.\n\n6.  **Final Output Generation:** (Matches the drafted points).\n</think>\n\nThe video captures a fluffy orange tabby kitten walking across a vibrant green lawn. The scene is brightly lit, suggesting a sunny day.\n\nAt the beginning, the kitten is positioned in the middle distance, facing slightly to the left but moving forward. It has a thick, bushy tail held high in the air and white paws that contrast with its orange fur. As the video progresses, the kitten walks steadily towards the camera, getting closer with each step. Its gaze is fixed forward, appearing curious and alert as it navigates through the grass. By the end of the clip, the kitten is quite close to the lens, filling more of the frame as it continues its approach. The grass is relatively long and sways slightly, indicating a natural outdoor setting.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'single video start' modality, 'multi image video interleave' modality should be able to handle this.",
+        "eval-id": 8
+    },
+    {
+        "id": 9,
+        "media": [
+            "sun.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "<video> Please provide a detailed description of the contents shown in the video.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "<video> Please provide a detailed description of the contents shown in the video.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of the video.\n\n1.  **Analyze the video content:**\n    *   **Subject:** A sunset (or sunrise) over a hillside.\n    *   **Action:** The sun is rising (or setting) behind the silhouette of a hill. It moves upwards.\n    *   **Visual Elements:**\n        *   **Sky:** Dominated by warm colors \u2013 deep oranges, yellows, and hints of darker orange/brown near the horizon. There are wispy clouds.\n        *   **Foreground/Midground:** A dark silhouette of a hill or mountain range covered in trees/bushes. The texture is rough and uneven.\n        *   **The Sun:** Starts as a small sliver or just a bright spot behind the hill, then emerges fully, becoming a bright white/yellow orb.\n    *   **Progression:**\n        *   00:00 - 00:01: The sun is just peeking over the ridge. It's a bright spot. The sky is a gradient of orange.\n        *   00:02 - 00:03: The sun rises higher. It becomes a distinct, bright circle. The light intensifies.\n        *   00:04 - 00:05: The sun is fully visible and bright, casting a strong glow. The clouds are illuminated.\n        *   00:06: The sun is high enough that it's just a bright white/yellow disk against the orange sky. The hill is still silhouetted.\n\n2.  **Draft the description:**\n    *   Start with a general overview: A time-lapse or sequence of a sun rising over a hill.\n    *   Describe the setting: A dark, silhouetted hill covered in trees/bushes.\n    *   Describe the sky: Vibrant orange and yellow hues, suggesting a sunset or sunrise.\n    *   Describe the sun's movement: It emerges from behind the ridge, growing larger and brighter.\n    *   Mention the lighting: The sun's light illuminates the clouds and the sky, creating a warm atmosphere.\n\n3.  **Refine the description:**\n    *   \"The video captures a serene sunrise (or sunset) over a silhouetted hillside.\" -> Good opening.\n    *   \"The sky is filled with warm, vibrant shades of orange and yellow.\" -> Describes the color palette.\n    *   \"In the foreground, a dark, jagged line of a hill covered in trees creates a silhouette against the bright sky.\" -> Describes the foreground.\n    *   \"The sun begins just peeking over the ridge, appearing as a bright, glowing orb.\" -> Describes the start.\n    *   \"As the video progresses, the sun rises higher, becoming fully visible and intensely bright.\" -> Describes the action.\n    *   \"The clouds are scattered across the sky, catching the golden light.\" -> Adds detail.\n    *   \"The overall mood is peaceful and warm.\" -> Adds interpretation.\n\n4.  **Final Polish:** Combine these points into a coherent paragraph. Ensure the timeline is respected (sun moving up).\n\n    *   *Self-Correction during drafting:* Is it sunrise or sunset? It's hard to be 100% sure without context, but the angle suggests low sun. \"Sunrise or sunset\" covers both bases. The light is very intense, typical of the \"golden hour.\" Let's stick to describing the visual changes.\n\n    *   *Detailed breakdown:*\n        *   Frame 1: Sun is a small bright spot behind the hill.\n        *   Frame 2: Sun is slightly higher, more visible.\n        *   Frame 3: Sun is fully up, very bright.\n        *   Frame 4: Sun is high, bright white/yellow.\n        *   Frame 5: Sun is high, bright.\n        *   Frame 6: Sun is high, bright.\n\n    *   *Final Description Structure:*\n        *   Overview: Time-lapse of sun rising.\n        *   Sky details: Orange/yellow gradient, clouds.\n        *   Landscape details: Dark silhouette of a forested hill.\n        *   Sun details: Emerging from behind the ridge, growing in size and brightness.\n\nThis thought process covers all the visual elements and the temporal progression.\n</think>\n\nThe video captures a serene and vibrant sunrise (or sunset) over a silhouetted landscape.\n\n**Visual Details:**\n*   **The Sky:** The sky is dominated by intense, warm hues of deep orange, amber, and bright yellow. Wispy clouds are scattered across the upper portion, catching the light and adding texture to the scene.\n*   **The Landscape:** In the foreground and lower third of the frame, there is a dark, jagged silhouette of a hill or mountain range. It is covered in what appears to be a dense forest or scrubland, creating a stark contrast against the bright sky.\n*   **The Sun:** The video appears to be a time-lapse or a sequence showing the sun's ascent.\n    *   Initially, the sun is just peeking over the ridge of the hill, appearing as a small, bright point of light.\n    *   As the video progresses, the sun rises higher, emerging fully from behind the trees.\n    *   It grows larger and becomes an intensely bright, white-yellow orb that dominates the center of the frame.\n    *   By the end of the sequence, the sun is fully visible and glowing brightly, casting a strong, warm light across the entire scene.\n\nOverall, the video conveys a sense of warmth and the transition of light as the sun climbs above the horizon.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'single video start' modality, 'multi image video interleave' modality should be able to handle this.",
+        "eval-id": 9
+    },
+    {
+        "id": 10,
+        "media": [
+            "cat.mp4",
+            "sun.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "Please provide a detailed description of the contents shown in <video> and <video>.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "Please provide a detailed description of the contents shown in <video> and <video>.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of the video content.\n\n**Video 1: The Cat**\n- **Subject:** An orange tabby kitten.\n- **Setting:** A grassy field. The grass is green and looks somewhat long or unkempt.\n- **Action:** The kitten is walking towards the camera. It starts further back and gets closer.\n- **Details:**\n    - The kitten has fluffy orange fur with some white markings on its paws and chest.\n    - Its tail is held up, slightly curved.\n    - It looks curious and alert.\n    - The lighting suggests it's daytime, possibly sunny given the shadows.\n    - The camera seems to be tracking the kitten or zooming in slightly as it approaches.\n\n**Video 2: The Sunset**\n- **Subject:** A sunset over a hill or mountain.\n- **Setting:** A silhouette of a hill covered in trees against a vibrant sky.\n- **Action:** The sun is rising or setting (looks like rising based on the intensity, but \"sunset\" is a common term for this visual). It moves upwards, becoming brighter and more visible.\n- **Details:**\n    - The sky is a gradient of orange, yellow, and deep red.\n    - The sun is a bright, glowing orb.\n    - The hill is dark, creating a silhouette effect.\n    - There are clouds in the sky, illuminated by the sun.\n    - The sun moves from behind the ridge to fully visible in the sky.\n\n**Synthesis:**\nI need to describe these two distinct clips. I will structure the response by describing the first clip (the cat) and then the second clip (the sunset).\n\n**Drafting the description:**\n- **Clip 1:** An orange tabby kitten is walking through tall green grass. It is moving towards the camera. The kitten has white paws and a fluffy tail. It looks like a sunny day.\n- **Clip 2:** A time-lapse or video of a sun rising (or setting) over a silhouetted hill. The sky is filled with orange and yellow hues. The sun emerges from behind the trees on the hill.\n\n**Refining the description:**\n- Make it more detailed. Mention the specific colors.\n- For the cat: \"fluffy orange tabby kitten,\" \"walking through a field of green grass,\" \"white paws,\" \"curious expression.\"\n- For the sunset: \"vibrant orange sky,\" \"silhouette of a tree-covered hill,\" \"sun rising above the horizon,\" \"rays of light.\"\n\n**Final Polish:** Combine these observations into a coherent narrative.\n</think>\n\nThe video consists of two distinct clips:\n\n**Clip 1: The Orange Kitten**\nThe first part of the video features a fluffy orange tabby kitten walking through a field of tall, green grass. The kitten is moving towards the camera with a curious and alert expression. It has distinct white markings on its paws and chest, and its tail is held up high as it trots forward. The lighting suggests a bright, sunny day, casting soft shadows in the grass.\n\n**Clip 2: The Sunrise/Sunset**\nThe second part of the video shows a dramatic sky scene, likely a sunrise or sunset. A vibrant sky filled with shades of deep orange, yellow, and red serves as the backdrop. In the foreground, the dark silhouette of a hill covered in trees is visible. The sun is seen emerging from behind the ridge of the hill, glowing brightly and casting rays of light across the clouds. The sun moves upward, becoming fully visible and intense against the colorful sky.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'multi video interleave' modality, 'multi image video interleave' modality should be able to handle this.",
+        "eval-id": 10
+    },
+    {
+        "id": 11,
+        "media": [
+            "sun.mp4",
+            "cat.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "Please provide a detailed description of the contents shown in <video> and <video>.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "Please provide a detailed description of the contents shown in <video> and <video>.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of the video content.\n\n**Video 1: Sunset over a hill**\n- **Scene:** A silhouette of a hill or mountain range against a vibrant sunset.\n- **Colors:** Dominant colors are deep orange, yellow, and black. The sky is filled with clouds illuminated by the sun.\n- **Action:** The sun is rising or setting behind the hill. It starts partially hidden and gradually emerges, becoming brighter and more visible. Rays of light fan out from the sun.\n- **Details:** The hill is covered in trees, creating a dark, jagged silhouette. The clouds are wispy and streaky.\n\n**Video 2: Orange kitten walking**\n- **Scene:** A grassy field.\n- **Subject:** A small, fluffy orange kitten.\n- **Action:** The kitten is walking towards the camera. It moves with a playful, slightly cautious gait. Its tail is held up.\n- **Details:** The grass is green and relatively tall. The kitten has white paws and a white tip on its tail. Its fur looks soft and fluffy. The lighting suggests it's daytime, possibly sunny given the shadows.\n\n**Synthesis:**\nI need to combine these two descriptions into a coherent response. I will describe the first clip (sunset) and then the second clip (kitten).\n\n**Drafting the description:**\n- Start with the sunset scene. Mention the silhouette of the hill, the orange/yellow sky, and the sun rising/setting behind it.\n- Transition to the second scene. Describe the orange kitten walking on the green grass. Mention its fluffy fur, white paws, and tail.\n\n**Refining the description:**\n- \"The video begins with a stunning time-lapse or sequence of a sunset (or sunrise) over a silhouetted hill.\"\n- \"The sky is a brilliant gradient of orange and yellow.\"\n- \"The sun is positioned just above the tree line, casting a warm glow and creating lens flares.\"\n- \"The second part of the video features a fluffy orange kitten.\"\n- \"The kitten is walking through tall green grass.\"\n- \"It moves towards the camera with a curious expression.\"\n- \"Its tail is held high, and it has white markings on its paws and tail tip.\"\n\nThis covers all the key visual elements requested.\n</think>\n\nThe video presents two distinct scenes.\n\nThe first scene captures a vibrant sunset (or sunrise) over a silhouetted hill. The sky is filled with a rich, warm palette of deep oranges and bright yellows, illuminated by the sun which is positioned just above the tree line. The hill is dark and jagged, covered in the silhouette of trees, contrasting sharply with the glowing sky. As the sequence progresses, the sun becomes more visible, bursting with light and casting rays outward.\n\nThe second scene shifts to a close-up of a fluffy orange kitten walking through a field of tall green grass. The kitten, which has white paws and a white tip on its tail, moves slowly and curiously toward the camera. Its fur appears soft and slightly messy, and it holds its tail up as it navigates the grassy terrain. The lighting suggests a sunny day, casting soft shadows on the ground.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'multi video interleave' modality, 'multi image video interleave' modality should be able to handle this.",
+        "eval-id": 11
+    },
+    {
+        "id": 12,
+        "media": [
+            "cat.mp4",
+            "sun.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "Given the Video A <video> and Video B <video>. Please provide a detailed description of the contents shown in each video.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "Given the Video A <video> and Video B <video>. Please provide a detailed description of the contents shown in each video.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of the two videos provided.\n\n**Video A Analysis:**\n- **Subject:** An orange tabby kitten.\n- **Action:** The kitten is walking through tall green grass. It starts by sniffing the ground, then lifts its head and walks towards the camera.\n- **Setting:** A grassy field, likely outdoors on a sunny day. The grass is green and somewhat long.\n- **Details:** The kitten has fluffy fur, a bushy tail held high, and white paws. It looks curious and alert. The lighting suggests it's daytime.\n\n**Video B Analysis:**\n- **Subject:** A sunset (or sunrise) over a hill.\n- **Action:** The sun is rising (or setting) behind a silhouette of a hill or mountain covered in trees.\n- **Setting:** A natural landscape with a hill in the foreground.\n- **Details:** The sky is filled with vibrant orange and yellow hues. The sun is a bright, glowing orb partially obscured by the hill's silhouette. The clouds are streaked with the sunlight. The overall mood is serene and warm.\n\n**Synthesizing the Description:**\nI will describe each video separately, focusing on the visual elements, the subject, the action, and the atmosphere.\n\n*   **Video A:** Start with the kitten. Mention its color (orange/ginger), the environment (green grass), and its movement (walking towards the camera, sniffing).\n*   **Video B:** Start with the landscape. Mention the sun, the hill/mountain silhouette, the colors (orange/yellow), and the time of day (sunset/sunrise).\n\nLet's refine the descriptions for clarity and detail.\n- Video A: An orange tabby kitten is the main focus. It is walking through a field of green grass. Initially, it is looking down, sniffing the grass. Then it lifts its head and walks directly towards the camera. Its tail is held up. The grass is tall and green.\n- Video B: This video shows a scenic view of the sun. It appears to be either sunrise or sunset. The sun is low on the horizon, peeking over the top of a dark, silhouetted hill or mountain range. The sky is a brilliant mix of orange and yellow, with some wispy clouds. The sun glows brightly, creating a lens flare effect.\n\nFinal check of the prompt requirements: \"detailed description of the contents shown in each video.\"\n\nOkay, I'm ready to write the response.\n</think>\n\n**Video A**\nThis video features a close-up shot of a fluffy orange tabby kitten walking through a field of tall, green grass. The kitten begins by sniffing the ground intently, its head lowered. As it moves forward, it lifts its head and walks directly toward the camera with a curious expression. Its bushy tail is held high in the air, and its white paws are visible as it steps through the grass. The lighting is bright, suggesting a sunny day, and the focus remains entirely on the kitten's movement and exploration of the grassy terrain.\n\n**Video B**\nThis video captures a serene landscape scene, likely a sunrise or sunset. The frame is dominated by a vibrant sky filled with warm hues of orange and yellow. In the foreground, the dark silhouette of a hill or mountain range covered in trees stretches across the bottom of the frame. The sun is positioned just above the crest of the hill, glowing brightly and partially obscured by the silhouette. Rays of light seem to emanate from the sun, illuminating the clouds and creating a dramatic, warm atmosphere. The scene is peaceful and emphasizes the contrast between the bright sky and the dark land.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'multi video interleave' modality, 'multi image video interleave' modality should be able to handle this.",
+        "eval-id": 12
+    },
+    {
+        "id": 13,
+        "media": [
+            "sun.mp4",
+            "cat.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "Given the Video A <video> and Video B <video>. Please provide a detailed description of the contents shown in each video.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "Given the Video A <video> and Video B <video>. Please provide a detailed description of the contents shown in each video.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of the two videos provided.\n\n**Video A Analysis:**\n- **Content:** A sunset or sunrise scene.\n- **Visuals:**\n    - The sky is filled with vibrant orange and yellow hues.\n    - There are clouds scattered across the sky, illuminated by the sun.\n    - In the foreground, there is a dark silhouette of a hill or mountain covered in trees/bushes.\n    - The sun is positioned just above the horizon line of the hill.\n    - The sun is rising (or setting), moving slightly upwards and becoming brighter.\n    - The light is intense, creating a lens flare effect in some frames.\n- **Progression:** The sun moves from just peeking over the ridge to fully visible and brighter. The clouds shift slightly.\n\n**Video B Analysis:**\n- **Content:** An orange cat walking on grass.\n- **Visuals:**\n    - The setting is a grassy field. The grass is green and looks somewhat long.\n    - The subject is an orange tabby cat. It has fluffy fur, a bushy tail, and white paws/chest.\n    - The cat is walking towards the camera.\n    - The cat's tail is held high and curved.\n    - The cat's expression is calm, looking directly at the camera.\n- **Progression:** The cat walks steadily forward from the background towards the foreground. The camera seems to track the cat slightly or zoom in as it gets closer.\n\n**Synthesizing the Description:**\nI need to combine these observations into a coherent description for each video.\n\n*   **Video A:** Start with the sky color (orange/yellow). Mention the silhouette of the hill/trees. Describe the sun's movement (rising/setting) and its brightness. Note the clouds.\n*   **Video B:** Start with the subject (orange cat). Describe the environment (green grass). Describe the action (walking towards the camera). Mention physical details like the fluffy tail and white paws.\n\n**Drafting the response:**\n- **Video A:** This video captures a serene sunset or sunrise. The sky is dominated by warm shades of orange and yellow. A dark silhouette of a tree-covered hill spans the lower portion of the frame. The sun is positioned just above the ridge of the hill, initially partially obscured but gradually rising higher and becoming brighter, casting a strong glow. Wispy clouds are visible in the sky, illuminated by the sun's light.\n- **Video B:** This video features an orange tabby cat walking across a grassy field. The cat has fluffy fur, a prominent bushy tail held high, and white paws. It is walking directly towards the camera with a calm demeanor. The background consists of lush green grass. As the video progresses, the cat gets closer to the viewer, filling more of the frame.\n\nRefining the descriptions for flow and detail.\n- Video A: \"A time-lapse or sequence showing a sun rising (or setting) behind a silhouetted hill.\" \"The sky is a brilliant orange.\" \"The sun emerges from behind the tree line.\"\n- Video B: \"An orange cat with white paws walking on green grass.\" \"The cat walks towards the camera.\" \"Its tail is fluffy and upright.\"\n\nFinal Polish: Ensure the tone is descriptive and objective.\n</think>\n\n**Video A**\nThis video captures a vibrant sunset or sunrise scene. The sky is filled with intense shades of orange and yellow, with wispy clouds scattered across the upper portion. In the foreground, a dark silhouette of a hill covered in trees and bushes stretches across the bottom of the frame. The sun is positioned just above the ridge of the hill, initially peeking through the trees. As the video progresses, the sun rises higher, becoming increasingly bright and intense, casting a strong, warm glow over the landscape.\n\n**Video B**\nThis video features a fluffy orange tabby cat walking across a field of green grass. The cat has a bushy tail held high in the air and white paws and chest fur. It is walking steadily towards the camera with a calm and curious expression. The background is entirely filled with lush green grass. As the video plays, the cat moves closer to the viewer, eventually taking up a significant portion of the frame as it approaches.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'multi video interleave' modality, 'multi image video interleave' modality should be able to handle this.",
+        "eval-id": 13
+    },
+    {
+        "id": 14,
+        "media": [
+            "truck.png",
+            "cat.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "Please provide a detailed description of the contents shown in <image> and <video>.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "Please provide a detailed description of the contents shown in <image> and <video>.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of the contents shown in the provided images.\n\n**Image 1 Analysis:**\n- **Subject:** A grey GMC pickup truck. It looks like a newer model, possibly the Canyon or Sierra, but the grille and headlights suggest a modern design. It has a four-door crew cab configuration.\n- **Action:** The truck is driving on a dirt road, kicking up dust. It's angled slightly towards the right of the frame.\n- **Setting:** A desert-like environment with red rock formations in the background. The lighting suggests a sunny day.\n- **Details:**\n    - The GMC logo is clearly visible on the front grille.\n    - The wheels are black.\n    - There are red accents on the side mirrors and door handles.\n    - The truck has a rugged, off-road appearance.\n    - Dust is visible around the rear tires.\n\n**Image 2 Analysis:**\n- **Subject:** An orange tabby kitten.\n- **Action:** The kitten is walking through tall green grass. It is moving towards the camera.\n- **Setting:** A grassy field, likely a lawn or meadow. The grass is green and somewhat long.\n- **Details:**\n    - The kitten has fluffy orange fur with white paws and a white tip on its tail.\n    - It is looking directly at the camera.\n    - The lighting is bright, suggesting daytime.\n    - The kitten's tail is held up.\n\n**Synthesizing the Description:**\nI need to describe both images clearly. I will start with the truck and then move to the kitten.\n\n**Drafting the description for Image 1:**\nThe first image features a grey GMC pickup truck driving on a dusty, unpaved road. The truck is a four-door crew cab model with a modern, rugged design. It has black wheels and red accents on the side mirrors and door handles. The GMC logo is prominently displayed on the front grille. The vehicle is kicking up a small cloud of dust behind its rear tires, indicating movement. The background consists of reddish-brown rock formations, suggesting a desert or canyon environment. The lighting is bright and sunny.\n\n**Drafting the description for Image 2:**\nThe second image shows a fluffy orange tabby kitten walking through a field of tall green grass. The kitten is facing forward, looking towards the camera. It has white paws and a white tip on its tail. The grass is lush and green, and the kitten is moving through it. The lighting is natural and bright, highlighting the kitten's fur.\n\n**Final Polish:**\nCombine these observations into a coherent response. I will present them as separate descriptions since they are distinct scenes.\n\nWait, looking closer at the first image, it's definitely a GMC Canyon or similar mid-size truck. The grille is distinctive. The second image is definitely a kitten.\n\nLet's refine the description to be \"detailed\" as requested.\n\n**Refined Description for Image 1:**\n- **Vehicle:** A metallic grey GMC pickup truck.\n- **Features:** Four-door crew cab, blacked-out grille with the red GMC logo, LED headlights, black wheels, red trim on mirrors/handles.\n- **Action:** Driving on a dirt track, kicking up dust.\n- **Environment:** Arid landscape with red rock cliffs in the background.\n\n**Refined Description for Image 2:**\n- **Subject:** A young orange tabby kitten.\n- **Features:** Fluffy fur, white paws, white tail tip, alert eyes.\n- **Action:** Walking/striding through grass.\n- **Environment:** Green grassy field.\n\nI will structure the final output to address both images clearly.\n</think>\n\nBased on the images provided, here is a detailed description of their contents:\n\n**Image 1: The GMC Truck**\nThe first image displays a modern, metallic grey GMC pickup truck driving on a dusty, unpaved road. The vehicle is a four-door crew cab model featuring a rugged, off-road aesthetic. Key details include:\n*   **Front Grille:** A large, black mesh grille with the distinctive red \"GMC\" logo centered on it.\n*   **Lighting:** Sleek LED headlights and fog lights integrated into the lower bumper.\n*   **Accents:** There are red trim pieces visible on the side mirrors and door handles, contrasting with the grey paint.\n*   **Wheels:** The truck is equipped with black, multi-spoke wheels.\n*   **Action:** The truck is in motion, kicking up a small cloud of reddish-brown dust behind its rear tires.\n*   **Background:** The setting appears to be a desert or canyon environment, characterized by reddish rock formations and cliffs in the distance under bright sunlight.\n\n**Image 2: The Orange Kitten**\nThe second image captures a fluffy orange tabby kitten walking through a field of tall green grass.\n*   **Subject:** The kitten has vibrant orange fur with white paws and a white tip on its tail. It appears young and energetic.\n*   **Action:** The kitten is striding forward towards the camera, with its tail held high. It is looking directly ahead with an alert expression.\n*   **Environment:** The ground is covered in lush, green grass that reaches up to the kitten's belly. The lighting is bright and natural, suggesting a sunny day outdoors.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'multi image video interleave' modality.",
+        "eval-id": 14
+    },
+    {
+        "id": 15,
+        "media": [
+            "sun.mp4",
+            "truck.png"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "Please provide a detailed description of the contents shown in <video> and <image>.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "Please provide a detailed description of the contents shown in <video> and <image>.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of the video content.\n\n**Video Analysis:**\n- **Segment 1 (00:00 - 00:05):**\n    - **Subject:** A sunset or sunrise over a hillside.\n    - **Action:** The sun is rising (or setting) behind the silhouette of a hill covered in trees.\n    - **Visuals:**\n        - The sky is a vibrant gradient of orange and yellow.\n        - The sun starts as a small, bright orb peeking over the ridge.\n        - As the video progresses, the sun rises higher, becoming brighter and more intense.\n        - Rays of light (crepuscular rays) fan out from the sun.\n        - The foreground is a dark silhouette of a hill with trees.\n        - The overall mood is warm, dramatic, and natural.\n    - **Camera:** Static shot, likely a time-lapse or just a steady shot of the sun moving.\n\n- **Segment 2 (00:05 - 00:06):**\n    - **Subject:** A GMC pickup truck.\n    - **Action:** The truck is driving on a dirt road, kicking up dust.\n    - **Visuals:**\n        - The truck is a dark grey or metallic color.\n        - It's a crew cab model.\n        - The front grille has the \"GMC\" logo in red.\n        - It has black wheels and a rugged front bumper.\n        - The background shows red rock formations, suggesting a desert or canyon environment.\n        - Dust is visible around the tires, indicating motion.\n    - **Camera:** Static shot of the vehicle in motion.\n\n**Synthesizing the Description:**\nI need to combine these two distinct parts into a coherent description. I will describe the first part as a time-lapse of a sunrise/sunset and the second part as a shot of a GMC truck driving.\n\n**Drafting the response:**\n- Start with the first scene: A time-lapse video showing the sun rising (or setting) over a silhouetted hill. The sky is filled with orange and yellow hues. The sun emerges from behind the tree line, growing brighter and larger.\n- Transition to the second scene: The video cuts to a shot of a GMC pickup truck. It is driving on a dusty, reddish dirt road. The truck is dark grey with black accents. The background features red rock cliffs. Dust is kicked up by the tires.\n\n**Refining the details:**\n- Mention the specific colors (orange, yellow, red rock).\n- Mention the specific vehicle details (GMC logo, grille).\n- Mention the lighting (backlit sun, dusty road).\n\n**Final Polish:**\nThe video consists of two distinct clips.\n1.  **Sunrise/Sunset:** A time-lapse sequence showing the sun rising (or setting) behind a dark, tree-covered hill. The sky is a brilliant mix of orange and yellow. The sun starts low, peeking over the ridge, and gradually ascends, becoming a bright, glowing orb with rays of light spreading outward.\n2.  **GMC Truck:** The scene changes to a dark grey GMC pickup truck driving on a dirt road. The truck is kicking up dust as it moves. The background consists of reddish-brown rock formations, typical of a desert landscape. The truck has a prominent front grille with the red GMC logo.\n\nThis looks accurate and covers all the key elements. I will present this in a structured way.\n</think>\n\nThe video presents two distinct scenes:\n\n**Scene 1: Sunrise/Sunset Time-Lapse (0:00 - 0:05)**\nThe first part of the video is a time-lapse sequence capturing the sun rising (or setting) over a landscape.\n*   **The Sky:** The sky is dominated by vibrant shades of orange and yellow, indicating the \"golden hour.\" Wispy clouds are scattered across the upper portion.\n*   **The Landscape:** In the foreground, there is a dark silhouette of a hillside covered in trees. The details of the trees are lost in shadow, creating a stark contrast against the bright sky.\n*   **The Sun:** The sun begins as a small, bright orb just peeking over the ridge of the hill. As the video progresses, it rises higher, becoming increasingly bright and intense, with rays of light fanning outwards.\n\n**Scene 2: GMC Pickup Truck (0:05 - 0:06)**\nThe video cuts abruptly to a shot of a vehicle.\n*   **The Vehicle:** A dark grey GMC pickup truck is shown driving from left to right. It appears to be a crew cab model with a rugged, off-road appearance.\n*   **Details:** The truck features a large front grille with the red \"GMC\" logo clearly visible. It has black wheels and a heavy-duty front bumper.\n*   **The Environment:** The truck is driving on a reddish-brown dirt road, kicking up a cloud of dust behind its tires. The background consists of red rock cliffs and desert terrain, suggesting a canyon or mountainous region.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'multi image video interleave' modality.",
+        "eval-id": 15
+    },
+    {
+        "id": 16,
+        "media": [
+            "boat.png",
+            "sun.mp4"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "Given the Image A <image> and Video B <video>. Please provide a detailed description of the contents shown in each image and video.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "Given the Image A <image> and Video B <video>. Please provide a detailed description of the contents shown in each image and video.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of the provided image and video.\n\n**Image A Analysis:**\n- **Subject:** A white luxury yacht or speedboat.\n- **Action:** It is moving quickly across the water, creating a large wake of white foam.\n- **Setting:** Open ocean or sea. The water is a deep blue-green.\n- **Details:**\n    - The boat is white with a dark stripe running along the hull.\n    - It has a cabin structure with windows.\n    - There's a deck area with railings.\n    - The bow is cutting through the water.\n    - The wake is prominent on the left side of the boat.\n    - The sky is clear and blue.\n    - There are some distant landforms or islands visible on the horizon.\n\n**Video B Analysis:**\n- **Subject:** A sunrise or sunset over a hillside.\n- **Action:** The sun is rising (or setting) behind a silhouette of a hill covered in trees.\n- **Visuals:**\n    - The sky is filled with vibrant orange and yellow hues.\n    - The sun is a bright, glowing orb, partially obscured by the hill initially, then fully visible as it rises.\n    - The hill is dark, silhouetted against the bright sky.\n    - The trees on the hill are also silhouetted.\n    - The light is intense, creating a lens flare effect in some frames.\n- **Progression:** The sun moves upwards, becoming brighter and more visible. The clouds shift slightly.\n\n**Synthesizing the Description:**\n- I need to describe Image A first, focusing on the boat, the water, and the speed.\n- Then I need to describe Video B, focusing on the sun, the sky colors, the hill silhouette, and the movement of the sun.\n\n**Drafting the response:**\n- **Image A:** A white luxury yacht speeding across the ocean. It's creating a big wake. The water is blue. The sky is clear.\n- **Video B:** A time-lapse or video of the sun rising over a hill. The sky is orange. The sun gets brighter. The hill is dark.\n\nLet's refine the language to be more descriptive.\n- Image A: \"A white speedboat or yacht is captured in motion...\" \"cutting through the deep blue water...\" \"leaving a trail of white foam...\"\n- Video B: \"A stunning view of a sunrise...\" \"vibrant orange and yellow sky...\" \"silhouette of a tree-covered hill...\" \"sun rising above the horizon...\"\n\nFinal check of the prompt requirements: \"detailed description of the contents shown in each image and video.\"\n\nOkay, I will structure the final output clearly separating the two.\n</think>\n\n**Image A**\nThe image displays a white luxury yacht or speedboat cutting through the deep blue ocean at high speed. The vessel is angled towards the right, with its bow leading the way. As it moves, it generates a significant, foamy white wake trailing behind it on the left side. The boat features a sleek design with a dark stripe running along the hull, a cabin with large windows, and a deck area enclosed by railings. The sky above is a clear, bright blue, and faint outlines of distant land or islands are visible on the horizon. The water around the boat is a mix of deep blue and turquoise, disturbed by the boat's movement.\n\n**Video B**\nThis video captures a vibrant sunrise (or possibly sunset) over a silhouetted landscape. The scene is dominated by a sky filled with intense shades of orange, yellow, and gold. In the foreground, the dark silhouette of a hill covered in trees rises from the bottom of the frame. As the video progresses, the sun, a bright glowing orb, rises above the crest of the hill. Initially, it is partially hidden, but it quickly emerges, becoming a brilliant, blinding light that illuminates the clouds and creates a hazy, radiant atmosphere. The movement suggests a time-lapse or a steady tracking shot of the sun's ascent.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'multi image video interleave' modality.",
+        "eval-id": 16
+    },
+    {
+        "id": 17,
+        "media": [
+            "cat.mp4",
+            "boat.png"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "Given the Video A <video> and Image B <image>. Please provide a detailed description of the contents shown in each video and image.",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "Given the Video A <video> and Image B <image>. Please provide a detailed description of the contents shown in each video and image.",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "The user wants a detailed description of the provided video frames and image.\n\n**Video A Analysis:**\n- **Subject:** An orange tabby kitten.\n- **Setting:** Green grass, likely a lawn or field.\n- **Action:** The kitten is walking towards the camera. It starts with its head down, sniffing the grass. Then it lifts its head and walks forward. Its tail is held up and slightly curved. The fur looks a bit shaggy or fluffy.\n- **Progression:**\n    - Frame 1 (0.0s): Kitten is low to the ground, head down, sniffing.\n    - Frame 2 (0.5s): Kitten is still low, moving forward.\n    - Frame 3 (1.0s): Kitten is lifting its head, looking slightly to the side.\n    - Frame 4 (1.5s): Kitten is walking forward, looking at the camera.\n    - Frame 5 (2.0s): Kitten is closer, walking towards the viewer.\n    - Frame 6 (2.5s): Kitten is quite close now, walking directly towards the camera.\n    - Frame 7 (3.0s): Kitten is very close, filling more of the frame.\n    - Frame 8 (3.5s): Kitten is almost at the bottom edge, very close up.\n    - Frame 9 (4.0s): Kitten is extremely close, just the front paws and face are visible.\n    - Frame 10 (4.5s): Kitten is right in front of the camera, looking down/forward.\n    - Frame 11 (5.0s): Kitten is very close, looking slightly to the side.\n\n**Image B Analysis:**\n- **Subject:** A white luxury yacht.\n- **Setting:** Open blue ocean water.\n- **Action:** The yacht is moving at speed, creating a large wake (white foam) behind it.\n- **Details:**\n    - The boat is white with a dark stripe along the hull.\n    - It has a cabin structure on top.\n    - There are railings along the side.\n    - The water is a deep blue, transitioning to lighter blue/white foam where the boat is.\n    - The sky is clear and blue.\n    - The angle is slightly from the side/rear, showing the wake trailing behind.\n\n**Synthesizing the Description:**\n- I need to describe Video A as a sequence of a kitten walking in grass.\n- I need to describe Image B as a static shot of a yacht speeding on water.\n- I will combine these into a coherent response.\n\n**Drafting the response:**\n- **Video A:** Start with the orange kitten. Mention the grassy environment. Describe the movement from sniffing the grass to walking towards the camera. Note the fluffy tail.\n- **Image B:** Describe the white yacht. Mention the speed and the wake. Describe the blue water and sky.\n\nLet's refine the description for Video A. It's a continuous shot of a kitten approaching. It starts low, sniffing, then walks up.\nLet's refine the description for Image B. It's a high-speed shot of a motor yacht.\n\nFinal check of the prompt requirements: \"detailed description of the contents shown in each video and image.\"\n\nOkay, ready to write.\n</think>\n\n**Video A**\nThis video features a fluffy orange tabby kitten walking through a field of tall green grass. The sequence begins with the kitten low to the ground, its head down as it sniffs the grass. As the video progresses, the kitten lifts its head and begins to walk steadily towards the camera. Its tail is held high and curved slightly, indicating alertness or playfulness. The kitten's fur appears soft and slightly shaggy. By the end of the sequence, the kitten is quite close to the camera, filling the frame as it continues its approach.\n\n**Image B**\nThis image captures a sleek, white luxury yacht speeding across a vast expanse of blue ocean. The boat is angled slightly towards the right, cutting through the water and leaving a large, foamy white wake trailing behind it. The yacht has a modern design with a dark stripe running along its hull and a cabin structure on the upper deck. The sky above is a clear, bright blue, suggesting a sunny day with calm weather conditions aside from the wake created by the moving vessel.\n"
+                ]
+            }
+        ],
+        "comment": "Test 'multi image video interleave' modality.",
+        "eval-id": 17
+    }
+]

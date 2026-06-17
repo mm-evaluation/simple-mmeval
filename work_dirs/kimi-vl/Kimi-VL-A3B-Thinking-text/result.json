@@ -1,0 +1,44 @@
+[
+    {
+        "id": 0,
+        "media": [],
+        "messages": [
+            {
+                "role": "user",
+                "question": "What is the result of 1 plus 1?",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "What is the result of 1 plus 1?",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": "\u25c1think\u25b7Okay, so I need to figure out what 1 plus 1 is. Hmm, let's start by recalling some basic math. I know that addition is combining two numbers to get their total. So, if I have one apple and someone gives me another apple, how many apples do I have in total? That should be two apples. But wait, maybe I'm overcomplicating it. Let me think step by step.\n\nFirst, let's break down the numbers. The number 1 represents a single unit. Adding another unit to it should logically give a total of 2 units. But maybe I should consider different contexts to be thorough. For example, in binary, 1 plus 1 equals 10. But the question doesn't specify the number system, so probably the decimal system is expected here. In decimal, 1 + 1 is definitely 2. \n\nWait, could there be any tricks or exceptions to this? Like, sometimes in math problems, especially in certain puzzles, they might try to trick you, but 1 plus 1 is such a basic operation that I can't think of any trick here. Unless there's a context where the numbers aren't integers, but again, the question is straightforward. Maybe if it's in a different base, like hexadecimal, but 1 + 1 is still 2. \n\nAlternatively, maybe the question is testing if I know that 1 plus 1 equals 2, which is a fundamental arithmetic fact taught from early childhood. So, unless there's some kind of logical or philosophical trick here, which doesn't seem to be the case, the answer should be 2. \n\nAnother angle: in some programming languages, 1 + 1 might result in 2, but in others, like JavaScript, it would be 2. But again, the question isn't about programming. So, sticking with basic arithmetic, the result is 2. \n\nI think that's solid. No need to overcomplicate. The answer is 2.\u25c1/think\u25b7The result of 1 plus 1 is **2**. \n\nThis is a fundamental arithmetic operation where adding two single units together results in a total of two units. The answer is consistent across all standard number systems (e.g., decimal, binary, hexadecimal) and contexts unless specified otherwise."
+            }
+        ],
+        "comment": "Test 'no media' modality.",
+        "eval-id": 0
+    },
+    {
+        "id": 1,
+        "media": [],
+        "messages": [
+            {
+                "role": "user",
+                "question": "What is the capital city of China?",
+                "answer": "",
+                "options": {},
+                "choices": [],
+                "prompt": "What is the capital city of China?",
+                "hint": ""
+            },
+            {
+                "role": "assistant",
+                "response": "\u25c1think\u25b7Okay, so the user is asking, \"What is the capital city of China?\" Let me start by recalling what I know about this. China is a country in East Asia, and its capital is a well-known city. I think it's Beijing, but I should make sure. Sometimes people might confuse it with other cities like Shanghai or Hong Kong, but Hong Kong is a Special Administrative Region, not the capital. Let me verify.\n\nFirst, I remember that Beijing has been the capital of China for a long time, especially since the establishment of the People's Republic of China in 1949. It was also the capital of the Republic of China before that, but after the Chinese Civil War, the Communist Party took over, and Beijing became the capital. \n\nI should also consider historical context. During different dynasties, the capital moved around, like Nanjing or Xi'an, but Beijing has been the capital since the Ming Dynasty, which ended in 1644. Then, in 1912, the Republic of China was established, but Beijing remained a capital. \n\nAnother point is that Beijing is a major political and cultural center. It's the seat of the Central Committee of the Communist Party of China and the government, so that solidifies its status as the capital. The city is also known for landmarks like the Great Wall, the Forbidden City, and Tiananmen Square, which are all significant symbols of Chinese history and culture. \n\nI should also mention the 2008 Olympics were held in Beijing, which brought international attention to the city. Additionally, it's a cultural hub with many historical sites and museums. \n\nIs there any chance someone might think the capital is Shanghai? I know Shanghai is a major financial center, but it's not the capital. Similarly, Hong Kong is a Special Administrative Region and doesn't have the same political status as a capital. \n\nTo double-check, I can think of the official name of the country, the People's Republic of China, which has its capital in Beijing. The United Nations recognizes Beijing as the capital. Also, the Chinese government uses Beijing as the capital in official communications. \n\nSo putting it all together, the capital city of China is Beijing. It's been the capital for centuries, a center of politics, culture, and history. There's no confusion with other cities in this context. I should present this information clearly, making sure to mention the historical background and its current role as the capital.\u25c1/think\u25b7The capital city of China is **Beijing**. \n\n**Key Points:**\n- **Historical Significance**: Beijing has served as China's capital since the establishment of the People's Republic of China in 1949. It was also the capital of the Republic of China (1912\u20131949) and had been a capital city for centuries prior.\n- **Political Center**: It houses the Central Committee of the Communist Party of China and the national government, making it the political heart of the country.\n- **Cultural and Historical Hub**: Known for landmarks like the Forbidden City, Great Wall, and Tiananmen Square, Beijing is a symbol of Chinese heritage and modern development.\n- **Global Recognition**: It hosted the 2008 Summer Olympics and remains a major cultural and diplomatic center.\n\nBeijing's status as the capital is undisputed, with no other city in China holding the same political and historical prominence."
+            }
+        ],
+        "comment": "Test 'no media' modality.",
+        "eval-id": 1
+    }
+]
