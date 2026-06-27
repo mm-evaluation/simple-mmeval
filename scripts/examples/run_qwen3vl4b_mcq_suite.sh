@@ -81,7 +81,7 @@ for spec in "${DATASETS[@]}"; do
     echo "  result.json exists -> skip inference"
   else
     CUDA_VISIBLE_DEVICES="${CVD}" python mmeval/run.py \
-      --model_name_or_path "${MODEL_NAME_OR_PATH}" --dataset "${ds_spec}" --split "${split}" \
+      --model_name_or_path "${MODEL_NAME_OR_PATH}" --model_series "${MODEL_SERIES:-}" --dataset "${ds_spec}" --split "${split}" \
       --out_dir "${odir}" "${GEN_ARGS[@]}" > "${OUT_DIR}/infer_${name}.log" 2>&1
     echo "  inference exit=$? ($(date '+%H:%M:%S'))"
   fi

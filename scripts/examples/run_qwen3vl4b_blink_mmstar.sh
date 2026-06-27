@@ -177,7 +177,7 @@ run_blink() {
     i=$((i + 1))
     echo "[$(date '+%H:%M:%S')] [BLINK ${i}/${n}] START ${cfg}"
     CUDA_VISIBLE_DEVICES="${BLINK_CVD}" python mmeval/run.py \
-      --model_name_or_path "${MODEL_NAME_OR_PATH}" \
+      --model_name_or_path "${MODEL_NAME_OR_PATH}" --model_series "${MODEL_SERIES:-}" \
       --dataset "mmeval_hf@mm-eval/BLINK:${cfg}" \
       --split val \
       --out_dir "${OUT_DIR}/BLINK/${cfg}" \
@@ -190,7 +190,7 @@ run_blink() {
 run_mmstar() {
   echo "[$(date '+%H:%M:%S')] [MMStar] START"
   CUDA_VISIBLE_DEVICES="${MMSTAR_CVD}" python mmeval/run.py \
-    --model_name_or_path "${MODEL_NAME_OR_PATH}" \
+    --model_name_or_path "${MODEL_NAME_OR_PATH}" --model_series "${MODEL_SERIES:-}" \
     --dataset "mmeval_hf@mm-eval/MMStar" \
     --split val \
     --out_dir "${OUT_DIR}/MMStar" \

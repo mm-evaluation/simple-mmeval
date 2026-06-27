@@ -166,8 +166,23 @@ class BaseDataset(ABC):
         str
             Rendered template string
         """
+        # Some MCQ datasets (e.g. HR-Bench) store options as flat per-letter keys
+        # (sample["A"], sample["B"], ...) with an EMPTY `options` dict, so the template's
+        # `{% if options %}` never fires and the choices are never shown to the model.
+        # Rebuild `options` from the flat keys so the prompt actually lists the choices.
+        if not sample.get("options"):
+            letters = [c for c in "ABCDEFGH" if str(sample.get(c, "")).strip() != ""]
+            if letters:
+                sample = {**sample, "options": {c: sample[c] for c in letters}}
+        # Other datasets (e.g. MMVP) keep the choices in a single `options_text` string
+        # like "(a) Open (b) Closed"; parse it into the options dict so they render.
+        if not sample.get("options") and str(sample.get("options_text", "")).strip():
+            pairs = re.findall(r"\(([A-Za-z0-9])\)\s*(.+?)(?=\s*\([A-Za-z0-9]\)|$)",
+                               str(sample["options_text"]))
+            if pairs:
+                sample = {**sample, "options": {k.upper(): v.strip() for k, v in pairs}}
         env = Environment()
-        env.globals.update({'zip': zip, 'enumerate': enumerate, 'len': len, 'range': range, 'list': list, 
+        env.globals.update({'zip': zip, 'enumerate': enumerate, 'len': len, 'range': range, 'list': list,
         'dict': dict, 'str': str, 'int': int, 'float': float, 'bool': bool, 'sum': sum, 'max': max, 'min': min})
         template = env.from_string(prompt_template)
         return template.render(**sample)
