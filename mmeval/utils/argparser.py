@@ -50,6 +50,8 @@ class DataArguments:
                            metadata={"help": "name of the dataset."})
     split: Optional[str] = field(default=None,
                            metadata={"help": "split of the dataset for huggingface."})
+    subset: Optional[str] = field(default=None,
+                           metadata={"help": "mm-eval subset name (metadata.json subsets key); optional when the dataset has exactly one."})
     infile: Optional[str]= field(default=None,
                            metadata={"help": "input file."})
     img_dir: Optional[str] = field(default=None,
@@ -87,27 +89,30 @@ class ScoreRuntimeArguments:
 
 @dataclass
 class ScoreArguments:
-    score_scan_recursive: bool = field(default=True, metadata={"help": "recursively scan out_dir for result.json"})
     score_result_glob: str = field(default="**/result.json", metadata={"help": "glob pattern for result files in score mode"})
     score_output_name: str = field(default="score.json", metadata={"help": "output score json file name"})
     score_progress_bar: bool = field(default=True, metadata={"help": "show progress bar while scoring samples"})
     score_resume: bool = field(default=True, metadata={"help": "resume scoring from score tmp/final files when available"})
     score_save_freq: int = field(default=20, metadata={"help": "flush frequency for score resume tmp file"})
-    score_dump_failures: bool = field(default=False, metadata={"help": "dump failed/unmatched samples into score_failures.json"})
     score_debug: bool = field(default=False, metadata={"help": "write matcher trace into score outputs"})
     matching_order: str = field(default="exact,template", metadata={"help": "matcher chain order, comma-separated"})
-    matching_stop_on_first: bool = field(default=True, metadata={"help": "stop matcher chain once one matcher succeeds"})
 
     score_gt_field: str = field(default="answer", metadata={"help": "field name for ground-truth in result sample"})
     score_pred_field: str = field(default="messages[-1].response", metadata={"help": "field path for prediction in result sample"})
-    score_type_field: Optional[str] = field(default=None, metadata={"help": "optional field name for question type"})
-    score_force_question_type: str = field(default="auto", metadata={"help": "force question type: auto|mcq|open"})
+    score_question_type: str = field(default="auto", metadata={"help": "question type: auto|mcq|yes_no|numeric|open. auto = read the sample's question_type field (recognized values only), then infer from gt shape"})
+    score_numeric_rel_tol: float = field(default=0.0, metadata={"help": "relative tolerance for numeric answers (0 = exact float equality)"})
+    score_numeric_abs_tol: float = field(default=0.0, metadata={"help": "absolute tolerance for numeric answers (0 = off; DynaMath uses 0.001)"})
+    score_string_match: str = field(default="exact", metadata={"help": "rule-chain text comparison: exact|contains|anls (contains = OCRBench substring protocol; anls = threshold ANLS)"})
+    score_anls_threshold: float = field(default=0.5, metadata={"help": "ANLS threshold (string_match=anls and the anls grader)"})
 
     judge_provider: Optional[str] = field(default=None, metadata={"help": "llm judge provider: openai|azure_openai"})
     judge_model: Optional[str] = field(default=None, metadata={"help": "llm judge model/deployment name"})
-    judge_max_retry: int = field(default=2, metadata={"help": "llm judge max retry count"})
+    # For the three knobs below, resolution order is: CLI flag > env var > default
+    # (env names JUDGE_MAX_RETRY / JUDGE_MAX_CONCURRENCY / JUDGE_MAX_TOKENS).
+    judge_max_retry: Optional[int] = field(default=None, metadata={"help": "llm judge max attempts per call (default: env JUDGE_MAX_RETRY or 3)"})
     judge_temperature: float = field(default=0.0, metadata={"help": "llm judge generation temperature"})
-    judge_concurrency: int = field(default=1, metadata={"help": "reserved for llm judge concurrency control"})
+    judge_concurrency: Optional[int] = field(default=None, metadata={"help": "max concurrent llm judge calls, process-wide (default: env JUDGE_MAX_CONCURRENCY or 4)"})
+    judge_max_tokens: Optional[int] = field(default=None, metadata={"help": "llm judge max completion tokens (default: env JUDGE_MAX_TOKENS or 2048)"})
     judge_include_reason: bool = field(default=False, metadata={"help": "include llm judge reason in output"})
 
 
@@ -129,7 +134,7 @@ BOOL_DEFAULTS = {
     )
 }
 
-def _add_dataclass_arguments(parser, dataclasses):
+def _add_dataclass_arguments(parser, dataclasses, suppress_defaults=False):
     for dc in dataclasses:
         for f in fields(dc):
             tp = f.type
@@ -142,21 +147,36 @@ def _add_dataclass_arguments(parser, dataclasses):
                 if f.default is True:
                     parser.add_argument(f"--no-{cli_name}", f"--no_{f.name}",
                                         dest=f.name, action="store_false",
-                                        default=True, help=help_text)
+                                        default=argparse.SUPPRESS if suppress_defaults else True,
+                                        help=help_text)
                 elif f.default is False:
                     parser.add_argument(f"--{cli_name}", f"--{f.name}",
                                         dest=f.name, action="store_true",
-                                        default=False, help=help_text)
+                                        default=argparse.SUPPRESS if suppress_defaults else False,
+                                        help=help_text)
                 else:
                     parser.add_argument(f"--{cli_name}", f"--{f.name}",
                                         dest=f.name, action="store_true",
-                                        default=None, help=help_text)
+                                        default=argparse.SUPPRESS if suppress_defaults else None,
+                                        help=help_text)
                     parser.add_argument(f"--no-{cli_name}", f"--no_{f.name}",
-                                        dest=f.name, action="store_false")
+                                        dest=f.name, action="store_false",
+                                        **({"default": argparse.SUPPRESS} if suppress_defaults else {}))
             else:
                 parser.add_argument(f"--{cli_name}", f"--{f.name}",
                                     dest=f.name, type=tp,
-                                    default=f.default, help=help_text)
+                                    default=argparse.SUPPRESS if suppress_defaults else f.default,
+                                    help=help_text)
+
+
+def _track_explicit_flags(args, argv):
+    """Record which score-mode dests the user explicitly provided (shadow parse
+    with suppressed defaults). The scorer's per-knob resolution needs this:
+    explicit CLI flag > dataset_meta from result.json > built-in default."""
+    shadow = argparse.ArgumentParser()
+    _add_dataclass_arguments(shadow, SCORE_ARGUMENT_DATACLASSES, suppress_defaults=True)
+    args._explicit_flags = frozenset(vars(shadow.parse_known_args(argv)[0]).keys())
+    return args
 
 
 def parse_args(mode: str = "auto"):
@@ -174,7 +194,10 @@ def parse_args(mode: str = "auto"):
 
     parser = argparse.ArgumentParser()
     _add_dataclass_arguments(parser, dataclasses)
-    return parser.parse_args()
+    args = parser.parse_args()
+    if mode == "score":
+        args = _track_explicit_flags(args, sys.argv[1:])
+    return args
 def parse_model_kwargs(args, default_kwargs=None):
     default_kwargs = default_kwargs or {}
     model_kwargs = {}

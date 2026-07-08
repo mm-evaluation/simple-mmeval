@@ -3,11 +3,7 @@ from mmeval.utils.argparser import parse_args
 
 
 def run_score(args):
-    files = discover_result_files(
-        out_dir=args.out_dir,
-        pattern=args.score_result_glob,
-        recursive=args.score_scan_recursive,
-    )
+    files = discover_result_files(out_dir=args.out_dir, pattern=args.score_result_glob)
     if not files:
         raise RuntimeError(f"No result files found under {args.out_dir} with pattern {args.score_result_glob}")
 
@@ -18,9 +14,6 @@ def run_score(args):
             done.append(score_result_file(result_file, args))
         except Exception as exc:
             failed.append({"result_file": result_file, "error": str(exc)})
-
-    done.sort(key=lambda x: x["result_file"])
-    failed.sort(key=lambda x: x["result_file"])
 
     for item in done:
         print(

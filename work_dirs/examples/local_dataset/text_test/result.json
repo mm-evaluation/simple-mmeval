@@ -6,7 +6,6 @@
             {
                 "role": "user",
                 "question": "What is the result of 1 plus 1?",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "What is the result of 1 plus 1?",
@@ -20,7 +19,8 @@
             }
         ],
         "comment": "Test 'no media' modality.",
-        "eval-id": 0
+        "eval-id": 0,
+        "answer": ""
     },
     {
         "id": 1,
@@ -29,7 +29,6 @@
             {
                 "role": "user",
                 "question": "What is the capital city of China?",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "What is the capital city of China?",
@@ -43,6 +42,7 @@
             }
         ],
         "comment": "Test 'no media' modality.",
-        "eval-id": 1
+        "eval-id": 1,
+        "answer": ""
     }
 ]

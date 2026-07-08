@@ -18,7 +18,7 @@ key = os.getenv("AZURE_OPENAI_KEY")
 endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
 deploy = os.getenv("AZURE_OPENAI_DEPLOYNAME", "gpt-5.4-mini-2026-03-17")
 api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2024-02-01")
-max_tokens = max(2048, int(os.getenv("JUDGE_MAX_TOKENS", "2048")))
+max_tokens = int(os.getenv("JUDGE_MAX_TOKENS", "2048"))
 
 missing = [n for n, v in [("AZURE_OPENAI_KEY", key), ("AZURE_OPENAI_ENDPOINT", endpoint)] if not v]
 if missing:

@@ -8,7 +8,6 @@
             {
                 "role": "user",
                 "question": "<image> Please provide a detailed description of the contents shown in the image.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
@@ -22,7 +21,8 @@
             }
         ],
         "comment": "Test 'single image start' modality, 'multi image video interleave' modality should be able to handle this.",
-        "eval-id": 0
+        "eval-id": 0,
+        "answer": ""
     },
     {
         "id": 1,
@@ -33,7 +33,6 @@
             {
                 "role": "user",
                 "question": "<image> Please provide a detailed description of the contents shown in the image.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "<image> Please provide a detailed description of the contents shown in the image.",
@@ -47,7 +46,8 @@
             }
         ],
         "comment": "Test 'single image start' modality, 'multi image video interleave' modality should be able to handle this.",
-        "eval-id": 1
+        "eval-id": 1,
+        "answer": ""
     },
     {
         "id": 2,
@@ -59,7 +59,6 @@
             {
                 "role": "user",
                 "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
@@ -73,7 +72,8 @@
             }
         ],
         "comment": "Test 'multi image start' modality, 'multi image video interleave' modality should be able to handle this.",
-        "eval-id": 2
+        "eval-id": 2,
+        "answer": ""
     },
     {
         "id": 3,
@@ -85,7 +85,6 @@
             {
                 "role": "user",
                 "question": "<image><image> Please provide a detailed description of the contents shown in the two images.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "<image><image> Please provide a detailed description of the contents shown in the two images.",
@@ -99,7 +98,8 @@
             }
         ],
         "comment": "Test 'multi image start' modality, 'multi image video interleave' modality should be able to handle this.",
-        "eval-id": 3
+        "eval-id": 3,
+        "answer": ""
     },
     {
         "id": 4,
@@ -111,7 +111,6 @@
             {
                 "role": "user",
                 "question": "Please provide a detailed description of the contents shown in <image> and <image>.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "Please provide a detailed description of the contents shown in <image> and <image>.",
@@ -125,7 +124,8 @@
             }
         ],
         "comment": "Test 'multi image interleave' modality, 'multi image video interleave' modality should be able to handle this.",
-        "eval-id": 4
+        "eval-id": 4,
+        "answer": ""
     },
     {
         "id": 5,
@@ -137,7 +137,6 @@
             {
                 "role": "user",
                 "question": "Please provide a detailed description of the contents shown in <image> and <image>.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "Please provide a detailed description of the contents shown in <image> and <image>.",
@@ -151,7 +150,8 @@
             }
         ],
         "comment": "Test 'multi image interleave' modality, 'multi image video interleave' modality should be able to handle this.",
-        "eval-id": 5
+        "eval-id": 5,
+        "answer": ""
     },
     {
         "id": 6,
@@ -163,7 +163,6 @@
             {
                 "role": "user",
                 "question": "Given the Image A <image> and Image B <image>. Please provide a detailed description of the contents shown in each image.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "Given the Image A <image> and Image B <image>. Please provide a detailed description of the contents shown in each image.",
@@ -177,7 +176,8 @@
             }
         ],
         "comment": "Test 'multi image interleave' modality, 'multi image video interleave' modality should be able to handle this.",
-        "eval-id": 6
+        "eval-id": 6,
+        "answer": ""
     },
     {
         "id": 7,
@@ -189,7 +189,6 @@
             {
                 "role": "user",
                 "question": "Given the Image A <image> and Image B <image>. Please provide a detailed description of the contents shown in each image.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "Given the Image A <image> and Image B <image>. Please provide a detailed description of the contents shown in each image.",
@@ -203,7 +202,8 @@
             }
         ],
         "comment": "Test 'multi image interleave' modality, 'multi image video interleave' modality should be able to handle this.",
-        "eval-id": 7
+        "eval-id": 7,
+        "answer": ""
     },
     {
         "id": 8,
@@ -214,7 +214,6 @@
             {
                 "role": "user",
                 "question": "<video> Please provide a detailed description of the contents shown in the video.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "<video> Please provide a detailed description of the contents shown in the video.",
@@ -228,7 +227,8 @@
             }
         ],
         "comment": "Test 'single video start' modality, 'multi image video interleave' modality should be able to handle this.",
-        "eval-id": 8
+        "eval-id": 8,
+        "answer": ""
     },
     {
         "id": 9,
@@ -239,7 +239,6 @@
             {
                 "role": "user",
                 "question": "<video> Please provide a detailed description of the contents shown in the video.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "<video> Please provide a detailed description of the contents shown in the video.",
@@ -253,7 +252,8 @@
             }
         ],
         "comment": "Test 'single video start' modality, 'multi image video interleave' modality should be able to handle this.",
-        "eval-id": 9
+        "eval-id": 9,
+        "answer": ""
     },
     {
         "id": 10,
@@ -265,7 +265,6 @@
             {
                 "role": "user",
                 "question": "Please provide a detailed description of the contents shown in <video> and <video>.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "Please provide a detailed description of the contents shown in <video> and <video>.",
@@ -279,7 +278,8 @@
             }
         ],
         "comment": "Test 'multi video interleave' modality, 'multi image video interleave' modality should be able to handle this.",
-        "eval-id": 10
+        "eval-id": 10,
+        "answer": ""
     },
     {
         "id": 11,
@@ -291,7 +291,6 @@
             {
                 "role": "user",
                 "question": "Please provide a detailed description of the contents shown in <video> and <video>.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "Please provide a detailed description of the contents shown in <video> and <video>.",
@@ -305,7 +304,8 @@
             }
         ],
         "comment": "Test 'multi video interleave' modality, 'multi image video interleave' modality should be able to handle this.",
-        "eval-id": 11
+        "eval-id": 11,
+        "answer": ""
     },
     {
         "id": 12,
@@ -317,7 +317,6 @@
             {
                 "role": "user",
                 "question": "Given the Video A <video> and Video B <video>. Please provide a detailed description of the contents shown in each video.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "Given the Video A <video> and Video B <video>. Please provide a detailed description of the contents shown in each video.",
@@ -331,7 +330,8 @@
             }
         ],
         "comment": "Test 'multi video interleave' modality, 'multi image video interleave' modality should be able to handle this.",
-        "eval-id": 12
+        "eval-id": 12,
+        "answer": ""
     },
     {
         "id": 13,
@@ -343,7 +343,6 @@
             {
                 "role": "user",
                 "question": "Given the Video A <video> and Video B <video>. Please provide a detailed description of the contents shown in each video.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "Given the Video A <video> and Video B <video>. Please provide a detailed description of the contents shown in each video.",
@@ -357,7 +356,8 @@
             }
         ],
         "comment": "Test 'multi video interleave' modality, 'multi image video interleave' modality should be able to handle this.",
-        "eval-id": 13
+        "eval-id": 13,
+        "answer": ""
     },
     {
         "id": 14,
@@ -369,7 +369,6 @@
             {
                 "role": "user",
                 "question": "Please provide a detailed description of the contents shown in <image> and <video>.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "Please provide a detailed description of the contents shown in <image> and <video>.",
@@ -383,7 +382,8 @@
             }
         ],
         "comment": "Test 'multi image video interleave' modality.",
-        "eval-id": 14
+        "eval-id": 14,
+        "answer": ""
     },
     {
         "id": 15,
@@ -395,7 +395,6 @@
             {
                 "role": "user",
                 "question": "Please provide a detailed description of the contents shown in <video> and <image>.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "Please provide a detailed description of the contents shown in <video> and <image>.",
@@ -409,7 +408,8 @@
             }
         ],
         "comment": "Test 'multi image video interleave' modality.",
-        "eval-id": 15
+        "eval-id": 15,
+        "answer": ""
     },
     {
         "id": 16,
@@ -421,7 +421,6 @@
             {
                 "role": "user",
                 "question": "Given the Image A <image> and Video B <video>. Please provide a detailed description of the contents shown in each image and video.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "Given the Image A <image> and Video B <video>. Please provide a detailed description of the contents shown in each image and video.",
@@ -435,7 +434,8 @@
             }
         ],
         "comment": "Test 'multi image video interleave' modality.",
-        "eval-id": 16
+        "eval-id": 16,
+        "answer": ""
     },
     {
         "id": 17,
@@ -447,7 +447,6 @@
             {
                 "role": "user",
                 "question": "Given the Video A <video> and Image B <image>. Please provide a detailed description of the contents shown in each video and image.",
-                "answer": "",
                 "options": {},
                 "choices": [],
                 "prompt": "Given the Video A <video> and Image B <image>. Please provide a detailed description of the contents shown in each video and image.",
@@ -461,6 +460,7 @@
             }
         ],
         "comment": "Test 'multi image video interleave' modality.",
-        "eval-id": 17
+        "eval-id": 17,
+        "answer": ""
     }
 ]

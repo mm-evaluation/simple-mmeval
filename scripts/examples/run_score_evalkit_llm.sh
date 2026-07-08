@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-# Example script: run scoring (exact -> template -> llm) on evalkit outputs.
+# Example script: run scoring (exact -> template -> llm-judge) on evalkit outputs.
 # Defaults are intentionally conservative for cost/time.
 #
 # Usage:
@@ -13,7 +13,7 @@ set -euo pipefail
 #   SCORE_RESULT_GLOB='VStarBench/result.json'   # or '*/result.json'
 #   SCORE_OUTPUT_NAME=score_llm.json
 #   PARALLEL_PER_TASK=1   # sample workers inside each result.json
-#   MATCHING_ORDER='exact,template,llm'
+#   MATCHING_ORDER='exact,template,llm-judge'
 #   JUDGE_PROVIDER='openai'
 #   JUDGE_MODEL='gpt-5'
 #   JUDGE_INCLUDE_REASON='false'
@@ -29,7 +29,7 @@ OUT_DIR="${OUT_DIR:-work_dirs/evalkit_all_qwen}"
 SCORE_RESULT_GLOB="${SCORE_RESULT_GLOB:-VStarBench/result.json}"
 SCORE_OUTPUT_NAME="${SCORE_OUTPUT_NAME:-score_llm.json}"
 PARALLEL_PER_TASK="${PARALLEL_PER_TASK:-1}"
-MATCHING_ORDER="${MATCHING_ORDER:-exact,template,llm}"
+MATCHING_ORDER="${MATCHING_ORDER:-exact,template,llm-judge}"
 JUDGE_PROVIDER="${JUDGE_PROVIDER:-openai}"
 JUDGE_MODEL="${JUDGE_MODEL:-gpt-5}"
 JUDGE_INCLUDE_REASON="${JUDGE_INCLUDE_REASON:-false}"

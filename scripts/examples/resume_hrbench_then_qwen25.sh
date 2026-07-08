@@ -8,8 +8,9 @@ export PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True"
 export JUDGE_MAX_CONCURRENCY=4
 export JUDGE_MAX_RETRY=3
 export JUDGE_MAX_TOKENS=2048
-export AZURE_OPENAI_KEY="kEQGmoirhe9XZdDOCmE5MxAL3vDx2ViT_GPT_AK"
-export AZURE_OPENAI_ENDPOINT="https://aidp-i18ntt-sg.byteintl.net/api/modelhub/online/v2/crawl"
+# Set AZURE_OPENAI_KEY / AZURE_OPENAI_ENDPOINT in your environment before running.
+export AZURE_OPENAI_KEY="${AZURE_OPENAI_KEY:?set AZURE_OPENAI_KEY in the environment}"
+export AZURE_OPENAI_ENDPOINT="${AZURE_OPENAI_ENDPOINT:?set AZURE_OPENAI_ENDPOINT in the environment}"
 export AZURE_OPENAI_DEPLOYNAME="gpt-5.4-mini-2026-03-17"
 export AZURE_OPENAI_API_VERSION="2024-02-01"
 

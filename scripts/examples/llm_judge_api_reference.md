@@ -7,8 +7,8 @@ Provider: **Azure OpenAI**, accessed via ByteDance internal modelhub proxy.
 
 ```bash
 # === Azure OpenAI judge ===
-export AZURE_OPENAI_KEY="kEQGmoirhe9XZdDOCmE5MxAL3vDx2ViT_GPT_AK"
-export AZURE_OPENAI_ENDPOINT="https://aidp-i18ntt-sg.byteintl.net/api/modelhub/online/v2/crawl"
+export AZURE_OPENAI_KEY="<your key>"          # never commit real keys
+export AZURE_OPENAI_ENDPOINT="<your Azure/proxy endpoint>"
 export AZURE_OPENAI_DEPLOYNAME="gpt-5.4-mini-2026-03-17"
 export AZURE_OPENAI_API_VERSION="2024-02-01"
 
@@ -34,11 +34,11 @@ python mmeval/score.py --out_dir <DATASET_DIR> --score_result_glob 'result.json'
 - **judge model**: `gpt-5.4-mini-2026-03-17` (Azure deployment name is identical).
 - **matching_order = `template,llm-match`**: try rule/template answer-matching first;
   fall back to the LLM judge only when the rule match fails. Fewer calls, more stable.
-- **provider = `azure_openai`**, but the endpoint is the ByteDance internal modelhub
-  proxy (`*.byteintl.net`), NOT public Azure — only reachable inside the corp network.
+- **provider = `azure_openai`**; the endpoint may be a proxy rather than public Azure —
+  set AZURE_OPENAI_ENDPOINT to whatever your deployment exposes.
 - `JUDGE_MAX_CONCURRENCY=4` keeps concurrency low to avoid saturating the judge quota
   (which otherwise degrades throughput/quality).
 
-> Internal key/endpoint — usable only on the company network. For external reference,
-> the reusable part is the *methodology*: rule-first + LLM fallback, the judge model,
+> Set the key/endpoint via environment variables; never commit real values. The
+> reusable part is the *methodology*: rule-first + LLM fallback, the judge model,
 > and the concurrency/retry settings.

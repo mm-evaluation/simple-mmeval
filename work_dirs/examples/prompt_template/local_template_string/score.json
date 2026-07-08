@@ -1,0 +1,87 @@
+{
+  "summary": {
+    "total": 2,
+    "valid": 2,
+    "correct": 2,
+    "accuracy": 1.0,
+    "mean_score": 1.0,
+    "invalid": 0,
+    "llm_errors": 0,
+    "by_matcher": {
+      "template": {
+        "total": 2,
+        "correct": 2
+      }
+    },
+    "by_question_type": {
+      "mcq": {
+        "total": 2,
+        "correct": 2
+      }
+    }
+  },
+  "config": {
+    "matching_order": "exact,template",
+    "grader": null,
+    "score_type": null,
+    "task_type": null,
+    "official_protocol": null,
+    "knob_sources": {
+      "matching_order": "default",
+      "score_numeric_rel_tol": "default",
+      "score_numeric_abs_tol": "default",
+      "score_string_match": "default",
+      "score_anls_threshold": "default"
+    },
+    "score_gt_field": "answer",
+    "score_pred_field": "messages[-1].response",
+    "score_question_type": "auto",
+    "score_numeric_rel_tol": 0.0,
+    "score_numeric_abs_tol": 0.0,
+    "score_string_match": "exact",
+    "score_anls_threshold": 0.5,
+    "judge_provider": null,
+    "judge_model": null,
+    "judge_temperature": 0.0,
+    "judge_include_reason": false,
+    "score_progress_bar": false,
+    "score_resume": false,
+    "score_save_freq": 20,
+    "parallel_per_task": 1,
+    "resumed_count": 0,
+    "provenance": {
+      "git_commit": "b0b89a81fd72519a596b41973d60bbbdc4e6460d",
+      "python": "3.13.13",
+      "openai": "2.44.0"
+    },
+    "protocol_notes": [
+      "Per-sample scoring; official aggregations noted per dataset in these notes are not reproduced. LLM failures are marked wrong and counted in summary.llm_errors (never randomly guessed, unlike VLMEvalKit)."
+    ]
+  },
+  "samples": [
+    {
+      "eval-id": 0,
+      "question_type": "mcq",
+      "gt": "A",
+      "pred": [
+        "(A) A truck"
+      ],
+      "matcher_used": "template",
+      "matched": "A",
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 1,
+      "question_type": "mcq",
+      "gt": "C",
+      "pred": [
+        "(C) A boat"
+      ],
+      "matcher_used": "template",
+      "matched": "C",
+      "is_correct": 1,
+      "status": "ok"
+    }
+  ]
+}

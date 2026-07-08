@@ -10,12 +10,10 @@ MATCHER_REGISTRY = {
     "llm-judge": LLMJudgeMatcher,
     # LLM only extracts the chosen option, then rule-based exact compare (VLMEvalKit).
     "llm-match": LLMMatchMatcher,
-    # Backwards-compatible alias for the old name.
-    "llm": LLMJudgeMatcher,
 }
 
 # Names whose matcher needs the parsed `args` (API client/config) at construction.
-LLM_MATCHER_NAMES = {"llm", "llm-judge", "llm-match"}
+LLM_MATCHER_NAMES = {"llm-judge", "llm-match"}
 
 __all__ = [
     "MatchResult",
