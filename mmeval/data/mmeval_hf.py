@@ -16,15 +16,8 @@ class MMEvalHFDataset(BaseDataset):
     """
 
     def __init__(self, args):
-        dataset_str = args.dataset.split("@", 1)[1] if "@" in args.dataset else args.dataset
-        # Subset selection: --subset flag; the "name:subset" suffix is an
-        # equivalent alias for existing scripts.
+        self.dataset_name = args.dataset.split("@", 1)[1]
         self.subset = getattr(args, "subset", None)
-        if ":" in dataset_str:
-            dataset_str, suffix = dataset_str.rsplit(":", 1)
-            if self.subset is None:
-                self.subset = suffix
-        self.dataset_name = dataset_str
         self.split = args.split
         self.circular = args.circular
         self.resize = args.resize  # Used by base._process_messages for image resizing

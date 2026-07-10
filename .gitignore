@@ -176,3 +176,4 @@ mydata
 datasets
 .claude
 work_dirs
+.tmp/

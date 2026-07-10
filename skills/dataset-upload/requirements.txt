@@ -1,0 +1,5 @@
+datasets
+huggingface_hub
+jinja2
+Pillow
+requests

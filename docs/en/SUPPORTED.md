@@ -163,7 +163,7 @@ Currently available mm-eval HuggingFace datasets:
 | Dataset | Splits | Usage |
 |---------|--------|-------|
 | [MMBench-en](https://huggingface.co/datasets/mm-eval/MMBench-en) | dev, test | `mmeval_hf@mm-eval/MMBench-en` |
-| [MMBench-en-V11](https://huggingface.co/datasets/mm-eval/MMBench-en-V11) | dev, test | `mmeval_hf@mm-eval/MMBench-en-V11` |
+| [MMBench-V11](https://huggingface.co/datasets/mm-eval/MMBench-V11) | dev, test | `mmeval_hf@mm-eval/MMBench-V11 --subset en` (subsets: en, cn) |
 
 ### 3. VLMEvalKit Datasets (`evalkit@`)
 

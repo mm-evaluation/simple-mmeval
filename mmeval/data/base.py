@@ -33,6 +33,9 @@ class BaseDataset(ABC):
         self.rank = args.rank
         self._shard_indices = []
         self._shard_length = 0
+        self._sample_num = getattr(args, "sample_num", None)
+        self._sample_order = getattr(args, "sample_order", "head")
+        self._sample_seed = getattr(args, "sample_seed", 42)
         
         # Load raw data and dataset's own template
         self._raw_dataset, self._dataset_template = self._load_raw_data(args)
@@ -47,12 +50,51 @@ class BaseDataset(ABC):
             self._shard_length = 0
             return
         
-        indices_to_run = list(range(len(self._raw_dataset)))
+        total = len(self._raw_dataset)
+        indices_to_run = self._select_indices(total)
         if cache is not None:
-            indices_to_run = [idx for idx in indices_to_run if idx not in cache.keys()]
+            cache_keys = set(cache.keys())
+            indices_to_run = [idx for idx in indices_to_run if idx not in cache_keys]
             
         self._shard_indices = indices_to_run[self.rank::self.parallel_per_task]
-        self._shard_length = len(self._shard_indices)    
+        self._shard_length = len(self._shard_indices)
+    
+    def _select_indices(self, total: int) -> list:
+        order = self._sample_order
+        if order not in ("head", "tail", "random"):
+            raise ValueError(
+                f"Invalid --sample_order={order!r}; must be one of head, tail, random."
+            )
+
+        n = self._sample_num
+        if n is not None and n <= 0:
+            raise ValueError(f"--sample_num must be > 0, got {n}.")
+        if n is not None:
+            n = min(n, total)
+
+        indices = list(range(total))
+        if order == "head":
+            selected = indices if n is None else indices[:n]
+        elif order == "tail":
+            selected = indices if n is None else indices[-n:]
+        else:
+            import random
+
+            rng = random.Random(self._sample_seed)
+            selected = indices if n is None else rng.sample(indices, n)
+            if n is None:
+                rng.shuffle(selected)
+
+        chosen = "all" if n is None else n
+        message = (
+            f"[rank {self.rank}] Selected {len(selected)}/{total} samples "
+            f"(order={order}, sample_num={chosen}"
+        )
+        if order == "random":
+            message += f", seed={self._sample_seed}"
+        print(message + ")")
+
+        return selected
     
     def _get_idx(self, index: int) -> int:
         assert index >= 0, "index must be non-negative"

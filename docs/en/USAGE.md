@@ -42,7 +42,8 @@ Run evaluation on a HuggingFace-hosted dataset with built-in prompt templates:
 ```bash
 python mmeval/run.py \
     --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct \
-    --dataset mmeval_hf@mm-eval/MMBench-en-V11 \
+    --dataset mmeval_hf@mm-eval/MMBench-V11 \
+    --subset en \
     --split test \
     --out_dir work_dirs/mmbench_test \
     --gpu_per_parallel 1 \
@@ -98,7 +99,8 @@ Distribute inference across multiple GPUs with automatic data sharding:
 ```bash
 python mmeval/run.py \
     --model_name_or_path Qwen/Qwen2.5-VL-72B-Instruct \
-    --dataset mmeval_hf@mm-eval/MMBench-en-V11 \
+    --dataset mmeval_hf@mm-eval/MMBench-V11 \
+    --subset en \
     --split test \
     --out_dir work_dirs/mmbench_72b \
     --gpu_per_parallel 4 \
@@ -106,6 +108,24 @@ python mmeval/run.py \
 ```
 
 This allocates 4 GPUs per worker and runs 2 parallel workers (requiring 8 GPUs total).
+
+### Example 6: Run a subset of samples
+
+Run a quick deterministic smoke test on 20 randomly selected samples:
+
+```bash
+python mmeval/run.py \
+    --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct \
+    --dataset mmeval_hf@mm-eval/MMBench-V11 \
+    --subset en \
+    --split test \
+    --out_dir work_dirs/mmbench_smoke \
+    --gpu_per_parallel 1 \
+    --parallel_per_task 4 \
+    --sample_num 20 \
+    --sample_order random \
+    --sample_seed 42
+```
 
 ---
 
@@ -133,6 +153,9 @@ All arguments are passed to `python mmeval/run.py` and organized into the follow
 | `--split` | str | None | Dataset split (for HuggingFace datasets, e.g., `test`, `dev`) |
 | `--template` | str | None | Path to a Jinja2 template file or a template string |
 | `--resize` | int | None | Resize all images to this pixel size (e.g., `448`) |
+| `--sample_num` | int | None | Number of samples to run (default: all) |
+| `--sample_order` | str | head | Sample selection order: `head`, `tail`, or `random` |
+| `--sample_seed` | int | 42 | Seed for `--sample_order random` |
 
 ### Inference Arguments
 
