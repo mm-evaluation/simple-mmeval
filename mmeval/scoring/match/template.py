@@ -48,8 +48,11 @@ class TemplateMatcher(BaseMatcher):
         option_texts = context.get("option_texts", {})
 
         # Compact multi-letter gts ("AC") are accepted at match time (the row
-        # is already typed mcq); type inference stays conservative about them.
-        gt_letters = parse_gt_letters(gt_raw) or extract_letter_set(gt_raw, candidates)
+        # is already typed mcq) — but only with REAL parsed options: under the
+        # A-F fallback, word-like gts would parse as letter sets ("BED" -> B,D,E).
+        gt_letters = parse_gt_letters(gt_raw)
+        if gt_letters is None and context.get("options_parsed"):
+            gt_letters = extract_letter_set(gt_raw, candidates)
         if gt_letters is None:
             g = extract_option_robust(gt_raw, candidates, option_texts) or normalize_for_exact(gt_raw).upper()
             gt_letters = (g,) if g else None

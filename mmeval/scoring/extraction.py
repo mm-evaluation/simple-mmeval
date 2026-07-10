@@ -220,15 +220,17 @@ def _flat_letter_options(src: Dict[str, Any]) -> Dict[str, str]:
     return out
 
 
-def extract_options(sample: Dict[str, Any]) -> List[str]:
-    """Candidate option letters. All option sources — the `options` dict, the
-    `choices` list, inline-question text and flat per-letter keys — are render
-    inputs and therefore live inside messages[0] (dataset-standard boundary rule);
-    only grading fields moved to the sample top level."""
+def parsed_options(sample: Dict[str, Any]) -> Optional[List[str]]:
+    """Candidate option letters from an explicit option source, or None when the
+    sample carries none (options-in-image datasets). All option sources — the
+    `options` dict, the `choices` list, inline-question text and flat per-letter
+    keys — are render inputs and therefore live inside messages[0]
+    (dataset-standard boundary rule); only grading fields moved to the sample
+    top level."""
     messages = sample.get("messages") or []
     msg = messages[0] if messages and isinstance(messages[0], dict) else None
     if not isinstance(msg, dict):
-        return OPTION_LETTERS[:6]
+        return None
 
     options = msg.get("options")
     if isinstance(options, dict) and options:
@@ -249,12 +251,16 @@ def extract_options(sample: Dict[str, Any]) -> List[str]:
     letters = _option_letters_from_question(msg.get("question") or msg.get("prompt") or "")
     if letters:
         return letters
+    return None
 
-    # Fall back to A-F as candidate letters (some MCQ datasets, e.g. LogicVista,
-    # keep the choices in the image and don't list them in the question text).
-    # Whether the item is actually MCQ vs open is decided by infer_question_type
-    # from the ground-truth shape, not by this default.
-    return OPTION_LETTERS[:6]
+
+def extract_options(sample: Dict[str, Any]) -> List[str]:
+    """Candidate option letters: the sample's parsed option source, else A-F
+    (some MCQ datasets, e.g. LogicVista, keep the choices in the image and don't
+    list them in the question text). Whether the item is actually MCQ vs open is
+    decided by infer_question_type from the ground-truth shape, not by this
+    default."""
+    return parsed_options(sample) or OPTION_LETTERS[:6]
 
 
 def extract_option_texts(sample: Dict[str, Any], letters: List[str]) -> Dict[str, str]:

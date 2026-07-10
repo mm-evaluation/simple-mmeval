@@ -94,8 +94,12 @@ class ExactMatcher(BaseMatcher):
             candidates = context["options"]
             # Compact multi-letter gts ("AC") are accepted HERE — the row is
             # already typed mcq — while parse_gt_letters stays conservative for
-            # type inference (compact form collides with words like "BED").
-            gt_letters = parse_gt_letters(gt_raw) or extract_letter_set(gt_raw, candidates)
+            # type inference. Only with REAL parsed options, though: under the
+            # A-F fallback (options-in-image datasets) word-like gts would
+            # parse as letter sets ("BED" -> B,D,E).
+            gt_letters = parse_gt_letters(gt_raw)
+            if gt_letters is None and context.get("options_parsed"):
+                gt_letters = extract_letter_set(gt_raw, candidates)
             if gt_letters is None:
                 g = extract_option_strict(gt_raw, candidates) or normalize_for_exact(gt_raw).upper()
                 gt_letters = (g,) if g else None

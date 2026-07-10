@@ -1,35 +1,35 @@
 [
     {
-        "id": "mmbench_v11_en_test_1000684",
+        "id": "mmbench_v11_en_dev_1000586",
         "media": [
             "Image Object"
         ],
         "messages": [
             {
                 "role": "user",
-                "question": "What is the object in this picture?",
+                "question": "Which action is performed in this image?",
                 "hint": "",
                 "options": {
-                    "A": "trousers",
-                    "B": "T-shirt",
-                    "C": "coat",
-                    "D": "sweater"
+                    "A": "making tea",
+                    "B": "feeding birds",
+                    "C": "catching fish",
+                    "D": "cleaning pool"
                 },
                 "choices": [],
-                "prompt": "<image>Question: What is the object in this picture?\nOptions:\nA. trousers\nB. T-shirt\nC. coat\nD. sweater\nPlease select the correct answer from the options above. "
+                "prompt": "<image>Question: Which action is performed in this image?\nOptions:\nA. making tea\nB. feeding birds\nC. catching fish\nD. cleaning pool\nPlease select the correct answer from the options above. "
             },
             {
                 "role": "assistant",
                 "response": [
-                    "B. T-shirt"
+                    "A. making tea"
                 ]
             }
         ],
-        "answer": "",
+        "answer": "A",
         "question_type": "mcq",
-        "category": "celebrity_recognition",
-        "l2_category": "finegrained_perception (instance-level)",
-        "source_index": "1000684",
+        "category": "action_recognition",
+        "l2_category": "finegrained_perception (cross-instance)",
+        "source_index": "1000586",
         "eval-id": 204,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
@@ -38,36 +38,73 @@
         }
     },
     {
-        "id": "mmbench_v11_en_test_1000770",
+        "id": "mmbench_v11_en_dev_1000609",
         "media": [
             "Image Object"
         ],
         "messages": [
             {
                 "role": "user",
-                "question": "Which image shows the highest colorfulness?",
+                "question": "There is a big metallic thing left of the tiny green object; what is its shape?",
                 "hint": "",
                 "options": {
-                    "A": "down right",
-                    "B": "upper left",
-                    "C": "upper right",
-                    "D": "down left"
+                    "A": "cylinder",
+                    "B": "cube",
+                    "C": "sphere"
                 },
                 "choices": [],
-                "prompt": "<image>Question: Which image shows the highest colorfulness?\nOptions:\nA. down right\nB. upper left\nC. upper right\nD. down left\nPlease select the correct answer from the options above. "
+                "prompt": "<image>Question: There is a big metallic thing left of the tiny green object; what is its shape?\nOptions:\nA. cylinder\nB. cube\nC. sphere\nPlease select the correct answer from the options above. "
             },
             {
                 "role": "assistant",
                 "response": [
-                    "C. upper right"
+                    "C. sphere"
                 ]
             }
         ],
-        "answer": "",
+        "answer": "C",
         "question_type": "mcq",
-        "category": "image_quality",
-        "l2_category": "coarse_perception",
-        "source_index": "1000770",
+        "category": "attribute_recognition",
+        "l2_category": "finegrained_perception (instance-level)",
+        "source_index": "1000609",
+        "eval-id": 217,
+        "dataset_meta": {
+            "task_type": "multiple_choice_qa",
+            "score_type": "llm_extract",
+            "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
+        }
+    },
+    {
+        "id": "mmbench_v11_en_dev_1000661",
+        "media": [
+            "Image Object"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "How many objects are in this picture?",
+                "hint": "",
+                "options": {
+                    "A": "eleven",
+                    "B": "one",
+                    "C": "two",
+                    "D": "five"
+                },
+                "choices": [],
+                "prompt": "<image>Question: How many objects are in this picture?\nOptions:\nA. eleven\nB. one\nC. two\nD. five\nPlease select the correct answer from the options above. "
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "C. two"
+                ]
+            }
+        ],
+        "answer": "B",
+        "question_type": "mcq",
+        "category": "object_localization",
+        "l2_category": "finegrained_perception (instance-level)",
+        "source_index": "1000661",
         "eval-id": 244,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
@@ -76,36 +113,36 @@
         }
     },
     {
-        "id": "mmbench_v11_en_test_1000814",
+        "id": "mmbench_v11_en_dev_1000692",
         "media": [
             "Image Object"
         ],
         "messages": [
             {
                 "role": "user",
-                "question": "Which scene category matches this image the best?",
+                "question": "What is the name of this photograph?",
                 "hint": "",
                 "options": {
-                    "A": "physics_laboratory",
-                    "B": "dressing_room",
-                    "C": "operating_room",
-                    "D": "canyon"
+                    "A": "Self-Portrait with Bandaged Ear",
+                    "B": "Mona Lisa",
+                    "C": "Starry Night",
+                    "D": "Sunflowers"
                 },
                 "choices": [],
-                "prompt": "<image>Question: Which scene category matches this image the best?\nOptions:\nA. physics_laboratory\nB. dressing_room\nC. operating_room\nD. canyon\nPlease select the correct answer from the options above. "
+                "prompt": "<image>Question: What is the name of this photograph?\nOptions:\nA. Self-Portrait with Bandaged Ear\nB. Mona Lisa\nC. Starry Night\nD. Sunflowers\nPlease select the correct answer from the options above. "
             },
             {
                 "role": "assistant",
                 "response": [
-                    "D. canyon"
+                    "B. Mona Lisa"
                 ]
             }
         ],
-        "answer": "",
+        "answer": "B",
         "question_type": "mcq",
-        "category": "image_scene",
-        "l2_category": "coarse_perception",
-        "source_index": "1000814",
+        "category": "celebrity_recognition",
+        "l2_category": "finegrained_perception (instance-level)",
+        "source_index": "1000692",
         "eval-id": 260,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
@@ -114,36 +151,36 @@
         }
     },
     {
-        "id": "mmbench_v11_en_test_1002086",
+        "id": "mmbench_v11_en_dev_1001511",
         "media": [
             "Image Object"
         ],
         "messages": [
             {
                 "role": "user",
-                "question": "Which mood does this image convey?",
+                "question": "Which corner doesn't have any food?",
                 "hint": "",
                 "options": {
-                    "A": "Angry",
-                    "B": "Melancholic",
-                    "C": "Anxious",
-                    "D": "Happy"
+                    "A": "bottom-right",
+                    "B": "top-right",
+                    "C": "top-left",
+                    "D": "bottom-left"
                 },
                 "choices": [],
-                "prompt": "<image>Question: Which mood does this image convey?\nOptions:\nA. Angry\nB. Melancholic\nC. Anxious\nD. Happy\nPlease select the correct answer from the options above. "
+                "prompt": "<image>Question: Which corner doesn't have any food?\nOptions:\nA. bottom-right\nB. top-right\nC. top-left\nD. bottom-left\nPlease select the correct answer from the options above. "
             },
             {
                 "role": "assistant",
                 "response": [
-                    "A. Angry"
+                    "B. top-right"
                 ]
             }
         ],
-        "answer": "",
+        "answer": "A",
         "question_type": "mcq",
-        "category": "image_emotion",
-        "l2_category": "coarse_perception",
-        "source_index": "1002086",
+        "category": "object_localization",
+        "l2_category": "finegrained_perception (instance-level)",
+        "source_index": "1001511",
         "eval-id": 712,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
@@ -152,36 +189,36 @@
         }
     },
     {
-        "id": "mmbench_v11_en_test_1002150",
+        "id": "mmbench_v11_en_dev_1001636",
         "media": [
             "Image Object"
         ],
         "messages": [
             {
                 "role": "user",
-                "question": "What is the relationship between the two people in the picture?",
+                "question": "what python code is gonna generate the result as shown in the image?",
                 "hint": "",
                 "options": {
-                    "A": "Classmates",
-                    "B": "husband and wife",
-                    "C": "brother and sister",
-                    "D": "grandfather and granddaughter"
+                    "A": "thisdict = dict(name = \"John\", age = 37, country = \"Norway\")\n\nprint(thisdict)",
+                    "B": "thisdict = {\n\"brand\": \"Ford\",\n\"model\": \"Mustang\",\n\"year\": 1965\n}\nprint(thisdict)",
+                    "C": "thisdict = {\n\"brand\": \"Ford\",\n\"model\": \"Mustang\",\n\"year\": 1965\n}\nprint(thisdict[\"brand\"])",
+                    "D": "thisdict = {\n\"brand\": \"Ford\",\n\"electric\": False,\n\"year\": 1965,\n\"colors\": [\"red\", \"white\", \"blue\"]\n}\n\nprint(thisdict)"
                 },
                 "choices": [],
-                "prompt": "<image>Question: What is the relationship between the two people in the picture?\nOptions:\nA. Classmates\nB. husband and wife\nC. brother and sister\nD. grandfather and granddaughter\nPlease select the correct answer from the options above. "
+                "prompt": "<image>Question: what python code is gonna generate the result as shown in the image?\nOptions:\nA. thisdict = dict(name = \"John\", age = 37, country = \"Norway\")\n\nprint(thisdict)\nB. thisdict = {\n\"brand\": \"Ford\",\n\"model\": \"Mustang\",\n\"year\": 1965\n}\nprint(thisdict)\nC. thisdict = {\n\"brand\": \"Ford\",\n\"model\": \"Mustang\",\n\"year\": 1965\n}\nprint(thisdict[\"brand\"])\nD. thisdict = {\n\"brand\": \"Ford\",\n\"electric\": False,\n\"year\": 1965,\n\"colors\": [\"red\", \"white\", \"blue\"]\n}\n\nprint(thisdict)\nPlease select the correct answer from the options above. "
             },
             {
                 "role": "assistant",
                 "response": [
-                    "B. husband and wife"
+                    "The image shows the word \"Ford\" in white text on a black background. This is a simple text display, and it does not contain any data structure or Python code.\n\nLet's analyze the options:\n\n- **A.** This creates a dictionary with keys \"name\", \"age\", and \"country\", and prints it. It does not match the image.\n- **B.** This creates a dictionary with keys \"brand\", \"model\", and \"year\", and prints it. The key \"brand\" is \"Ford\", which matches the image.\n- **C.** This prints the value of the \"brand\" key,"
                 ]
             }
         ],
-        "answer": "",
+        "answer": "C",
         "question_type": "mcq",
-        "category": "social_relation",
-        "l2_category": "relation_reasoning",
-        "source_index": "1002150",
+        "category": "structuralized_imagetext_understanding",
+        "l2_category": "logic_reasoning",
+        "source_index": "1001636",
         "eval-id": 767,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
@@ -190,35 +227,36 @@
         }
     },
     {
-        "id": "mmbench_v11_en_test_1002250",
+        "id": "mmbench_v11_en_dev_1001757",
         "media": [
             "Image Object"
         ],
         "messages": [
             {
                 "role": "user",
-                "question": "Which image is more brightful?",
+                "question": "The area of which figure can be calculated using the formula in this picture?",
                 "hint": "",
                 "options": {
-                    "A": "Sorry, I can't judge.",
-                    "B": "the first image",
-                    "C": "the second image"
+                    "A": "Circle.",
+                    "B": "Square.",
+                    "C": "Rectangle.",
+                    "D": "Triangle."
                 },
                 "choices": [],
-                "prompt": "<image>Question: Which image is more brightful?\nOptions:\nA. Sorry, I can't judge.\nB. the first image\nC. the second image\nPlease select the correct answer from the options above. "
+                "prompt": "<image>Question: The area of which figure can be calculated using the formula in this picture?\nOptions:\nA. Circle.\nB. Square.\nC. Rectangle.\nD. Triangle.\nPlease select the correct answer from the options above. "
             },
             {
                 "role": "assistant",
                 "response": [
-                    "C. the second image"
+                    "The formula shown in the image is $ \\pi r^2 $, which is the standard formula for the area of a circle, where $ r $ is the radius of the circle.\n\n- A circle's area is calculated using $ \\pi r^2 $.\n- A square's area is $ s^2 $, where $ s $ is the side length.\n- A rectangle's area is $ l \\times w $, where $ l $ is the length and $ w $ is the width.\n- A triangle's area is $ \\frac{1}{2} \\times b \\times h $, where $ b"
                 ]
             }
         ],
-        "answer": "",
+        "answer": "A",
         "question_type": "mcq",
-        "category": "image_quality",
-        "l2_category": "coarse_perception",
-        "source_index": "1002250",
+        "category": "ocr",
+        "l2_category": "finegrained_perception (instance-level)",
+        "source_index": "1001757",
         "eval-id": 839,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
@@ -227,36 +265,36 @@
         }
     },
     {
-        "id": "mmbench_v11_en_test_1002336",
+        "id": "mmbench_v11_en_dev_1001898",
         "media": [
             "Image Object"
         ],
         "messages": [
             {
                 "role": "user",
-                "question": "What is the texture of the surface of this object?",
+                "question": "What kind of human behavior does this picture describe?",
                 "hint": "",
                 "options": {
-                    "A": "Wrinkly",
-                    "B": "Smooth",
-                    "C": "Fluffy",
-                    "D": "Rough"
+                    "A": "A family is enjoying a day out at an amusement park, riding roller coasters, playing games, and eating cotton candy and popcorn.",
+                    "B": "A man in a suit with his hands in his pockets stands among a sea of yellow flowers",
+                    "C": "A man is practicing his skateboard tricks at a skate park, performing flips and grinds with precision and skill.",
+                    "D": "An actor is filming a scene on a movie set, reciting lines and taking direction from the director while crew members prepare lighting and sound equipment."
                 },
                 "choices": [],
-                "prompt": "<image>Question: What is the texture of the surface of this object?\nOptions:\nA. Wrinkly\nB. Smooth\nC. Fluffy\nD. Rough\nPlease select the correct answer from the options above. "
+                "prompt": "<image>Question: What kind of human behavior does this picture describe?\nOptions:\nA. A family is enjoying a day out at an amusement park, riding roller coasters, playing games, and eating cotton candy and popcorn.\nB. A man in a suit with his hands in his pockets stands among a sea of yellow flowers\nC. A man is practicing his skateboard tricks at a skate park, performing flips and grinds with precision and skill.\nD. An actor is filming a scene on a movie set, reciting lines and taking direction from the director while crew members prepare lighting and sound equipment.\nPlease select the correct answer from the options above. "
             },
             {
                 "role": "assistant",
                 "response": [
-                    "D. Rough"
+                    "B. A man in a suit with his hands in his pockets stands among a sea of yellow flowers"
                 ]
             }
         ],
-        "answer": "",
+        "answer": "B",
         "question_type": "mcq",
-        "category": "attribute_recognition",
-        "l2_category": "finegrained_perception (instance-level)",
-        "source_index": "1002336",
+        "category": "action_recognition",
+        "l2_category": "finegrained_perception (cross-instance)",
+        "source_index": "1001898",
         "eval-id": 912,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
@@ -265,36 +303,36 @@
         }
     },
     {
-        "id": "mmbench_v11_en_test_1002599",
+        "id": "mmbench_v11_en_dev_1003380",
         "media": [
             "Image Object"
         ],
         "messages": [
             {
                 "role": "user",
-                "question": "what style is depicted in this image?",
+                "question": "Is the substance in this image water or ethanol soluble? ",
                 "hint": "",
                 "options": {
-                    "A": "Still Life",
-                    "B": "Nature",
-                    "C": "Pop",
-                    "D": "Portraiture"
+                    "A": "not soluble",
+                    "B": "only soluble to water",
+                    "C": "only soluble to ethanol ",
+                    "D": "soluble to both solvent"
                 },
                 "choices": [],
-                "prompt": "<image>Question: what style is depicted in this image?\nOptions:\nA. Still Life\nB. Nature\nC. Pop\nD. Portraiture\nPlease select the correct answer from the options above. "
+                "prompt": "<image>Question: Is the substance in this image water or ethanol soluble? \nOptions:\nA. not soluble\nB. only soluble to water\nC. only soluble to ethanol \nD. soluble to both solvent\nPlease select the correct answer from the options above. "
             },
             {
                 "role": "assistant",
                 "response": [
-                    "B. Nature"
+                    "A. not soluble"
                 ]
             }
         ],
-        "answer": "",
+        "answer": "A",
         "question_type": "mcq",
-        "category": "image_style",
-        "l2_category": "coarse_perception",
-        "source_index": "1002599",
+        "category": "physical_property_reasoning",
+        "l2_category": "attribute_reasoning",
+        "source_index": "1003380",
         "eval-id": 1143,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
@@ -303,36 +341,74 @@
         }
     },
     {
-        "id": "mmbench_v11_en_test_1003566",
+        "id": "mmbench_v11_en_dev_1574",
         "media": [
             "Image Object"
         ],
         "messages": [
             {
                 "role": "user",
-                "question": "How much stoarge has not been used, by percentage? ",
+                "question": "Which category does this image belong to?",
                 "hint": "",
                 "options": {
-                    "A": "70%",
-                    "B": "60%",
-                    "C": "64%",
-                    "D": "66%"
+                    "A": "oil painting",
+                    "B": "sketch",
+                    "C": "digital art",
+                    "D": "photo"
                 },
                 "choices": [],
-                "prompt": "<image>Question: How much stoarge has not been used, by percentage? \nOptions:\nA. 70%\nB. 60%\nC. 64%\nD. 66%\nPlease select the correct answer from the options above. "
+                "prompt": "<image>Question: Which category does this image belong to?\nOptions:\nA. oil painting\nB. sketch\nC. digital art\nD. photo\nPlease select the correct answer from the options above. "
             },
             {
                 "role": "assistant",
                 "response": [
-                    "To determine the percentage of storage that has not been used, we need to follow these steps:\n\n1.  **Identify the total storage and the used storage:**\n    -   Total storage: 33.8 GB\n    -   Used storage: 33.8 GB (from the text \"33.8 GB of 100 GB used\")\n\n2.  **Calculate the unused storage:**\n    -   Unused storage = Total storage - Used storage\n    -   Unused storage = 100 GB - 33.8 GB = 66.2 GB\n\n3. "
+                    "B. sketch"
                 ]
             }
         ],
-        "answer": "",
+        "answer": "B",
         "question_type": "mcq",
-        "category": "structuralized_imagetext_understanding",
-        "l2_category": "logic_reasoning",
-        "source_index": "1003566",
+        "category": "image_style",
+        "l2_category": "coarse_perception",
+        "source_index": "1574",
+        "eval-id": 1628,
+        "dataset_meta": {
+            "task_type": "multiple_choice_qa",
+            "score_type": "llm_extract",
+            "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
+        }
+    },
+    {
+        "id": "mmbench_v11_en_dev_1851",
+        "media": [
+            "Image Object"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "What direction is Ukraine in the Black Sea?",
+                "hint": "",
+                "options": {
+                    "A": "east",
+                    "B": "south",
+                    "C": "west",
+                    "D": "north"
+                },
+                "choices": [],
+                "prompt": "<image>Question: What direction is Ukraine in the Black Sea?\nOptions:\nA. east\nB. south\nC. west\nD. north\nPlease select the correct answer from the options above. "
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "A. east"
+                ]
+            }
+        ],
+        "answer": "A",
+        "question_type": "mcq",
+        "category": "spatial_relationship",
+        "l2_category": "finegrained_perception (cross-instance)",
+        "source_index": "1851",
         "eval-id": 1791,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
@@ -341,36 +417,36 @@
         }
     },
     {
-        "id": "mmbench_v11_en_test_1003613",
+        "id": "mmbench_v11_en_dev_1917",
         "media": [
             "Image Object"
         ],
         "messages": [
             {
                 "role": "user",
-                "question": "Which image is the second brightest?",
+                "question": "What kind of human behavior does this picture describe?",
                 "hint": "",
                 "options": {
-                    "A": "lower-right",
-                    "B": "upper-left",
-                    "C": "upper-right",
-                    "D": "lower-left"
+                    "A": "A scientist is conducting experiments in a laboratory, measuring and analyzing data to unlock the secrets of the universe.",
+                    "B": "A woman is practicing yoga on a mountaintop, finding inner peace and harmony with her breath and body.",
+                    "C": "A group of friends are playing board games around a table, strategizing and socializing while enjoying some friendly competition.",
+                    "D": "A man with his guitar on his back stands in the street performing"
                 },
                 "choices": [],
-                "prompt": "<image>Question: Which image is the second brightest?\nOptions:\nA. lower-right\nB. upper-left\nC. upper-right\nD. lower-left\nPlease select the correct answer from the options above. "
+                "prompt": "<image>Question: What kind of human behavior does this picture describe?\nOptions:\nA. A scientist is conducting experiments in a laboratory, measuring and analyzing data to unlock the secrets of the universe.\nB. A woman is practicing yoga on a mountaintop, finding inner peace and harmony with her breath and body.\nC. A group of friends are playing board games around a table, strategizing and socializing while enjoying some friendly competition.\nD. A man with his guitar on his back stands in the street performing\nPlease select the correct answer from the options above. "
             },
             {
                 "role": "assistant",
                 "response": [
-                    "C. upper-right"
+                    "D. A man with his guitar on his back stands in the street performing"
                 ]
             }
         ],
-        "answer": "",
+        "answer": "D",
         "question_type": "mcq",
-        "category": "image_quality",
-        "l2_category": "coarse_perception",
-        "source_index": "1003613",
+        "category": "action_recognition",
+        "l2_category": "finegrained_perception (cross-instance)",
+        "source_index": "1917",
         "eval-id": 1828,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
@@ -379,34 +455,74 @@
         }
     },
     {
-        "id": "mmbench_v11_en_test_1260",
+        "id": "mmbench_v11_en_dev_2000054",
         "media": [
             "Image Object"
         ],
         "messages": [
             {
                 "role": "user",
-                "question": "Which image is more brightful?",
+                "question": "Which one is the correct caption of this image?",
                 "hint": "",
                 "options": {
-                    "A": "The first image",
-                    "B": "The second image"
+                    "A": "pieces of kiwi and peach cut up on a plate next to a teapot",
+                    "B": "Three small piece of fried food on a white plate with writing.",
+                    "C": "A grey and white bird with red feet and eyes perches on a branch.",
+                    "D": "A broken flip phone sits, in two pieces, on the counter."
                 },
                 "choices": [],
-                "prompt": "<image>Question: Which image is more brightful?\nOptions:\nA. The first image\nB. The second image\nPlease select the correct answer from the options above. "
+                "prompt": "<image>Question: Which one is the correct caption of this image?\nOptions:\nA. pieces of kiwi and peach cut up on a plate next to a teapot\nB. Three small piece of fried food on a white plate with writing.\nC. A grey and white bird with red feet and eyes perches on a branch.\nD. A broken flip phone sits, in two pieces, on the counter.\nPlease select the correct answer from the options above. "
             },
             {
                 "role": "assistant",
                 "response": [
-                    "B. The second image"
+                    "C. A grey and white bird with red feet and eyes perches on a branch."
                 ]
             }
         ],
-        "answer": "",
+        "answer": "C",
         "question_type": "mcq",
-        "category": "image_quality",
+        "category": "image_topic",
         "l2_category": "coarse_perception",
-        "source_index": "1260",
+        "source_index": "2000054",
+        "eval-id": 1905,
+        "dataset_meta": {
+            "task_type": "multiple_choice_qa",
+            "score_type": "llm_extract",
+            "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
+        }
+    },
+    {
+        "id": "mmbench_v11_en_dev_2000461",
+        "media": [
+            "Image Object"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "After the Akkadian Empire ended, many cities and empires tried to control Mesopotamia. Around the 1790s BCE, which empire started controlling Mesopotamia?",
+                "hint": "Look at the table. Then answer the question below.",
+                "options": {
+                    "A": "the Akkadian Empire",
+                    "B": "the Neo-Sumerian Empire",
+                    "C": "the Elamite Empire",
+                    "D": "the Babylonian Empire"
+                },
+                "choices": [],
+                "prompt": "<image>Hint: Look at the table. Then answer the question below.\nQuestion: After the Akkadian Empire ended, many cities and empires tried to control Mesopotamia. Around the 1790s BCE, which empire started controlling Mesopotamia?\nOptions:\nA. the Akkadian Empire\nB. the Neo-Sumerian Empire\nC. the Elamite Empire\nD. the Babylonian Empire\nPlease select the correct answer from the options above. "
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "Based on the information provided in the table:\n\n- The Akkadian Empire ended around 2190 BCE.\n- The Neo-Sumerian Empire started ruling Mesopotamia around 2100 BCE.\n- The Neo-Sumerian Empire was conquered by the Elamites around 2004 BCE.\n- The Babylonian Empire started ruling Mesopotamia around 1792 BCE.\n\nThe question asks for the empire that started controlling Mesopotamia **after** the Akkadian Empire ended, which would be around the 1790s BCE.\n\nThe correct answer is the one"
+                ]
+            }
+        ],
+        "answer": "D",
+        "question_type": "mcq",
+        "category": "structuralized_imagetext_understanding",
+        "l2_category": "logic_reasoning",
+        "source_index": "2000461",
         "eval-id": 2006,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
@@ -415,36 +531,36 @@
         }
     },
     {
-        "id": "mmbench_v11_en_test_20",
+        "id": "mmbench_v11_en_dev_2000987",
         "media": [
             "Image Object"
         ],
         "messages": [
             {
                 "role": "user",
-                "question": "What is correct Python code to generate the content of the image?",
+                "question": "What is the name of this city?",
                 "hint": "",
                 "options": {
-                    "A": "x = 1\\ny = 2.8\\nz = 1j\\n\\nprint(type(x))\\nprint(type(y))\\nprint(type(z))\\n",
-                    "B": "def my_function(fname, lname):\\n  print(fname + \" \" + lname)\\n\\nmy_function(\"Emil\", \"Refsnes\")\\n",
-                    "C": "for x in range(6):\\n  print(x)\\nelse:\\n  print(\"Finally finished!\")\\n",
-                    "D": "x = min(5, 10, 25)\\ny = max(5, 10, 25)\\n\\nprint(x)\\nprint(y)"
+                    "A": "Singapore",
+                    "B": "New York",
+                    "C": "Hong Kong",
+                    "D": "Shanghai"
                 },
                 "choices": [],
-                "prompt": "<image>Question: What is correct Python code to generate the content of the image?\nOptions:\nA. x = 1\\ny = 2.8\\nz = 1j\\n\\nprint(type(x))\\nprint(type(y))\\nprint(type(z))\\n\nB. def my_function(fname, lname):\\n  print(fname + \" \" + lname)\\n\\nmy_function(\"Emil\", \"Refsnes\")\\n\nC. for x in range(6):\\n  print(x)\\nelse:\\n  print(\"Finally finished!\")\\n\nD. x = min(5, 10, 25)\\ny = max(5, 10, 25)\\n\\nprint(x)\\nprint(y)\nPlease select the correct answer from the options above. "
+                "prompt": "<image>Question: What is the name of this city?\nOptions:\nA. Singapore\nB. New York\nC. Hong Kong\nD. Shanghai\nPlease select the correct answer from the options above. "
             },
             {
                 "role": "assistant",
                 "response": [
-                    "The image displays a sequence of numbers from 0 to 5, followed by the text \"Finally finished!\". This is a simple output of a Python program that prints numbers in a range and then a message.\n\nLet's analyze the options:\n\n- **Option A**: This code defines variables of different types and prints their types. It does not print a sequence of numbers or a message like \"Finally finished!\". This is incorrect.\n\n- **Option B**: This is a function definition and call. It prints the concatenation of two strings, but it does not print a sequence of numbers or a \"Finally finished!\" message. This is incorrect.\n\n"
+                    "C. Hong Kong"
                 ]
             }
         ],
-        "answer": "",
+        "answer": "C",
         "question_type": "mcq",
-        "category": "structuralized_imagetext_understanding",
-        "l2_category": "logic_reasoning",
-        "source_index": "20",
+        "category": "celebrity_recognition",
+        "l2_category": "finegrained_perception (instance-level)",
+        "source_index": "2000987",
         "eval-id": 2253,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
@@ -453,7 +569,159 @@
         }
     },
     {
-        "id": "mmbench_v11_en_test_2002714",
+        "id": "mmbench_v11_en_dev_3000926",
+        "media": [
+            "Image Object"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "Which of the following statements match the image?",
+                "hint": "",
+                "options": {
+                    "A": "A cyan square is to the left of a gray circle.",
+                    "B": "A cyan ellipse is to the right of a gray circle.",
+                    "C": "A cyan circle is to the right of a circle.",
+                    "D": "A gray circle is to the left of a cyan shape."
+                },
+                "choices": [],
+                "prompt": "<image>Question: Which of the following statements match the image?\nOptions:\nA. A cyan square is to the left of a gray circle.\nB. A cyan ellipse is to the right of a gray circle.\nC. A cyan circle is to the right of a circle.\nD. A gray circle is to the left of a cyan shape.\nPlease select the correct answer from the options above. "
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "Based on the image provided, let's analyze the positions of the objects:\n\n- There is a gray circle on the left side of the image.\n- There is a cyan shape, which appears to be a square or a diamond, on the right side of the image.\n\nNow, let's evaluate each option:\n\n- **A. A cyan square is to the left of a gray circle.**  \n  This is incorrect because the cyan shape is on the right, and the gray circle is on the left. The cyan shape is to the right of the gray circle.\n\n- **B. A cyan ellipse is to the right of a gray"
+                ]
+            }
+        ],
+        "answer": "D",
+        "question_type": "mcq",
+        "category": "attribute_comparison",
+        "l2_category": "finegrained_perception (cross-instance)",
+        "source_index": "3000926",
+        "eval-id": 3456,
+        "dataset_meta": {
+            "task_type": "multiple_choice_qa",
+            "score_type": "llm_extract",
+            "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
+        }
+    },
+    {
+        "id": "mmbench_v11_en_dev_3003458",
+        "media": [
+            "Image Object"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "In the picture, where is the mobile phone located in relation to the computer monitor?",
+                "hint": "",
+                "options": {
+                    "A": "Back",
+                    "B": "Left side",
+                    "C": "Right side",
+                    "D": "Front"
+                },
+                "choices": [],
+                "prompt": "<image>Question: In the picture, where is the mobile phone located in relation to the computer monitor?\nOptions:\nA. Back\nB. Left side\nC. Right side\nD. Front\nPlease select the correct answer from the options above. "
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "C. Right side"
+                ]
+            }
+        ],
+        "answer": "D",
+        "question_type": "mcq",
+        "category": "physical_relation",
+        "l2_category": "relation_reasoning",
+        "source_index": "3003458",
+        "eval-id": 4139,
+        "dataset_meta": {
+            "task_type": "multiple_choice_qa",
+            "score_type": "llm_extract",
+            "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
+        }
+    },
+    {
+        "id": "mmbench_v11_en_dev_3544",
+        "media": [
+            "Image Object"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "What is the primary function of this object",
+                "hint": "",
+                "options": {
+                    "A": "Creating and blowing bubbles",
+                    "B": "Cooking food",
+                    "C": "To place tea, snacks, and miscellaneous items",
+                    "D": "Clean windows"
+                },
+                "choices": [],
+                "prompt": "<image>Question: What is the primary function of this object\nOptions:\nA. Creating and blowing bubbles\nB. Cooking food\nC. To place tea, snacks, and miscellaneous items\nD. Clean windows\nPlease select the correct answer from the options above. "
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "A. Creating and blowing bubbles"
+                ]
+            }
+        ],
+        "answer": "A",
+        "question_type": "mcq",
+        "category": "function_reasoning",
+        "l2_category": "attribute_reasoning",
+        "source_index": "3544",
+        "eval-id": 4467,
+        "dataset_meta": {
+            "task_type": "multiple_choice_qa",
+            "score_type": "llm_extract",
+            "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
+        }
+    },
+    {
+        "id": "mmbench_v11_en_dev_494",
+        "media": [
+            "Image Object"
+        ],
+        "messages": [
+            {
+                "role": "user",
+                "question": "Which can be the associated text with this image posted on twitter",
+                "hint": "",
+                "options": {
+                    "A": "if anyone has super mario maker 2, make sure to stop by my account and play a few of my levels. most of these levels are from 4-1 years ago, tho, i do have a super world in the works!",
+                    "B": "2017\u5e7410\u670827\u65e5\u767a\u58f2\u306eNintendo Switch\u30bd\u30d5\u30c8\u300e\u30b9\u30fc\u30d1\u30fc\u30de\u30ea\u30aa \u30aa\u30c7\u30c3\u30bb\u30a4\u300f\u306e\u516c\u5f0f\u30a2\u30ab\u30a6\u30f3\u30c8\u3067\u3059\u30023D\u30de\u30ea\u30aa\u6700\u65b0\u4f5c\u300e\u30b9\u30fc\u30d1\u30fc\u30de\u30ea\u30aa \u30aa\u30c7\u30c3\u30bb\u30a4\u300f\u306b\u95a2\u3059\u308b\u30b2\u30fc\u30e0\u60c5\u5831\u3084\u304a\u77e5\u3089\u305b\u3092\u30c7\u30a3\u30ec\u30af\u30bf\u30fc\u306e\u5143\u5009\u304c\u304a\u4f1d\u3048\u3057\u307e\u3059\u3002 \u203b\u3054\u8cea\u554f\u30fb\u304a\u554f\u3044\u5408\u308f\u305b\u306b\u306f\u304a\u7b54\u3048\u3057\u3066\u304a\u308a\u307e\u305b\u3093\u306e\u3067\u3054\u5bb9\u8d66\u304f\u3060\u3055\u3044\u3002",
+                    "C": "happy tears of the kingdom day!! #kirby #zelda",
+                    "D": "See You In July - Kirby Gamble Galaxy Stories #Kirby #Nintendo #Gamedev #GameDesign #\u30ab\u30fc\u30d3\u30a3 #\u661f\u306e\u30ab\u30fc\u30d3\u30a3 #Fangame #Fanart #IndieDev #GameMaker #gamedevelopment #Fanart"
+                },
+                "choices": [],
+                "prompt": "<image>Question: Which can be the associated text with this image posted on twitter\nOptions:\nA. if anyone has super mario maker 2, make sure to stop by my account and play a few of my levels. most of these levels are from 4-1 years ago, tho, i do have a super world in the works!\nB. 2017\u5e7410\u670827\u65e5\u767a\u58f2\u306eNintendo Switch\u30bd\u30d5\u30c8\u300e\u30b9\u30fc\u30d1\u30fc\u30de\u30ea\u30aa \u30aa\u30c7\u30c3\u30bb\u30a4\u300f\u306e\u516c\u5f0f\u30a2\u30ab\u30a6\u30f3\u30c8\u3067\u3059\u30023D\u30de\u30ea\u30aa\u6700\u65b0\u4f5c\u300e\u30b9\u30fc\u30d1\u30fc\u30de\u30ea\u30aa \u30aa\u30c7\u30c3\u30bb\u30a4\u300f\u306b\u95a2\u3059\u308b\u30b2\u30fc\u30e0\u60c5\u5831\u3084\u304a\u77e5\u3089\u305b\u3092\u30c7\u30a3\u30ec\u30af\u30bf\u30fc\u306e\u5143\u5009\u304c\u304a\u4f1d\u3048\u3057\u307e\u3059\u3002 \u203b\u3054\u8cea\u554f\u30fb\u304a\u554f\u3044\u5408\u308f\u305b\u306b\u306f\u304a\u7b54\u3048\u3057\u3066\u304a\u308a\u307e\u305b\u3093\u306e\u3067\u3054\u5bb9\u8d66\u304f\u3060\u3055\u3044\u3002\nC. happy tears of the kingdom day!! #kirby #zelda\nD. See You In July - Kirby Gamble Galaxy Stories #Kirby #Nintendo #Gamedev #GameDesign #\u30ab\u30fc\u30d3\u30a3 #\u661f\u306e\u30ab\u30fc\u30d3\u30a3 #Fangame #Fanart #IndieDev #GameMaker #gamedevelopment #Fanart\nPlease select the correct answer from the options above. "
+            },
+            {
+                "role": "assistant",
+                "response": [
+                    "A. if anyone has super mario maker 2, make sure to stop by my account and play a few of my levels. most of these levels are from 4-1 years ago, tho, i do have a super world in the works!"
+                ]
+            }
+        ],
+        "answer": "A",
+        "question_type": "mcq",
+        "category": "structuralized_imagetext_understanding",
+        "l2_category": "logic_reasoning",
+        "source_index": "494",
+        "eval-id": 4597,
+        "dataset_meta": {
+            "task_type": "multiple_choice_qa",
+            "score_type": "llm_extract",
+            "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
+        }
+    },
+    {
+        "id": "mmbench_v11_en_dev_943",
         "media": [
             "Image Object"
         ],
@@ -463,293 +731,27 @@
                 "question": "What's the function of the demonstrated object?",
                 "hint": "",
                 "options": {
-                    "A": "Provide a compact and organized way to carry and store essential personal items, primarily money, identification cards, and payment cards.",
-                    "B": "Deliver a controlled stream of water for bathing or showering.",
-                    "C": "Provide ventilation and carry away smoke, gases, and other combustion byproducts from a fireplace, stove, furnace, or any other heating appliance.",
-                    "D": "Ignite combustible materials, such as cigarettes, candles, or gas stoves."
+                    "A": "Offering a variety of drink",
+                    "B": "supply water for suppressing fire",
+                    "C": "Transportation of people and cargo",
+                    "D": "warning and guiding drivers"
                 },
                 "choices": [],
-                "prompt": "<image>Question: What's the function of the demonstrated object?\nOptions:\nA. Provide a compact and organized way to carry and store essential personal items, primarily money, identification cards, and payment cards.\nB. Deliver a controlled stream of water for bathing or showering.\nC. Provide ventilation and carry away smoke, gases, and other combustion byproducts from a fireplace, stove, furnace, or any other heating appliance.\nD. Ignite combustible materials, such as cigarettes, candles, or gas stoves.\nPlease select the correct answer from the options above. "
+                "prompt": "<image>Question: What's the function of the demonstrated object?\nOptions:\nA. Offering a variety of drink\nB. supply water for suppressing fire\nC. Transportation of people and cargo\nD. warning and guiding drivers\nPlease select the correct answer from the options above. "
             },
             {
                 "role": "assistant",
                 "response": [
-                    "The object shown in the image is a lighter, which is a device used to ignite combustible materials such as cigarettes, candles, or gas stoves.\n\nLet's evaluate the options:\n\n- **A. Provide a compact and organized way to carry and store essential personal items, primarily money, identification cards, and payment cards.**  \n  This describes a wallet or a carrying case, not a lighter.\n\n- **B. Deliver a controlled stream of water for bathing or showering.**  \n  This describes a shower or a faucet, not a lighter.\n\n- **C. Provide ventilation and carry away smoke, gases, and other combustion"
+                    "D. warning and guiding drivers"
                 ]
             }
         ],
-        "answer": "",
+        "answer": "D",
         "question_type": "mcq",
         "category": "function_reasoning",
         "l2_category": "attribute_reasoning",
-        "source_index": "2002714",
-        "eval-id": 3456,
-        "dataset_meta": {
-            "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
-            "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
-        }
-    },
-    {
-        "id": "mmbench_v11_en_test_2442",
-        "media": [
-            "Image Object"
-        ],
-        "messages": [
-            {
-                "role": "user",
-                "question": "Which book did this author write?",
-                "hint": "",
-                "options": {
-                    "A": "Pride and Prejudice",
-                    "B": "Harry Potter",
-                    "C": "Murder on the Orient Express",
-                    "D": "Anne of Green Gables"
-                },
-                "choices": [],
-                "prompt": "<image>Question: Which book did this author write?\nOptions:\nA. Pride and Prejudice\nB. Harry Potter\nC. Murder on the Orient Express\nD. Anne of Green Gables\nPlease select the correct answer from the options above. "
-            },
-            {
-                "role": "assistant",
-                "response": [
-                    "A. Pride and Prejudice"
-                ]
-            }
-        ],
-        "answer": "",
-        "question_type": "mcq",
-        "category": "celebrity_recognition",
-        "l2_category": "finegrained_perception (instance-level)",
-        "source_index": "2442",
-        "eval-id": 4467,
-        "dataset_meta": {
-            "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
-            "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
-        }
-    },
-    {
-        "id": "mmbench_v11_en_test_2838",
-        "media": [
-            "Image Object"
-        ],
-        "messages": [
-            {
-                "role": "user",
-                "question": "Which of the following captions best describes this image?",
-                "hint": "",
-                "options": {
-                    "A": "A pair of headphones hanging on a microphone",
-                    "B": "A group of people sitting by the roadside, taking a rest",
-                    "C": "A smiling woman holding a tablet computer",
-                    "D": "A typewriter being used to type"
-                },
-                "choices": [],
-                "prompt": "<image>Question: Which of the following captions best describes this image?\nOptions:\nA. A pair of headphones hanging on a microphone\nB. A group of people sitting by the roadside, taking a rest\nC. A smiling woman holding a tablet computer\nD. A typewriter being used to type\nPlease select the correct answer from the options above. "
-            },
-            {
-                "role": "assistant",
-                "response": [
-                    "C. A smiling woman holding a tablet computer"
-                ]
-            }
-        ],
-        "answer": "",
-        "question_type": "mcq",
-        "category": "image_topic",
-        "l2_category": "coarse_perception",
-        "source_index": "2838",
+        "source_index": "943",
         "eval-id": 4837,
-        "dataset_meta": {
-            "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
-            "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
-        }
-    },
-    {
-        "id": "mmbench_v11_en_test_3000953",
-        "media": [
-            "Image Object"
-        ],
-        "messages": [
-            {
-                "role": "user",
-                "question": "Which is the main topic of the image",
-                "hint": "",
-                "options": {
-                    "A": "A hamburger",
-                    "B": "A hot dog",
-                    "C": "A sandwich",
-                    "D": "A pizza"
-                },
-                "choices": [],
-                "prompt": "<image>Question: Which is the main topic of the image\nOptions:\nA. A hamburger\nB. A hot dog\nC. A sandwich\nD. A pizza\nPlease select the correct answer from the options above. "
-            },
-            {
-                "role": "assistant",
-                "response": [
-                    "D. A pizza"
-                ]
-            }
-        ],
-        "answer": "",
-        "question_type": "mcq",
-        "category": "image_topic",
-        "l2_category": "coarse_perception",
-        "source_index": "3000953",
-        "eval-id": 5238,
-        "dataset_meta": {
-            "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
-            "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
-        }
-    },
-    {
-        "id": "mmbench_v11_en_test_3002033",
-        "media": [
-            "Image Object"
-        ],
-        "messages": [
-            {
-                "role": "user",
-                "question": "What kind of temperature state is depicted in the picture?",
-                "hint": "",
-                "options": {
-                    "A": "hot",
-                    "B": "cool",
-                    "C": "cold",
-                    "D": "warm"
-                },
-                "choices": [],
-                "prompt": "<image>Question: What kind of temperature state is depicted in the picture?\nOptions:\nA. hot\nB. cool\nC. cold\nD. warm\nPlease select the correct answer from the options above. "
-            },
-            {
-                "role": "assistant",
-                "response": [
-                    "C. cold"
-                ]
-            }
-        ],
-        "answer": "",
-        "question_type": "mcq",
-        "category": "image_scene",
-        "l2_category": "coarse_perception",
-        "source_index": "3002033",
-        "eval-id": 5543,
-        "dataset_meta": {
-            "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
-            "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
-        }
-    },
-    {
-        "id": "mmbench_v11_en_test_3002801",
-        "media": [
-            "Image Object"
-        ],
-        "messages": [
-            {
-                "role": "user",
-                "question": "Which of the following captions best describes this image?",
-                "hint": "",
-                "options": {
-                    "A": "A person racing on a motorcycle",
-                    "B": "A woman practicing yoga",
-                    "C": "A person riding a mountain bike soaring in the air",
-                    "D": "A mother who was holding her child sat by the tree"
-                },
-                "choices": [],
-                "prompt": "<image>Question: Which of the following captions best describes this image?\nOptions:\nA. A person racing on a motorcycle\nB. A woman practicing yoga\nC. A person riding a mountain bike soaring in the air\nD. A mother who was holding her child sat by the tree\nPlease select the correct answer from the options above. "
-            },
-            {
-                "role": "assistant",
-                "response": [
-                    "B. A woman practicing yoga"
-                ]
-            }
-        ],
-        "answer": "",
-        "question_type": "mcq",
-        "category": "image_topic",
-        "l2_category": "coarse_perception",
-        "source_index": "3002801",
-        "eval-id": 6033,
-        "dataset_meta": {
-            "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
-            "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
-        }
-    },
-    {
-        "id": "mmbench_v11_en_test_3002838",
-        "media": [
-            "Image Object"
-        ],
-        "messages": [
-            {
-                "role": "user",
-                "question": "Which of the following captions best describes this image?",
-                "hint": "",
-                "options": {
-                    "A": "A group of people sitting by the roadside, taking a rest",
-                    "B": "A smiling woman holding a tablet computer",
-                    "C": "A typewriter being used to type",
-                    "D": "A pair of headphones hanging on a microphone"
-                },
-                "choices": [],
-                "prompt": "<image>Question: Which of the following captions best describes this image?\nOptions:\nA. A group of people sitting by the roadside, taking a rest\nB. A smiling woman holding a tablet computer\nC. A typewriter being used to type\nD. A pair of headphones hanging on a microphone\nPlease select the correct answer from the options above. "
-            },
-            {
-                "role": "assistant",
-                "response": [
-                    "B. A smiling woman holding a tablet computer"
-                ]
-            }
-        ],
-        "answer": "",
-        "question_type": "mcq",
-        "category": "image_topic",
-        "l2_category": "coarse_perception",
-        "source_index": "3002838",
-        "eval-id": 6067,
-        "dataset_meta": {
-            "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
-            "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
-        }
-    },
-    {
-        "id": "mmbench_v11_en_test_3002847",
-        "media": [
-            "Image Object"
-        ],
-        "messages": [
-            {
-                "role": "user",
-                "question": "In terms of angles on a two-dimensional plane, what is the position of the blue 9 in relation to the red 2?",
-                "hint": "",
-                "options": {
-                    "A": "Right",
-                    "B": "Up",
-                    "C": "Down",
-                    "D": "Left"
-                },
-                "choices": [],
-                "prompt": "<image>Question: In terms of angles on a two-dimensional plane, what is the position of the blue 9 in relation to the red 2?\nOptions:\nA. Right\nB. Up\nC. Down\nD. Left\nPlease select the correct answer from the options above. "
-            },
-            {
-                "role": "assistant",
-                "response": [
-                    "To determine the position of the blue 9 in relation to the red 2, let's analyze the image step by step.\n\n1.  **Identify the players:**\n    -   The red number 2 is located on the right side of the field, in the area near the center circle. It is on the right side of the penalty area.\n    -   The blue number 9 is located on the left side of the field, in the area near the center circle. It is on the left side of the penalty area.\n\n2.  **Analyze the positions relative to the center:**\n    -   The"
-                ]
-            }
-        ],
-        "answer": "",
-        "question_type": "mcq",
-        "category": "spatial_relationship",
-        "l2_category": "finegrained_perception (cross-instance)",
-        "source_index": "3002847",
-        "eval-id": 6074,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
             "score_type": "llm_extract",

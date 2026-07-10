@@ -18,6 +18,7 @@ from mmeval.scoring.extraction import (
     get_field,
     get_question,
     infer_question_type,
+    parsed_options,
 )
 
 try:
@@ -162,6 +163,9 @@ def _score_single_sample(sample: Dict[str, Any], args, matchers, proto: Resolved
     question = get_question(sample)
     question_type = infer_question_type(sample, args.score_question_type, gt=gt)
     options = extract_options(sample) if question_type == "mcq" else []
+    # Whether the candidates are a real parsed option source (vs the A-F
+    # fallback) — gates compact multi-letter gt parsing in the matchers.
+    options_parsed = question_type == "mcq" and parsed_options(sample) is not None
     option_texts = extract_option_texts(sample, options)
 
     eval_id = sample.get("eval-id", sample.get("id"))
@@ -203,6 +207,7 @@ def _score_single_sample(sample: Dict[str, Any], args, matchers, proto: Resolved
         "pred": pred,
         "gt": gt,
         "options": options,
+        "options_parsed": options_parsed,
         "option_texts": option_texts,
         "numeric_rel_tol": proto.numeric_rel_tol,
         "numeric_abs_tol": proto.numeric_abs_tol,

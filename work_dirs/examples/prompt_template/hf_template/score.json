@@ -1,23 +1,27 @@
 {
   "summary": {
     "total": 20,
-    "valid": 0,
-    "correct": 0,
-    "accuracy": 0.0,
-    "accuracy_valid": 0.0,
-    "mean_score": 0.0,
-    "invalid": 20,
+    "valid": 20,
+    "correct": 13,
+    "accuracy": 0.65,
+    "accuracy_valid": 0.65,
+    "mean_score": 0.65,
+    "invalid": 0,
     "llm_errors": 0,
     "by_matcher": {
+      "exact": {
+        "total": 13,
+        "correct": 13
+      },
       "unmatched": {
-        "total": 20,
+        "total": 7,
         "correct": 0
       }
     },
     "by_question_type": {
       "mcq": {
         "total": 20,
-        "correct": 0
+        "correct": 13
       }
     }
   },
@@ -64,262 +68,242 @@
     {
       "eval-id": 204,
       "question_type": "mcq",
-      "gt": null,
+      "gt": "A",
       "pred": [
-        "B. T-shirt"
+        "A. making tea"
       ],
-      "matcher_used": null,
-      "matched": null,
-      "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
+      "matcher_used": "exact",
+      "matched": "A",
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 217,
+      "question_type": "mcq",
+      "gt": "C",
+      "pred": [
+        "C. sphere"
+      ],
+      "matcher_used": "exact",
+      "matched": "C",
+      "is_correct": 1,
+      "status": "ok"
     },
     {
       "eval-id": 244,
       "question_type": "mcq",
-      "gt": null,
+      "gt": "B",
       "pred": [
-        "C. upper right"
+        "C. two"
       ],
       "matcher_used": null,
       "matched": null,
       "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
+      "status": "ok"
     },
     {
       "eval-id": 260,
       "question_type": "mcq",
-      "gt": null,
+      "gt": "B",
       "pred": [
-        "D. canyon"
+        "B. Mona Lisa"
       ],
-      "matcher_used": null,
-      "matched": null,
-      "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
+      "matcher_used": "exact",
+      "matched": "B",
+      "is_correct": 1,
+      "status": "ok"
     },
     {
       "eval-id": 712,
       "question_type": "mcq",
-      "gt": null,
+      "gt": "A",
       "pred": [
-        "A. Angry"
+        "B. top-right"
       ],
       "matcher_used": null,
       "matched": null,
       "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
+      "status": "ok"
     },
     {
       "eval-id": 767,
       "question_type": "mcq",
-      "gt": null,
+      "gt": "C",
       "pred": [
-        "B. husband and wife"
+        "The image shows a simple text \"Ford\" on a black background. The question is asking for Python code that would produce this exact result.\n\nLet's analyze the options:\n\n- **Option A**: This creates a dictionary with keys \"name\", \"age\", and \"country\", and prints it. This would display a dictionary with three keys, not just \"Ford\".\n- **Option B**: This creates a dictionary with keys \"brand\", \"model\", and \"year\", and prints it. This is a valid dictionary, but it doesn't match the image which only shows the word \"Ford\".\n- **Option C**: This creates a dictionary"
       ],
       "matcher_used": null,
       "matched": null,
       "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
+      "status": "ok"
     },
     {
       "eval-id": 839,
       "question_type": "mcq",
-      "gt": null,
+      "gt": "A",
       "pred": [
-        "C. the second image"
+        "The formula shown in the image is $ \\pi r^2 $, which is the formula for the area of a circle.\n\n- **A. Circle.** - This is correct because the formula $ \\pi r^2 $ is specifically used to calculate the area of a circle, where $ r $ is the radius.\n- **B. Square.** - The area of a square is $ s^2 $, where $ s $ is the side length. This is not the formula shown.\n- **C. Rectangle.** - The area of a rectangle is $ l \\times w $, where $ l $ is"
       ],
       "matcher_used": null,
       "matched": null,
       "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
+      "status": "ok"
     },
     {
       "eval-id": 912,
       "question_type": "mcq",
-      "gt": null,
+      "gt": "B",
       "pred": [
-        "D. Rough"
+        "B. A man in a suit with his hands in his pockets stands among a sea of yellow flowers"
       ],
-      "matcher_used": null,
-      "matched": null,
-      "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
+      "matcher_used": "exact",
+      "matched": "B",
+      "is_correct": 1,
+      "status": "ok"
     },
     {
       "eval-id": 1143,
       "question_type": "mcq",
-      "gt": null,
+      "gt": "A",
       "pred": [
-        "B. Nature"
+        "A. not soluble"
       ],
-      "matcher_used": null,
-      "matched": null,
-      "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
+      "matcher_used": "exact",
+      "matched": "A",
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 1628,
+      "question_type": "mcq",
+      "gt": "B",
+      "pred": [
+        "B. sketch"
+      ],
+      "matcher_used": "exact",
+      "matched": "B",
+      "is_correct": 1,
+      "status": "ok"
     },
     {
       "eval-id": 1791,
       "question_type": "mcq",
-      "gt": null,
+      "gt": "A",
       "pred": [
-        "To determine the percentage of storage that has not been used, we need to follow these steps:\n\n1.  **Identify the total storage capacity:** The image shows \"33.8 GB of 100 GB used\". This means the total storage is 100 GB.\n2.  **Identify the used storage:** The image shows \"33.8 GB used\".\n3.  **Calculate the unused storage:** The unused storage is the total storage minus the used storage.\n    $$\n    \\text{Unused Storage} = 100 \\text{ GB} - 33.8 \\"
+        "A. east"
       ],
-      "matcher_used": null,
-      "matched": null,
-      "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
+      "matcher_used": "exact",
+      "matched": "A",
+      "is_correct": 1,
+      "status": "ok"
     },
     {
       "eval-id": 1828,
       "question_type": "mcq",
-      "gt": null,
+      "gt": "D",
       "pred": [
-        "C. upper-right"
+        "D. A man with his guitar on his back stands in the street performing"
       ],
-      "matcher_used": null,
-      "matched": null,
-      "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
+      "matcher_used": "exact",
+      "matched": "D",
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 1905,
+      "question_type": "mcq",
+      "gt": "C",
+      "pred": [
+        "C. A grey and white bird with red feet and eyes perches on a branch."
+      ],
+      "matcher_used": "exact",
+      "matched": "C",
+      "is_correct": 1,
+      "status": "ok"
     },
     {
       "eval-id": 2006,
       "question_type": "mcq",
-      "gt": null,
+      "gt": "D",
       "pred": [
-        "B. The second image"
+        "Based on the information provided in the table, we can determine the correct answer by examining the events listed.\n\n- The table shows that the Akkadian Empire ended around **ca. 2190 BCE**.\n- The table also states that **after** the Akkadian Empire ended, the Neo-Sumerian Empire started ruling Mesopotamia around **ca. 2100 BCE**.\n- The table further notes that the Neo-Sumerian Empire was conquered by the Elamites around **ca. 2004 BCE**.\n- The final event listed is that the **Babylonian"
       ],
       "matcher_used": null,
       "matched": null,
       "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
+      "status": "ok"
     },
     {
       "eval-id": 2253,
       "question_type": "mcq",
-      "gt": null,
+      "gt": "C",
       "pred": [
-        "The image shows a sequence of numbers from 0 to 5, followed by the text \"Finally finished!\". This is a simple output of a Python script that uses a `for` loop to print numbers from 0 to 5, and then prints a message.\n\nLet's analyze the options:\n\n- **Option A:** This code defines variables of different types (integer, float, complex) and prints their types. It does not print numbers from 0 to 5 or the \"Finally finished!\" message. This is incorrect.\n\n- **Option B:** This is a function definition and call. It prints a string with the name \""
+        "C. Hong Kong"
       ],
-      "matcher_used": null,
-      "matched": null,
-      "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
+      "matcher_used": "exact",
+      "matched": "C",
+      "is_correct": 1,
+      "status": "ok"
     },
     {
       "eval-id": 3456,
       "question_type": "mcq",
-      "gt": null,
+      "gt": "D",
       "pred": [
-        "The object shown in the image is a lighter, which is a device used to ignite combustible materials such as cigarettes, candles, or gas stoves. The flame visible in the image is the result of the lighter's function.\n\nLet's evaluate the options:\n\n- **A. Provide a compact and organized way to carry and store essential personal items, primarily money, identification cards, and payment cards.**  \n  This describes a wallet or a purse, which is not what the object shown is.\n\n- **B. Deliver a controlled stream of water for bathing or showering.**  \n  This describes a shower or a faucet, which"
+        "Based on the image provided, let's analyze the positions of the objects:\n\n- There is a gray circle on the left side of the image.\n- There is a cyan shape, which appears to be a square or a diamond, on the right side of the image.\n\nNow, let's evaluate each option:\n\n- **A. A cyan square is to the left of a gray circle.**  \n  This is incorrect because the cyan shape is on the right, and the gray circle is on the left. The cyan shape is to the right of the gray circle.\n\n- **B. A cyan ellipse is to the right of a gray"
       ],
       "matcher_used": null,
       "matched": null,
       "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
+      "status": "ok"
+    },
+    {
+      "eval-id": 4139,
+      "question_type": "mcq",
+      "gt": "D",
+      "pred": [
+        "C. Right side"
+      ],
+      "matcher_used": null,
+      "matched": null,
+      "is_correct": 0,
+      "status": "ok"
     },
     {
       "eval-id": 4467,
       "question_type": "mcq",
-      "gt": null,
+      "gt": "A",
       "pred": [
-        "A. Pride and Prejudice"
+        "A. Creating and blowing bubbles"
       ],
-      "matcher_used": null,
-      "matched": null,
-      "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
+      "matcher_used": "exact",
+      "matched": "A",
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 4597,
+      "question_type": "mcq",
+      "gt": "A",
+      "pred": [
+        "A. if anyone has super mario maker 2, make sure to stop by my account and play a few of my levels. most of these levels are from 4-1 years ago, tho, i do have a super world in the works!"
+      ],
+      "matcher_used": "exact",
+      "matched": "A",
+      "is_correct": 1,
+      "status": "ok"
     },
     {
       "eval-id": 4837,
       "question_type": "mcq",
-      "gt": null,
+      "gt": "D",
       "pred": [
-        "C. A smiling woman holding a tablet computer"
+        "D. warning and guiding drivers"
       ],
-      "matcher_used": null,
-      "matched": null,
-      "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
-    },
-    {
-      "eval-id": 5238,
-      "question_type": "mcq",
-      "gt": null,
-      "pred": [
-        "D. A pizza"
-      ],
-      "matcher_used": null,
-      "matched": null,
-      "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
-    },
-    {
-      "eval-id": 5543,
-      "question_type": "mcq",
-      "gt": null,
-      "pred": [
-        "C. cold"
-      ],
-      "matcher_used": null,
-      "matched": null,
-      "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
-    },
-    {
-      "eval-id": 6033,
-      "question_type": "mcq",
-      "gt": null,
-      "pred": [
-        "B. A woman practicing yoga"
-      ],
-      "matcher_used": null,
-      "matched": null,
-      "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
-    },
-    {
-      "eval-id": 6067,
-      "question_type": "mcq",
-      "gt": null,
-      "pred": [
-        "B. A smiling woman holding a tablet computer"
-      ],
-      "matcher_used": null,
-      "matched": null,
-      "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
-    },
-    {
-      "eval-id": 6074,
-      "question_type": "mcq",
-      "gt": null,
-      "pred": [
-        "A. Right"
-      ],
-      "matcher_used": null,
-      "matched": null,
-      "is_correct": 0,
-      "status": "invalid",
-      "reason": "missing_gt_or_pred"
+      "matcher_used": "exact",
+      "matched": "D",
+      "is_correct": 1,
+      "status": "ok"
     }
   ]
 }
