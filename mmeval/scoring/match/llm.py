@@ -308,7 +308,7 @@ class LLMMatchMatcher(_LLMMatcherBase):
         choices = [str(c).strip().upper() for c in (context["options"] or [])]
         option_texts = context.get("option_texts", {})
 
-        gt_letters = parse_gt_letters(context["gt"])
+        gt_letters = parse_gt_letters(context["gt"]) or extract_letter_set(context["gt"], choices)
         if gt_letters is not None and len(gt_letters) > 1:
             # Multi-letter gt (LogicVista): rule prefetch, then the letters-extraction
             # prompt; official sorted-set compare (utils/logicvista.py:50-68).

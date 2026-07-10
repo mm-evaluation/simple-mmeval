@@ -23,16 +23,17 @@ def numbers_match(pred: float, gt: float, context) -> bool:
     """Exact float equality by default; the protocol's tolerances widen it:
     relative (`numeric_rel_tol` — ChartQA 0.05) and/or absolute
     (`numeric_abs_tol` — DynaMath 0.001, OlympiadBench-style epsilon). Either
-    satisfied tolerance matches."""
+    satisfied tolerance matches. Relative tolerance does NOT apply when the
+    ground truth is 0 — the official relaxed-accuracy protocol falls back to
+    exact matching there (lmms-eval chartqa/utils.py relaxed_correctness:
+    `target_float` truthiness sends target==0 to the exact-match branch)."""
     if pred == gt:
         return True
     abs_tol = float(context.get("numeric_abs_tol") or 0.0)
     if abs_tol > 0.0 and abs(pred - gt) <= abs_tol:
         return True
     rel_tol = float(context.get("numeric_rel_tol") or 0.0)
-    if rel_tol > 0.0:
-        if gt == 0.0:
-            return abs(pred - gt) <= rel_tol
+    if rel_tol > 0.0 and gt != 0.0:
         return abs(pred - gt) / abs(gt) <= rel_tol
     return False
 
@@ -91,7 +92,10 @@ class ExactMatcher(BaseMatcher):
             # Letter-SET grading: single-select is the |set|=1 special case,
             # multi-letter gts like LogicVista's "A, C" the general one.
             candidates = context["options"]
-            gt_letters = parse_gt_letters(gt_raw)
+            # Compact multi-letter gts ("AC") are accepted HERE — the row is
+            # already typed mcq — while parse_gt_letters stays conservative for
+            # type inference (compact form collides with words like "BED").
+            gt_letters = parse_gt_letters(gt_raw) or extract_letter_set(gt_raw, candidates)
             if gt_letters is None:
                 g = extract_option_strict(gt_raw, candidates) or normalize_for_exact(gt_raw).upper()
                 gt_letters = (g,) if g else None

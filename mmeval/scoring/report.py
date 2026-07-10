@@ -5,6 +5,9 @@ from typing import Any, Dict, List
 def build_summary(sample_results: List[Dict[str, Any]]) -> Dict[str, Any]:
     total = len(sample_results)
     correct = sum(1 for x in sample_results if x.get("is_correct") == 1)
+    # accuracy divides by ALL samples (invalid rows count as wrong);
+    # accuracy_valid divides by the gradable samples only — the honest number
+    # on splits with withheld answers or malformed rows.
     accuracy = (correct / total) if total else 0.0
 
     by_matcher = defaultdict(lambda: {"total": 0, "correct": 0})
@@ -37,11 +40,13 @@ def build_summary(sample_results: List[Dict[str, Any]]) -> Dict[str, Any]:
             for x in sample_results) / total
         if total else 0.0
     )
+    valid = total - invalid
     summary = {
         "total": total,
-        "valid": total - invalid,
+        "valid": valid,
         "correct": correct,
         "accuracy": accuracy,
+        "accuracy_valid": (correct / valid) if valid else 0.0,
         "mean_score": mean_score,
         "invalid": invalid,
         "llm_errors": llm_errors,

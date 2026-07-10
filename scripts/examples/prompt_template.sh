@@ -1,4 +1,17 @@
 export PYTHONPATH=./:$PYTHONPATH
+#
+# NOTE on committed example outputs: the result.json/score.json checked into
+# work_dirs/examples/ are the outputs of these commands as written — the HF
+# example (Test 4) selects a deterministic 20-sample subset with the
+# framework's native sampling flags (--sample_num/--sample_order/--sample_seed,
+# see docs/en/USAGE.md "Run a subset of samples"), so runs stay small and
+# committable. Score the local-JSON outputs (Tests 1-2) with:
+#   PYTHONPATH=. python3 mmeval/score.py --out_dir <out_dir> --no_score_resume
+# and the MMBench output (Test 4) with an explicit rule chain, which keeps
+# scoring credential-free (MMBench's llm_extract protocol would otherwise
+# construct an LLM matcher that needs judge API keys):
+#   PYTHONPATH=. python3 mmeval/score.py --out_dir <out_dir> \
+#       --matching_order exact,template --no_score_resume
 
 # Test 1: Local JSON with template file path
 python mmeval/run.py \
@@ -34,11 +47,15 @@ python mmeval/run.py \
     --gpu_per_parallel 1 \
     --parallel_per_task 1
 
-# Test 4: HuggingFace MMBench-en-V11
+# Test 4: HuggingFace MMBench-V11 (en subset), 20-sample subset via native sampling
 python mmeval/run.py \
     --model_name_or_path Qwen/Qwen3-VL-2B-Instruct \
-    --dataset mmeval_hf@mm-eval/MMBench-en-V11 \
+    --dataset mmeval_hf@mm-eval/MMBench-V11 \
+    --subset en \
     --split test \
+    --sample_num 20 \
+    --sample_order random \
+    --sample_seed 42 \
     --out_dir work_dirs/examples/prompt_template/hf_template \
     --gpu_per_parallel 1 \
     --parallel_per_task 1

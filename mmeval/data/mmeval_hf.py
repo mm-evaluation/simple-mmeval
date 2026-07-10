@@ -9,10 +9,12 @@ from mmeval.data.base import BaseDataset
 class MMEvalHFDataset(BaseDataset):
     """Dataset loader for HuggingFace datasets in mm-eval format.
 
-    Reads the subset manifest from the dataset repo's metadata.json, injects
+    Reads the subset manifest from the dataset repo's metadata.json and injects
     the scoring-relevant metadata as the flat top-level `dataset_meta` sample
-    field, and ensures grading fields sit at the sample top level regardless
-    of how the published rows store them.
+    field. Rows are expected in the flat layout (grading fields as top-level
+    columns; messages[0] carries render inputs only) — non-conforming rows are
+    passed through unchanged and surface at scoring time via the scorer's
+    explicit layout rejection.
     """
 
     def __init__(self, args):

@@ -9,6 +9,7 @@ from typing import Any, Dict, List
 
 from mmeval.scoring.graders import run_grader
 from mmeval.scoring.match import LLM_MATCHER_NAMES, MATCHER_REGISTRY
+from mmeval.scoring.match.llm import _resolve_setting
 from mmeval.scoring.protocol import ResolvedProtocol, extract_dataset_meta, resolve_protocol
 from mmeval.scoring.report import build_summary
 from mmeval.scoring.extraction import (
@@ -69,6 +70,12 @@ def _resume_fingerprint(args, proto: ResolvedProtocol) -> Dict[str, Any]:
         fingerprint["judge_provider"] = args.judge_provider
         fingerprint["judge_model"] = args.judge_model
         fingerprint["judge_temperature"] = args.judge_temperature
+        # Both change verdicts: include_reason alters the judge prompt, and
+        # max_tokens changes truncation/parse-failure behavior. Fingerprint the
+        # RESOLVED max_tokens (CLI > env > default), like the matcher uses.
+        fingerprint["judge_include_reason"] = bool(args.judge_include_reason)
+        fingerprint["judge_max_tokens"] = _resolve_setting(
+            getattr(args, "judge_max_tokens", None), "JUDGE_MAX_TOKENS", 2048)
     return fingerprint
 
 
@@ -102,8 +109,10 @@ def _load_cached_results(out_path: str, resume_enabled: bool, fingerprint: Dict[
 
     cache_by_id: Dict[str, Dict[str, Any]] = {}
     tmp_path = f"{out_path}.tmp"
-    candidates = [tmp_path, out_path]
-    for path in candidates:
+    # Union of both caches: the final score.json first, then the tmp overlays
+    # it (fresher rows win). Both must pass the fingerprint check, so every
+    # retained row was produced under the current verdict-determining config.
+    for path in (out_path, tmp_path):
         if not os.path.exists(path):
             continue
         try:
@@ -128,9 +137,6 @@ def _load_cached_results(out_path: str, resume_enabled: bool, fingerprint: Dict[
                 if str(row.get("reason", "")).startswith("llm_error"):
                     continue
                 cache_by_id[str(row["eval-id"])] = row
-            # Prefer tmp (fresher) when available.
-            if path.endswith(".tmp"):
-                return cache_by_id
         except Exception:
             continue
     return cache_by_id
@@ -364,20 +370,15 @@ def score_result_file(result_file: str, args) -> Dict[str, Any]:
         "summary": summary,
         "config": {
             # RESOLVED per-knob values (CLI > dataset_meta > default); which
-            # source decided each knob is recorded in knob_sources.
-            "matching_order": proto.matching_order,
-            "grader": proto.grader,
+            # source decided each knob is recorded in knob_sources. The resume
+            # fingerprint is embedded verbatim: _load_cached_results validates
+            # cached rows against this block, so it must stay a superset of
+            # every fingerprint key.
+            **fingerprint,
             "score_type": proto.score_type,
             "task_type": proto.task_type,
             "official_protocol": proto.official_protocol,
             "knob_sources": proto.knob_sources,
-            "score_gt_field": args.score_gt_field,
-            "score_pred_field": args.score_pred_field,
-            "score_question_type": args.score_question_type,
-            "score_numeric_rel_tol": proto.numeric_rel_tol,
-            "score_numeric_abs_tol": proto.numeric_abs_tol,
-            "score_string_match": proto.string_match,
-            "score_anls_threshold": proto.anls_threshold,
             "judge_provider": args.judge_provider,
             "judge_model": args.judge_model,
             "judge_temperature": args.judge_temperature,
@@ -397,7 +398,10 @@ def score_result_file(result_file: str, args) -> Dict[str, Any]:
 
     with open(out_path, "w") as f:
         json.dump(payload, f, indent=2)
-    if args.score_resume and os.path.exists(tmp_path):
+    # A finished score.json supersedes any resume tmp regardless of how this
+    # run was configured — a stale tmp left behind would overlay OLDER rows
+    # onto a fresher final in a later resume's cache union.
+    if os.path.exists(tmp_path):
         os.remove(tmp_path)
 
     return {

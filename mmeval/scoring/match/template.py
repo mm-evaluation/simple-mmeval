@@ -47,7 +47,9 @@ class TemplateMatcher(BaseMatcher):
         candidates = context["options"]
         option_texts = context.get("option_texts", {})
 
-        gt_letters = parse_gt_letters(gt_raw)
+        # Compact multi-letter gts ("AC") are accepted at match time (the row
+        # is already typed mcq); type inference stays conservative about them.
+        gt_letters = parse_gt_letters(gt_raw) or extract_letter_set(gt_raw, candidates)
         if gt_letters is None:
             g = extract_option_robust(gt_raw, candidates, option_texts) or normalize_for_exact(gt_raw).upper()
             gt_letters = (g,) if g else None
@@ -79,7 +81,6 @@ class TemplateMatcher(BaseMatcher):
         gt_nums = [n for n in (parse_number(r) for r in gt_references(context["gt"])) if n is not None]
         if not gt_nums:
             return MatchResult(is_match=False)
-        gt_num = gt_nums[0]
         pred_norm = normalize_open_answer(context["pred"])
         # Prefer the segment after the LAST answer cue (a CoT usually walks
         # through intermediate numbers first); fall back to the whole text.
