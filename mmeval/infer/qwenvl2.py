@@ -27,9 +27,12 @@ class TaskRunner(Task):
     def load_model(self, args):
         self.model = Qwen2VLForConditionalGeneration.from_pretrained(args.model_name_or_path, torch_dtype=self.dtype, **self.model_kwargs)
         self.tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
-        min_pixels = 256 * 28 * 28
-        max_pixels = 1280 * 28 * 28
-        self.processor = AutoProcessor.from_pretrained(args.model_name_or_path, min_pixels=min_pixels, max_pixels=max_pixels)
+        processor_kwargs = {"min_pixels": 256 * 28 * 28, "max_pixels": 1280 * 28 * 28}
+        if getattr(args, "min_pixels", None) is not None:
+            processor_kwargs["min_pixels"] = args.min_pixels
+        if getattr(args, "max_pixels", None) is not None:
+            processor_kwargs["max_pixels"] = args.max_pixels
+        self.processor = AutoProcessor.from_pretrained(args.model_name_or_path, **processor_kwargs)
 
     def parse_input(self, message:dict):
         question = message["prompt"]

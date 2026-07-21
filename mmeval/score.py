@@ -3,9 +3,9 @@ from mmeval.utils.argparser import parse_args
 
 
 def run_score(args):
-    files = discover_result_files(out_dir=args.out_dir, pattern=args.score_result_glob)
+    files = discover_result_files(out_dir=args.score_out_dir, pattern=args.score_result_glob)
     if not files:
-        raise RuntimeError(f"No result files found under {args.out_dir} with pattern {args.score_result_glob}")
+        raise RuntimeError(f"No result files found under {args.score_out_dir} with pattern {args.score_result_glob}")
 
     done = []
     failed = []

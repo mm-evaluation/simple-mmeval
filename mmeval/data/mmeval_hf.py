@@ -56,11 +56,23 @@ class MMEvalHFDataset(BaseDataset):
         # field, so it lands in result.json and the scorer can resolve the
         # official grading protocol without access to the HF manifest. CLI
         # flags on the scorer always override these values.
+        if "score_type" in subset_block:
+            raise ValueError(
+                f"{self.dataset_name} subset {self.subset!r}: metadata.json "
+                f"declares the retired composite `score_type` vocabulary "
+                f"(retired org-wide 2026-07-19) — re-push the dataset with the "
+                f"`score_pipeline` schema (docs/en/SCORING.md, 'Dataset "
+                f"metadata contract')."
+            )
         meta_block = {}
-        for key in ("task_type", "score_type", "score_params"):
+        for key in ("task_type", "score_params"):
             value = subset_block.get(key)
             if value:
                 meta_block[key] = value
+        if "score_pipeline" in subset_block:
+            # Declared protocol passes through verbatim; [] (explicitly no
+            # official protocol) is a meaningful value, so test presence.
+            meta_block["score_pipeline"] = subset_block["score_pipeline"]
         note = ((subset_block.get("score_protocol") or {}).get("note") or "").strip()
         if note:
             meta_block["score_note"] = note

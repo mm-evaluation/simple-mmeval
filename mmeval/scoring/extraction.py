@@ -6,37 +6,12 @@ from typing import Any, Dict, List, Optional, Tuple
 OPTION_LETTERS = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 # Question-type taxonomy. Every type is justified by at least one mm-eval org
-# dataset (audit table in FINAL_REPORT.md): mcq (ScienceQA-IMG, MMStar, ...;
+# dataset (per-subset audit: docs/en/SCORING_COVERAGE.md): mcq (ScienceQA-IMG, MMStar, ...;
 # multi-letter answers like LogicVista's "A, C" are mcq with |letters|>1),
 # yes_no (VSR, GQA-Spatial verify rows), numeric (CharXiv, VLMsAreBlind, SeePhys),
 # open (MM-Vet-v2, CharXiv descriptive).
 QUESTION_TYPES = ("mcq", "yes_no", "numeric", "open")
 
-# ONE taxonomy, two levels (documented in FINAL_REPORT.md and the dataset-upload
-# skill): the DATASET-level task_type (metadata.json: vqa / multiple_choice_vqa /
-# captioning / judge_scored) maps onto the SAMPLE-level grading types above; the
-# per-sample `question_type` field may carry either vocabulary.
-# `vqa` is deliberately UNMAPPED — by the dataset standard it spans yes/no,
-# numeric and open answers, so those samples resolve per sample by gt shape.
-# Unrecognized values (VSI-Bench stores subtask names in this field) fall through
-# to gt-shape inference too.
-_TYPE_FIELD_VOCAB = {
-    # sample-level grading types (identity)
-    "mcq": "mcq", "yes_no": "yes_no", "numeric": "numeric", "open": "open",
-    # dataset-level task_type values (mm-eval dataset standard: captioning /
-    # multiple_choice_qa / yes_no_qa / short_answer_qa / open_ended_qa;
-    # short_answer_qa — like vqa/short_answer — is deliberately UNMAPPED
-    # because it spans numeric and open answers)
-    "multiple_choice_qa": "mcq", "yes_no_qa": "yes_no",
-    "captioning": "open", "open_ended_qa": "open",
-    # compatibility aliases: values that appear in the question_type field of
-    # existing result.json files and older dataset metadata
-    "free_form": "open",
-    "multiple_choice_vqa": "mcq", "judge_scored": "open",
-    # source-dataset variants seen in the org audit (MathVerse: "multi-choice")
-    "multi-choice": "mcq", "multiple_choice": "mcq", "multiple-choice": "mcq",
-    "open-ended": "open", "free-form": "open",
-}
 
 
 def _to_text(value: Any) -> str:
@@ -144,7 +119,7 @@ def get_field(sample: Dict[str, Any], field: str, default: Any = None) -> Any:
     prompt) inside messages[0]; every grading field (answer, question_type,
     reference_response, and any --score_gt_field) at the sample TOP level.
     All backends emit this layout; files with grading fields embedded in
-    messages[0] must be converted first (scripts/migrate_result_layout.py)."""
+    messages[0] are rejected by the scorer."""
     if not field:
         return default
     if field == "messages[-1].response":
@@ -321,12 +296,20 @@ def parse_gt_letters(gt: Any) -> Optional[Tuple[str, ...]]:
 
 
 def parse_number(value: Any) -> Optional[float]:
-    """The whole (normalized) answer is a number, else None."""
-    text = normalize_open_answer(value).replace(",", "").rstrip("%")
+    """The whole (normalized) answer is a number, else None. A trailing
+    percent sign reads as /100 — the official numeric semantics (ChartQA
+    relaxed_correctness `_to_float`, lmms-eval chartqa/utils.py, taken from
+    Qwen-VL evaluate_vqa.py:L113): "24%" is 0.24, NOT 24, so a model
+    answering "24%" against gt "24" does not match."""
+    text = normalize_open_answer(value).replace(",", "")
+    percent = text.endswith("%")
+    if percent:
+        text = text.rstrip("%").strip()
     try:
-        return float(text)
+        number = float(text)
     except ValueError:
         return None
+    return number / 100.0 if percent else number
 
 
 _WORD_RE = re.compile(r"[a-z]+")
@@ -353,10 +336,13 @@ def infer_question_type(sample: Dict[str, Any], question_type: str = "auto", gt:
     if forced in QUESTION_TYPES:
         return forced
 
+    # Per-sample field contract: exactly the four grading values. A 2026-07-19
+    # sweep of every mm-eval dataset/split (577k+ rows, datasets-server
+    # statistics API) found ONLY these; dataset-level task_type stays in
+    # metadata, source-benchmark labels stay in `source_question_type`.
     field_value = str(get_field(sample, "question_type", "") or "").strip().lower()
-    mapped = _TYPE_FIELD_VOCAB.get(field_value)
-    if mapped:
-        return mapped
+    if field_value in QUESTION_TYPES:
+        return field_value
 
     # The ground-truth shape is the most reliable signal and correctly splits
     # mixed benchmarks (RealWorldQA interleaves letter, yes/no and numeric gts;
@@ -374,7 +360,7 @@ def infer_question_type(sample: Dict[str, Any], question_type: str = "auto", gt:
             return "open"
 
     # No usable gt signal (missing/blank gt — the sample is marked invalid before
-    # any matcher runs): default to mcq. NOTE extract_options never returns empty
+    # any stage runs): default to mcq. NOTE extract_options never returns empty
     # (A-F fallback), so an "options present?" check here would be dead logic.
     return "mcq"
 

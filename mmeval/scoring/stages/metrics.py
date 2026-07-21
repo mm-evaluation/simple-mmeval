@@ -1,20 +1,22 @@
-"""Dedicated graders for score_types that are neither matcher chains nor
-refusals: `vqa_accuracy` and `anls`. Both yield FRACTIONAL per-sample scores
-(0.0..1.0) recorded as `score`; `is_correct` = 1 only at full credit, and the
-official headline aggregate is `summary.mean_score` (see FINAL_REPORT.md).
+"""Fractional grader stages. Both always DECIDE (score 0..1) or mark the
+sample invalid — they never pass — so they are only valid as a pipeline's
+last stage. is_correct = 1 only at full credit; the official headline
+aggregate for fractional protocols is summary.mean_score.
 
 Protocol sources (implemented 1:1):
-- vqa_accuracy: lmms-eval lmms_eval/tasks/vqav2/utils.py:15-42
+- vqa-accuracy: lmms-eval lmms_eval/tasks/vqav2/utils.py:15-42
   (vqav2_process_results) — whitespace-normalize, EvalAIAnswerProcessor
   punctuation+digit/article normalization, then the official leave-one-out
-  accuracy: for each of the reference answers, acc = min(1, #matching OTHER
+  consensus accuracy: for each reference answer, acc = min(1, #matching OTHER
   references / 3); sample score = mean over references.
-- anls: lmms-eval lmms_eval/api/metrics.py:293-321 (anls) — per reference,
-  normalized Levenshtein distance over lowercased whitespace-collapsed strings;
-  score = 1 - min distance, zeroed below the threshold (default 0.5).
+- anls: lmms-eval lmms_eval/api/metrics.py:293-321 (anls) — per
+  reference, normalized Levenshtein distance over lowercased
+  whitespace-collapsed strings; score = 1 - min distance, zeroed below the
+  threshold (default 0.5).
 """
 from typing import Any, List, Optional, Tuple
 
+from mmeval.scoring.stages.base import BaseStage, StageResult
 from mmeval.scoring.vqa_eval_metric import EvalAIAnswerProcessor
 
 _VQA_PROCESSOR = EvalAIAnswerProcessor()
@@ -37,17 +39,17 @@ def _vqa_normalize(text: str) -> str:
     return text
 
 
-def vqa_accuracy(pred: Any, gt: Any) -> Tuple[Optional[float], Optional[str]]:
-    """Official VQA accuracy. Returns (score, error): score is None on error.
-    Requires the multi-annotator reference list (VQAv2/OK-VQA/TextVQA/VizWiz
-    ship 10 answers) — the leave-one-out formula is undefined for a single
-    reference."""
+def vqa_consensus(pred: Any, gt: Any) -> Tuple[Optional[float], Optional[str]]:
+    """Official VQA consensus accuracy. Returns (score, error): score is None
+    on error. Requires the multi-annotator reference list (VQAv2/OK-VQA/
+    TextVQA/VizWiz ship 10 answers) — the leave-one-out formula is undefined
+    for a single reference."""
     refs = _reference_list(gt)
     if refs is None or len(refs) < 2:
-        return None, "vqa_accuracy requires the multi-annotator answer list (>=2 references) as gt"
+        return None, "vqa-accuracy requires the multi-annotator answer list (>=2 references) as gt"
     pred_text = pred[0] if isinstance(pred, list) and pred else pred
     if not isinstance(pred_text, str):
-        return None, "vqa_accuracy: prediction is not text"
+        return None, "vqa-accuracy: prediction is not text"
     res = _vqa_normalize(pred_text)
     norm_refs = [_vqa_normalize(r) for r in refs]
     accs = []
@@ -97,9 +99,28 @@ def anls(pred: Any, gt: Any, threshold: float = 0.5) -> Tuple[Optional[float], O
     return score, None
 
 
-def run_grader(name: str, pred: Any, gt: Any, params: dict) -> Tuple[Optional[float], Optional[str]]:
-    if name == "vqa_accuracy":
-        return vqa_accuracy(pred, gt)
-    if name == "anls":
-        return anls(pred, gt, threshold=float(params.get("anls_threshold", 0.5)))
-    return None, f"unknown grader `{name}`"
+class VqaAccuracyStage(BaseStage):
+    """Official VQA consensus accuracy (fractional grader)."""
+
+    name = "vqa-accuracy"
+    grader = True
+
+    def run(self, sample, context):
+        score, error = vqa_consensus(context["pred"], context["gt"])
+        if score is None:
+            return StageResult.not_gradable(error)
+        return StageResult.scored(score)
+
+
+class AnlsStage(BaseStage):
+    """ANLS similarity against the references (fractional grader)."""
+
+    name = "anls"
+    grader = True
+
+    def run(self, sample, context):
+        score, error = anls(context["pred"], context["gt"],
+                            threshold=float(context.get("anls_threshold") or 0.5))
+        if score is None:
+            return StageResult.not_gradable(error)
+        return StageResult.scored(score)

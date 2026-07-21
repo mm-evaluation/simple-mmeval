@@ -17,6 +17,8 @@ class ModelArguments:
 
     # parameters for model inference
     dtype: Optional[str] = field(default=None, metadata={"help": "Override the default torch.dtype and load the model under a specific dtype."})
+    min_pixels: Optional[int] = field(default=None, metadata={"help": "Image processor min_pixels override (Qwen-VL family); None keeps the runner's default."})
+    max_pixels: Optional[int] = field(default=None, metadata={"help": "Image processor max_pixels override (Qwen-VL family); None keeps the runner's default."})
     device_map: Optional[str] = field(default=None, metadata={"help": "A map that specifies where each submodule should go."})
     
     # parameters that control the length of the output
@@ -89,8 +91,12 @@ class ExperimentArguments:
 
 @dataclass
 class ScoreRuntimeArguments:
-    out_dir: Optional[str] = field(default=None, metadata={"help": "output directory containing result.json files"})
-    parallel_per_task: int = field(default=4, metadata={"help": "number of sample workers inside each result.json"})
+    # Score-mode CLI convention: every dest is prefixed `score_` (scoring
+    # pipeline/IO/knobs) or `judge_` (the LLM-judge client group — already
+    # score-mode-only and self-descriptive; `score_judge_*` would stutter).
+    # No unprefixed or infer-colliding dests.
+    score_out_dir: Optional[str] = field(default=None, metadata={"help": "output directory containing result.json files"})
+    score_parallel_per_task: int = field(default=4, metadata={"help": "number of sample workers inside each result.json"})
 
 
 @dataclass
@@ -100,8 +106,8 @@ class ScoreArguments:
     score_progress_bar: bool = field(default=True, metadata={"help": "show progress bar while scoring samples"})
     score_resume: bool = field(default=True, metadata={"help": "resume scoring from score tmp/final files when available"})
     score_save_freq: int = field(default=20, metadata={"help": "flush frequency for score resume tmp file"})
-    score_debug: bool = field(default=False, metadata={"help": "write matcher trace into score outputs"})
-    matching_order: str = field(default="exact,template", metadata={"help": "matcher chain order, comma-separated"})
+    score_debug: bool = field(default=False, metadata={"help": "write per-stage trace into score outputs"})
+    score_pipeline: str = field(default="exact-match,rule-match", metadata={"help": "ordered scoring pipeline: comma-separated atomic stage names (exact-match, rule-match, llm-match, llm-judge, vqa-accuracy, anls)"})
 
     score_gt_field: str = field(default="answer", metadata={"help": "field name for ground-truth in result sample"})
     score_pred_field: str = field(default="messages[-1].response", metadata={"help": "field path for prediction in result sample"})
@@ -111,7 +117,7 @@ class ScoreArguments:
     score_string_match: str = field(default="exact", metadata={"help": "rule-chain text comparison: exact|contains|anls (contains = OCRBench substring protocol; anls = threshold ANLS)"})
     score_anls_threshold: float = field(default=0.5, metadata={"help": "ANLS threshold (string_match=anls and the anls grader)"})
 
-    judge_provider: Optional[str] = field(default=None, metadata={"help": "llm judge provider: openai|azure_openai"})
+    judge_provider: Optional[str] = field(default=None, metadata={"help": "llm judge provider: local (in-process open-weight model, framework-native loading) | openai | azure_openai"})
     judge_model: Optional[str] = field(default=None, metadata={"help": "llm judge model/deployment name"})
     # For the three knobs below, resolution order is: CLI flag > env var > default
     # (env names JUDGE_MAX_RETRY / JUDGE_MAX_CONCURRENCY / JUDGE_MAX_TOKENS).

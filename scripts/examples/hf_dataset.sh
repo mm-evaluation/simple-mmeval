@@ -18,13 +18,13 @@ python mmeval/run.py \
     --gpu_per_parallel 1 \
     --parallel_per_task 1
 
-# Score the run. The explicit rule chain keeps this credential-free (MMBench's
-# llm_extract protocol would otherwise construct an LLM matcher, which needs
-# judge API keys); the override is recorded in score.json's knob_sources.
+# Score the run. The explicit rule pipeline keeps this credential-free
+# (MMBench's declared pipeline includes an LLM judge stage, which needs API
+# keys); the override is recorded in score.json's knob_sources.
 python mmeval/score.py \
-    --out_dir work_dirs/examples/hf_dataset/MMBench_en_V11 \
+    --score_out_dir work_dirs/examples/hf_dataset/MMBench_en_V11 \
     --score_result_glob 'result.json' \
-    --matching_order exact,template \
+    --score_pipeline exact-match,rule-match \
     --no_score_resume
 
 # Fixture gate: every sample must be gradable — a fixture whose rows are all

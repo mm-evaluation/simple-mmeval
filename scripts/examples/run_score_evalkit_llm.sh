@@ -13,7 +13,7 @@ set -euo pipefail
 #   SCORE_RESULT_GLOB='VStarBench/result.json'   # or '*/result.json'
 #   SCORE_OUTPUT_NAME=score_llm.json
 #   PARALLEL_PER_TASK=1   # sample workers inside each result.json
-#   MATCHING_ORDER='exact,template,llm-judge'
+#   PIPELINE='exact-match,rule-match,llm-judge'
 #   JUDGE_PROVIDER='openai'
 #   JUDGE_MODEL='gpt-5'
 #   JUDGE_INCLUDE_REASON='false'
@@ -29,7 +29,7 @@ OUT_DIR="${OUT_DIR:-work_dirs/evalkit_all_qwen}"
 SCORE_RESULT_GLOB="${SCORE_RESULT_GLOB:-VStarBench/result.json}"
 SCORE_OUTPUT_NAME="${SCORE_OUTPUT_NAME:-score_llm.json}"
 PARALLEL_PER_TASK="${PARALLEL_PER_TASK:-1}"
-MATCHING_ORDER="${MATCHING_ORDER:-exact,template,llm-judge}"
+PIPELINE="${PIPELINE:-exact-match,rule-match,llm-judge}"
 JUDGE_PROVIDER="${JUDGE_PROVIDER:-openai}"
 JUDGE_MODEL="${JUDGE_MODEL:-gpt-5}"
 JUDGE_INCLUDE_REASON="${JUDGE_INCLUDE_REASON:-false}"
@@ -58,10 +58,10 @@ echo
 
 CMD=(
   python mmeval/score.py
-  --out_dir "${OUT_DIR}"
+  --score_out_dir "${OUT_DIR}"
   --score_result_glob "${SCORE_RESULT_GLOB}"
   --parallel_per_task "${PARALLEL_PER_TASK}"
-  --matching_order "${MATCHING_ORDER}"
+  --score_pipeline "${PIPELINE}"
   --score_output_name "${SCORE_OUTPUT_NAME}"
   --judge_provider "${JUDGE_PROVIDER}"
   --judge_model "${JUDGE_MODEL}"

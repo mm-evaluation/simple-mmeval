@@ -104,7 +104,6 @@ class TSVDataset(BaseDataset):
         """
         media_paths = []
         
-        # Priority 1: Check for image_url
         if 'image_url' in sample and pd.notna(sample['image_url']):
             image_url = sample['image_url']
             if image_url.startswith('[') and image_url.endswith(']'):
@@ -112,7 +111,6 @@ class TSVDataset(BaseDataset):
             else:
                 media_paths = [image_url]
                         
-        # Priority 2: Check for base64 image data
         elif 'image' in sample and pd.notna(sample['image']):
             image = sample['image']
             if image.startswith('[') and image.endswith(']'):
@@ -145,7 +143,6 @@ class TSVDataset(BaseDataset):
         # If placeholder/media counts mismatch, all placeholders are moved to prefix.
         question = normalize_question_with_media(question, len(media_list))
 
-        # Build options dict and choices list
         options = {
             choice_index: sample[choice_index] for choice_index in string.ascii_uppercase
             if choice_index in sample and not pd.isna(sample[choice_index])

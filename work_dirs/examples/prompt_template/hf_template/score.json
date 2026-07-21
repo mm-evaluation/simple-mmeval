@@ -8,12 +8,12 @@
     "mean_score": 0.65,
     "invalid": 0,
     "llm_errors": 0,
-    "by_matcher": {
-      "exact": {
+    "by_stage": {
+      "exact-match": {
         "total": 13,
         "correct": 13
       },
-      "unmatched": {
+      "undecided": {
         "total": 7,
         "correct": 0
       }
@@ -26,8 +26,10 @@
     }
   },
   "config": {
-    "matching_order": "exact,template",
-    "grader": null,
+    "score_pipeline": [
+      "exact-match",
+      "rule-match"
+    ],
     "score_gt_field": "answer",
     "score_pred_field": "messages[-1].response",
     "score_question_type": "auto",
@@ -35,11 +37,10 @@
     "score_numeric_abs_tol": 0.0,
     "score_string_match": "exact",
     "score_anls_threshold": 0.5,
-    "score_type": "llm_extract",
     "task_type": "multiple_choice_qa",
-    "official_protocol": true,
+    "official_protocol": false,
     "knob_sources": {
-      "matching_order": "cli",
+      "score_pipeline": "cli",
       "score_numeric_rel_tol": "default",
       "score_numeric_abs_tol": "default",
       "score_string_match": "default",
@@ -52,7 +53,7 @@
     "score_progress_bar": true,
     "score_resume": false,
     "score_save_freq": 20,
-    "parallel_per_task": 1,
+    "score_parallel_per_task": 1,
     "resumed_count": 0,
     "provenance": {
       "git_commit": null,
@@ -61,6 +62,7 @@
     },
     "protocol_notes": [
       "Per-sample scoring; official aggregations noted per dataset in these notes are not reproduced. LLM failures are marked wrong and counted in summary.llm_errors (never randomly guessed, unlike VLMEvalKit).",
+      "explicit --score_pipeline overrides the dataset's declared pipeline ['rule-match', 'llm-match']: the official protocol is NOT being executed; numbers are not comparable to official results.",
       "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
     ]
   },
@@ -72,8 +74,9 @@
       "pred": [
         "A. making tea"
       ],
-      "matcher_used": "exact",
+      "decided_by": "exact-match",
       "matched": "A",
+      "score": 1.0,
       "is_correct": 1,
       "status": "ok"
     },
@@ -84,8 +87,9 @@
       "pred": [
         "C. sphere"
       ],
-      "matcher_used": "exact",
+      "decided_by": "exact-match",
       "matched": "C",
+      "score": 1.0,
       "is_correct": 1,
       "status": "ok"
     },
@@ -96,8 +100,9 @@
       "pred": [
         "C. two"
       ],
-      "matcher_used": null,
+      "decided_by": null,
       "matched": null,
+      "score": 0.0,
       "is_correct": 0,
       "status": "ok"
     },
@@ -108,8 +113,9 @@
       "pred": [
         "B. Mona Lisa"
       ],
-      "matcher_used": "exact",
+      "decided_by": "exact-match",
       "matched": "B",
+      "score": 1.0,
       "is_correct": 1,
       "status": "ok"
     },
@@ -120,8 +126,9 @@
       "pred": [
         "B. top-right"
       ],
-      "matcher_used": null,
+      "decided_by": null,
       "matched": null,
+      "score": 0.0,
       "is_correct": 0,
       "status": "ok"
     },
@@ -130,10 +137,11 @@
       "question_type": "mcq",
       "gt": "C",
       "pred": [
-        "The image shows a simple text \"Ford\" on a black background. The question is asking for Python code that would produce this exact result.\n\nLet's analyze the options:\n\n- **Option A**: This creates a dictionary with keys \"name\", \"age\", and \"country\", and prints it. This would display a dictionary with three keys, not just \"Ford\".\n- **Option B**: This creates a dictionary with keys \"brand\", \"model\", and \"year\", and prints it. This is a valid dictionary, but it doesn't match the image which only shows the word \"Ford\".\n- **Option C**: This creates a dictionary"
+        "The image shows the word \"Ford\" in white text on a black background. This is a simple text label, not a dictionary or any other data structure.\n\nLet's analyze the options:\n\n- **A.** This creates a dictionary with keys \"name\", \"age\", and \"country\". It prints the entire dictionary. The output would be a dictionary with those key-value pairs, not just \"Ford\".\n- **B.** This creates a dictionary with keys \"brand\", \"model\", and \"year\". It prints the entire dictionary. The output would be a dictionary with those key-value pairs, not just \"Ford\".\n- **"
       ],
-      "matcher_used": null,
+      "decided_by": null,
       "matched": null,
+      "score": 0.0,
       "is_correct": 0,
       "status": "ok"
     },
@@ -142,10 +150,11 @@
       "question_type": "mcq",
       "gt": "A",
       "pred": [
-        "The formula shown in the image is $ \\pi r^2 $, which is the formula for the area of a circle.\n\n- **A. Circle.** - This is correct because the formula $ \\pi r^2 $ is specifically used to calculate the area of a circle, where $ r $ is the radius.\n- **B. Square.** - The area of a square is $ s^2 $, where $ s $ is the side length. This is not the formula shown.\n- **C. Rectangle.** - The area of a rectangle is $ l \\times w $, where $ l $ is"
+        "The formula shown in the image is $ \\pi r^2 $, which is the formula for the area of a circle.\n\n- The area of a circle is calculated using the formula $ \\pi r^2 $, where $ r $ is the radius of the circle.\n- The other options are not calculated using this formula:\n  - A square has area $ s^2 $, where $ s $ is the side length.\n  - A rectangle has area $ l \\times w $, where $ l $ is the length and $ w $ is the width.\n  - A triangle has area $ \\frac{1}{"
       ],
-      "matcher_used": null,
+      "decided_by": null,
       "matched": null,
+      "score": 0.0,
       "is_correct": 0,
       "status": "ok"
     },
@@ -156,8 +165,9 @@
       "pred": [
         "B. A man in a suit with his hands in his pockets stands among a sea of yellow flowers"
       ],
-      "matcher_used": "exact",
+      "decided_by": "exact-match",
       "matched": "B",
+      "score": 1.0,
       "is_correct": 1,
       "status": "ok"
     },
@@ -168,8 +178,9 @@
       "pred": [
         "A. not soluble"
       ],
-      "matcher_used": "exact",
+      "decided_by": "exact-match",
       "matched": "A",
+      "score": 1.0,
       "is_correct": 1,
       "status": "ok"
     },
@@ -180,8 +191,9 @@
       "pred": [
         "B. sketch"
       ],
-      "matcher_used": "exact",
+      "decided_by": "exact-match",
       "matched": "B",
+      "score": 1.0,
       "is_correct": 1,
       "status": "ok"
     },
@@ -192,8 +204,9 @@
       "pred": [
         "A. east"
       ],
-      "matcher_used": "exact",
+      "decided_by": "exact-match",
       "matched": "A",
+      "score": 1.0,
       "is_correct": 1,
       "status": "ok"
     },
@@ -204,8 +217,9 @@
       "pred": [
         "D. A man with his guitar on his back stands in the street performing"
       ],
-      "matcher_used": "exact",
+      "decided_by": "exact-match",
       "matched": "D",
+      "score": 1.0,
       "is_correct": 1,
       "status": "ok"
     },
@@ -216,8 +230,9 @@
       "pred": [
         "C. A grey and white bird with red feet and eyes perches on a branch."
       ],
-      "matcher_used": "exact",
+      "decided_by": "exact-match",
       "matched": "C",
+      "score": 1.0,
       "is_correct": 1,
       "status": "ok"
     },
@@ -226,10 +241,11 @@
       "question_type": "mcq",
       "gt": "D",
       "pred": [
-        "Based on the information provided in the table, we can determine the correct answer by examining the events listed.\n\n- The table shows that the Akkadian Empire ended around **ca. 2190 BCE**.\n- The table also states that **after** the Akkadian Empire ended, the Neo-Sumerian Empire started ruling Mesopotamia around **ca. 2100 BCE**.\n- The table further notes that the Neo-Sumerian Empire was conquered by the Elamites around **ca. 2004 BCE**.\n- The final event listed is that the **Babylonian"
+        "Based on the information provided in the table:\n\n- The Akkadian Empire ends around 2190 BCE.\n- The Neo-Sumerian Empire starts ruling Mesopotamia around 2100 BCE.\n- The Neo-Sumerian Empire is conquered by the Elamites around 2004 BCE.\n- The Babylonian Empire starts ruling Mesopotamia around 1792 BCE.\n\nThe question asks which empire started controlling Mesopotamia around the 1790s BCE. The table indicates that the Babylonian Empire began ruling Mesopotamia in 1792 BCE"
       ],
-      "matcher_used": null,
+      "decided_by": null,
       "matched": null,
+      "score": 0.0,
       "is_correct": 0,
       "status": "ok"
     },
@@ -240,8 +256,9 @@
       "pred": [
         "C. Hong Kong"
       ],
-      "matcher_used": "exact",
+      "decided_by": "exact-match",
       "matched": "C",
+      "score": 1.0,
       "is_correct": 1,
       "status": "ok"
     },
@@ -250,10 +267,11 @@
       "question_type": "mcq",
       "gt": "D",
       "pred": [
-        "Based on the image provided, let's analyze the positions of the objects:\n\n- There is a gray circle on the left side of the image.\n- There is a cyan shape, which appears to be a square or a diamond, on the right side of the image.\n\nNow, let's evaluate each option:\n\n- **A. A cyan square is to the left of a gray circle.**  \n  This is incorrect because the cyan shape is on the right, and the gray circle is on the left. The cyan shape is to the right of the gray circle.\n\n- **B. A cyan ellipse is to the right of a gray"
+        "Based on the provided image, let's analyze the positions of the objects:\n\n- There is a gray circle on the left side of the image.\n- There is a cyan shape, which appears to be a square or a diamond, on the right side of the image.\n\nNow, let's evaluate each option:\n\n- **A. A cyan square is to the left of a gray circle.**  \n  This is incorrect because the cyan shape is on the right, and the gray circle is on the left. The cyan shape is to the right of the gray circle.\n\n- **B. A cyan ellipse is to the right of a gray"
       ],
-      "matcher_used": null,
+      "decided_by": null,
       "matched": null,
+      "score": 0.0,
       "is_correct": 0,
       "status": "ok"
     },
@@ -264,8 +282,9 @@
       "pred": [
         "C. Right side"
       ],
-      "matcher_used": null,
+      "decided_by": null,
       "matched": null,
+      "score": 0.0,
       "is_correct": 0,
       "status": "ok"
     },
@@ -276,8 +295,9 @@
       "pred": [
         "A. Creating and blowing bubbles"
       ],
-      "matcher_used": "exact",
+      "decided_by": "exact-match",
       "matched": "A",
+      "score": 1.0,
       "is_correct": 1,
       "status": "ok"
     },
@@ -288,8 +308,9 @@
       "pred": [
         "A. if anyone has super mario maker 2, make sure to stop by my account and play a few of my levels. most of these levels are from 4-1 years ago, tho, i do have a super world in the works!"
       ],
-      "matcher_used": "exact",
+      "decided_by": "exact-match",
       "matched": "A",
+      "score": 1.0,
       "is_correct": 1,
       "status": "ok"
     },
@@ -300,8 +321,9 @@
       "pred": [
         "D. warning and guiding drivers"
       ],
-      "matcher_used": "exact",
+      "decided_by": "exact-match",
       "matched": "D",
+      "score": 1.0,
       "is_correct": 1,
       "status": "ok"
     }

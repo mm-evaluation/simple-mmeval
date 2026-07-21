@@ -1,4 +1,4 @@
-from mmeval.scoring.match.base import BaseMatcher, MatchResult
+from mmeval.scoring.stages.base import BaseStage, StageResult
 from mmeval.scoring.extraction import (
     extract_letter_set,
     extract_option_strict,
@@ -38,6 +38,21 @@ def numbers_match(pred: float, gt: float, context) -> bool:
     return False
 
 
+def numeric_branch_active(context) -> bool:
+    """The numeric comparator applies when the protocol declares numeric
+    tolerances or uses the default exact string matching. A protocol that
+    declares a NON-exact string_match without numeric tolerances (OCRBench:
+    `contains`) makes that string comparator official for every free-form
+    row, digit-string answers included (VLMEvalKit
+    vlmeval/dataset/utils/ocrbench.py:36-42 applies the substring rule to all
+    categories). A protocol declaring BOTH (ChartQAPro: `anls` +
+    numeric_rel_tol) dispatches by answer shape, so tolerances keep the
+    numeric branch alive."""
+    return (str(context.get("string_match") or "exact") == "exact"
+            or float(context.get("numeric_rel_tol") or 0.0) > 0.0
+            or float(context.get("numeric_abs_tol") or 0.0) > 0.0)
+
+
 def gt_references(gt) -> list:
     """A gt may be a single value or a reference LIST (OCRBench answer lists,
     VQA-style multi-annotator answers)."""
@@ -47,15 +62,15 @@ def gt_references(gt) -> list:
 
 
 def open_text_match(pred_text: str, pred_raw, gt_raw, context) -> bool:
-    """The rule-chain text comparator, per the protocol's `string_match`:
+    """The rule stages' text comparator, per the protocol's `string_match`:
     exact (default) — normalized equality against any reference;
     contains — OCRBench protocol: a normalized reference appears as a substring
     of the normalized prediction;
-    anls — threshold ANLS against the references (ChartQAPro composite)."""
+    anls — threshold ANLS against the references (ChartQAPro)."""
     mode = context.get("string_match") or "exact"
     refs = gt_references(gt_raw)
     if mode == "anls":
-        from mmeval.scoring.graders import anls
+        from mmeval.scoring.stages.metrics import anls
         score, error = anls(pred_raw, [str(r) for r in refs],
                             threshold=float(context.get("anls_threshold") or 0.5))
         return error is None and score > 0.0
@@ -74,19 +89,21 @@ def open_text_match(pred_text: str, pred_raw, gt_raw, context) -> bool:
     return False
 
 
-class ExactMatcher(BaseMatcher):
-    """Strict first pass: near-zero false positives, zero cost. Anything it
-    cannot decide unambiguously is left for the next matcher in the chain."""
+class ExactMatchStage(BaseStage):
+    """Strict-form deterministic comparison: near-zero false positives, zero
+    cost. Matches only unambiguous answers (a bare option letter, a clean
+    letter set, a pure yes/no, a whole-string number or text); anything it
+    cannot decide is passed to the next stage."""
 
-    name = "exact"
+    name = "exact-match"
 
-    def match(self, sample, context):
+    def run(self, sample, context):
         question_type = context["question_type"]
         pred_raw = context["pred"]
         gt_raw = context["gt"]
 
         if gt_raw is None or pred_raw is None:
-            return MatchResult(is_match=False)
+            return StageResult.passed()
 
         if question_type == "mcq":
             # Letter-SET grading: single-select is the |set|=1 special case,
@@ -105,24 +122,26 @@ class ExactMatcher(BaseMatcher):
                 gt_letters = (g,) if g else None
             pred_letters = extract_letters_strict(pred_raw, candidates)
             if gt_letters and pred_letters and pred_letters == gt_letters:
-                return MatchResult(is_match=True, matched=", ".join(gt_letters))
-            return MatchResult(is_match=False)
+                return StageResult.scored(1.0, matched=", ".join(gt_letters))
+            return StageResult.passed()
 
         if question_type == "yes_no":
             pred_norm = normalize_open_answer(pred_raw)
             if pred_norm in {"yes", "no"} and pred_norm == normalize_open_answer(gt_raw):
-                return MatchResult(is_match=True, matched=pred_norm)
-            return MatchResult(is_match=False)
+                return StageResult.scored(1.0, matched=pred_norm)
+            return StageResult.passed()
 
-        if question_type == "numeric":
+        if question_type == "numeric" and numeric_branch_active(context):
             # Strict tier: the whole prediction is a number.
             gt_num = parse_number(gt_raw)
             pred_num = parse_number(pred_raw)
             if gt_num is not None and pred_num is not None and numbers_match(pred_num, gt_num, context):
-                return MatchResult(is_match=True, matched=str(gt_raw))
-            return MatchResult(is_match=False)
+                return StageResult.scored(1.0, matched=str(gt_raw))
+            return StageResult.passed()
+        # numeric-shaped rows under a declared non-exact string_match fall
+        # through to the protocol's string comparator below.
 
         if open_text_match(str(pred_raw if not isinstance(pred_raw, list) else (pred_raw[0] if pred_raw else "")),
                            pred_raw, gt_raw, context):
-            return MatchResult(is_match=True, matched=str(gt_raw))
-        return MatchResult(is_match=False)
+            return StageResult.scored(1.0, matched=str(gt_raw))
+        return StageResult.passed()

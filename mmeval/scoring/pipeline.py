@@ -7,17 +7,18 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Dict, List
 
-from mmeval.scoring.graders import run_grader
-from mmeval.scoring.match import LLM_MATCHER_NAMES, MATCHER_REGISTRY
-from mmeval.scoring.match.llm import _resolve_setting
+from mmeval.scoring.stages import INVALID, LLM_STAGE_NAMES, SCORE, STAGE_REGISTRY
+from mmeval.scoring.stages.llm import _resolve_setting, local_judge_revision
 from mmeval.scoring.protocol import ResolvedProtocol, extract_dataset_meta, resolve_protocol
 from mmeval.scoring.report import build_summary
 from mmeval.scoring.extraction import (
+    OPTION_LETTERS,
     extract_option_texts,
     extract_options,
     get_field,
     get_question,
     infer_question_type,
+    parse_gt_letters,
     parsed_options,
 )
 
@@ -34,28 +35,20 @@ def discover_result_files(out_dir: str, pattern: str = "**/result.json") -> List
     return sorted(x for x in glob.glob(search_pattern, recursive=True) if os.path.isfile(x))
 
 
-def build_matchers(args, matching_order: str):
-    matcher_names = [x.strip().lower() for x in matching_order.split(",") if x.strip()]
-    matchers = []
-    for name in matcher_names:
-        if name not in MATCHER_REGISTRY:
-            raise ValueError(f"Unknown matcher `{name}` in --matching_order")
-        matcher_cls = MATCHER_REGISTRY[name]
-        if name in LLM_MATCHER_NAMES:
-            matchers.append(matcher_cls(args))
-        else:
-            matchers.append(matcher_cls())
-    return matchers
+def build_stages(args, pipeline):
+    """Instantiate the validated pipeline (list of atomic stage names).
+    Construction is uniform; LLM-backed stages read their client/config
+    from args, the rest ignore it."""
+    return [STAGE_REGISTRY[name](args) for name in pipeline]
 
 
 def _resume_fingerprint(args, proto: ResolvedProtocol) -> Dict[str, Any]:
     """The RESOLVED config subset that determines a sample's verdict (post
     CLI/dataset_meta/default precedence). Cached rows produced under a different
-    fingerprint must not be reused — resuming a `template`-only run into a
-    `template,llm-match` rerun would silently keep the old verdicts."""
+    fingerprint must not be reused — resuming a rule-only run into a
+    `rule-match,llm-match` rerun would silently keep the old verdicts."""
     fingerprint = {
-        "matching_order": proto.matching_order,
-        "grader": proto.grader,
+        "score_pipeline": list(proto.pipeline),
         "score_gt_field": args.score_gt_field,
         "score_pred_field": args.score_pred_field,
         "score_question_type": args.score_question_type,
@@ -64,19 +57,24 @@ def _resume_fingerprint(args, proto: ResolvedProtocol) -> Dict[str, Any]:
         "score_string_match": proto.string_match,
         "score_anls_threshold": proto.anls_threshold,
     }
-    # With an LLM matcher in the chain, the judge's identity determines verdicts
-    # too — a gpt-4o-mini cache must not resume into a gpt-5 run. Rule-only chains
-    # deliberately exclude these so a judge-config edit doesn't invalidate them.
-    if any(name.strip().lower().startswith("llm") for name in proto.matching_order.split(",") if name.strip()):
+    # With an LLM stage in the pipeline, the judge's identity determines
+    # verdicts too — a gpt-4o-mini cache must not resume into a gpt-5 run.
+    # Judge-free pipelines deliberately exclude these so a judge-config edit
+    # doesn't invalidate them.
+    if any(name in LLM_STAGE_NAMES for name in proto.pipeline):
         fingerprint["judge_provider"] = args.judge_provider
         fingerprint["judge_model"] = args.judge_model
         fingerprint["judge_temperature"] = args.judge_temperature
         # Both change verdicts: include_reason alters the judge prompt, and
         # max_tokens changes truncation/parse-failure behavior. Fingerprint the
-        # RESOLVED max_tokens (CLI > env > default), like the matcher uses.
+        # RESOLVED max_tokens (CLI > env > default), like the stage uses.
         fingerprint["judge_include_reason"] = bool(args.judge_include_reason)
         fingerprint["judge_max_tokens"] = _resolve_setting(
             getattr(args, "judge_max_tokens", None), "JUDGE_MAX_TOKENS", 2048)
+        if (args.judge_provider or "").strip().lower() == "local":
+            # A local model name doesn't pin weights the way an API model
+            # string does — the resolved snapshot commit must invalidate too.
+            fingerprint["judge_model_revision"] = local_judge_revision(args.judge_model)
     return fingerprint
 
 
@@ -152,19 +150,30 @@ def _flush_resume_tmp(tmp_path: str, samples: List[Dict[str, Any]], fingerprint:
     os.replace(part_path, tmp_path)
 
 
-def _score_single_sample(sample: Dict[str, Any], args, matchers, proto: ResolvedProtocol) -> Dict[str, Any]:
+def _score_single_sample(sample: Dict[str, Any], args, stages, proto: ResolvedProtocol) -> Dict[str, Any]:
     gt = get_field(sample, args.score_gt_field, None)
     if (gt is None or (isinstance(gt, str) and not gt.strip())) and args.score_gt_field == "answer":
-        # judge-graded datasets (ex-judge_scored) carry the reference in the
-        # reserved `reference_response` field instead of `answer` (their
-        # metadata mapping documents it) — generic fallback, never per-dataset.
+        # Judge-graded datasets carry the reference in the reserved
+        # `reference_response` field instead of `answer` — generic fallback,
+        # never per-dataset.
         gt = get_field(sample, "reference_response", None)
     pred = get_field(sample, args.score_pred_field, None)
     question = get_question(sample)
     question_type = infer_question_type(sample, args.score_question_type, gt=gt)
     options = extract_options(sample) if question_type == "mcq" else []
+    if question_type == "mcq":
+        # The gt letters prove candidate membership: when option discovery
+        # provably missed some (malformed inline lists, e.g. a "B Only ..."
+        # line without label punctuation), widen to the contiguous A..max
+        # span instead of failing on an option the dataset says exists.
+        gt_letters = parse_gt_letters(gt) or ()
+        missing = [l for l in gt_letters if l not in options]
+        if missing:
+            top = max(OPTION_LETTERS.index(l) for l in list(options) + list(gt_letters)
+                      if l in OPTION_LETTERS)
+            options = OPTION_LETTERS[:top + 1]
     # Whether the candidates are a real parsed option source (vs the A-F
-    # fallback) — gates compact multi-letter gt parsing in the matchers.
+    # fallback) — gates compact multi-letter gt parsing in the rule stages.
     options_parsed = question_type == "mcq" and parsed_options(sample) is not None
     option_texts = extract_option_texts(sample, options)
 
@@ -174,8 +183,9 @@ def _score_single_sample(sample: Dict[str, Any], args, matchers, proto: Resolved
         "question_type": question_type,
         "gt": gt,
         "pred": pred,
-        "matcher_used": None,
+        "decided_by": None,
         "matched": None,
+        "score": 0.0,
         "is_correct": 0,
         "status": "ok",
     }
@@ -184,21 +194,6 @@ def _score_single_sample(sample: Dict[str, Any], args, matchers, proto: Resolved
     if gt is None or pred is None or (isinstance(gt, str) and not gt.strip()):
         output["status"] = "invalid"
         output["reason"] = "missing_gt_or_pred"
-        return output
-
-    if proto.grader:
-        # Dedicated fractional grader (vqa_accuracy / anls): per-sample `score`
-        # in 0..1; is_correct = full credit only. summary.mean_score is the
-        # official headline aggregate for these protocols.
-        score, error = run_grader(proto.grader, pred, gt,
-                                  {"anls_threshold": proto.anls_threshold})
-        if score is None:
-            output["status"] = "invalid"
-            output["reason"] = error
-            return output
-        output["score"] = score
-        output["is_correct"] = int(score >= 1.0)
-        output["matcher_used"] = proto.grader
         return output
 
     context = {
@@ -216,13 +211,14 @@ def _score_single_sample(sample: Dict[str, Any], args, matchers, proto: Resolved
     }
 
     trace = []
-    for matcher in matchers:
-        result = matcher.match(sample, context)
+    for stage in stages:
+        result = stage.run(sample, context)
         if args.score_debug:
             trace.append(
                 {
-                    "matcher": matcher.name,
-                    "is_match": result.is_match,
+                    "stage": stage.name,
+                    "outcome": result.outcome,
+                    "score": result.score,
                     "matched": result.matched,
                     "reason": result.reason,
                     "meta": result.meta,
@@ -231,17 +227,26 @@ def _score_single_sample(sample: Dict[str, Any], args, matchers, proto: Resolved
         if result.meta and "judge_prob" in result.meta:
             # Observability only (P of the judge's verdict token); never a verdict input.
             output["judge_prob"] = result.meta["judge_prob"]
-        if result.is_match:
-            output["matcher_used"] = matcher.name
+        if result.outcome == INVALID:
+            # The sample cannot be graded under this stage's protocol.
+            output["status"] = "invalid"
+            output["reason"] = result.reason
+            break
+        if result.outcome == SCORE:
+            # Decided: short-circuit. is_correct = full credit only; the
+            # fractional per-sample `score` feeds summary.mean_score.
+            output["decided_by"] = stage.name
             output["matched"] = result.matched
-            output["is_correct"] = 1
+            output["score"] = float(result.score)
+            output["is_correct"] = int(result.score >= 1.0)
             if result.reason is not None and args.judge_include_reason:
                 output["reason"] = result.reason
             break
-        if matcher.name.startswith("llm") and result.reason is not None:
-            # LLM matcher reasons are either error markers ("llm_error: ...") or —
-            # only when --judge_include_reason — the judge's explanation; both must
-            # survive into the output (errors especially: see summary llm_errors).
+        if stage.uses_llm and result.reason is not None:
+            # LLM stage pass-reasons are error markers ("llm_error: ...") or —
+            # only when --judge_include_reason — the judge's explanation; both
+            # must survive into the output unless a later stage decides
+            # (errors especially: see summary.llm_errors).
             output["reason"] = result.reason
 
     if args.score_debug:
@@ -249,19 +254,17 @@ def _score_single_sample(sample: Dict[str, Any], args, matchers, proto: Resolved
     return output
 
 
-def _score_sample_at(idx: int, sample: Dict[str, Any], args, matchers, proto: ResolvedProtocol):
+def _score_sample_at(idx: int, sample: Dict[str, Any], args, stages, proto: ResolvedProtocol):
     """Worker wrapper: score one sample, keep its position, default a missing eval-id."""
-    scored = _score_single_sample(sample, args, matchers, proto)
+    scored = _score_single_sample(sample, args, stages, proto)
     if scored["eval-id"] is None:
         scored["eval-id"] = sample.get("eval-id", sample.get("id", idx))
     return idx, scored
 
 
-def _reject_old_layout(result_file: str, samples: List[Dict[str, Any]], gt_field: str) -> None:
-    """The scorer reads grading fields ONLY from the sample TOP level. A
-    message-embedded result keeps `answer` inside messages[0] with no
-    top-level copy — fail with an actionable message instead of scoring
-    everything as missing-gt."""
+def _reject_nonconforming_layout(result_file: str, samples: List[Dict[str, Any]], gt_field: str) -> None:
+    """Grading fields live ONLY at the sample top level; fail fast instead of
+    scoring every sample as missing-gt."""
     for sample in samples:
         if not isinstance(sample, dict):
             continue
@@ -269,10 +272,10 @@ def _reject_old_layout(result_file: str, samples: List[Dict[str, Any]], gt_field
         msg = messages[0] if messages and isinstance(messages[0], dict) else {}
         if gt_field in msg and gt_field not in sample:
             raise ValueError(
-                f"{result_file} uses the old message-embedded result.json layout: `{gt_field}` sits "
-                f"inside messages[0] instead of at the sample top level. "
-                f"Migrate it first:\n"
-                f"    python3 scripts/migrate_result_layout.py {result_file}"
+                f"{result_file}: non-conforming result format — `{gt_field}` found inside "
+                f"messages[0]. Grading fields (answer, question_type, reference_response, "
+                f"--score_gt_field) must be TOP-LEVEL sample fields; messages carry only "
+                f"render inputs and the model response."
             )
 
 
@@ -281,11 +284,11 @@ def score_result_file(result_file: str, args) -> Dict[str, Any]:
         samples = json.load(f)
     if not isinstance(samples, list):
         raise ValueError(f"{result_file} must be a JSON list.")
-    _reject_old_layout(result_file, samples, args.score_gt_field)
+    _reject_nonconforming_layout(result_file, samples, args.score_gt_field)
 
-    # Metadata-driven protocol resolution (SCORE_TAXONOMY_HANDOFF.md): per knob,
+    # Metadata-driven protocol resolution (docs/en/SCORING.md): per knob,
     # explicit CLI flag > dataset_meta from result.json > built-in default.
-    # Conflicting dataset_meta across samples or unsupported score_types raise here.
+    # Conflicting dataset_meta across samples or unsupported protocols raise here.
     dataset_meta = extract_dataset_meta(samples, result_file)
     proto = resolve_protocol(args, dataset_meta, result_file)
 
@@ -293,7 +296,7 @@ def score_result_file(result_file: str, args) -> Dict[str, Any]:
     tmp_path = f"{out_path}.tmp"
     fingerprint = _resume_fingerprint(args, proto)
     cached_by_id = _load_cached_results(out_path=out_path, resume_enabled=args.score_resume, fingerprint=fingerprint)
-    matchers = build_matchers(args, proto.matching_order) if not proto.grader else []
+    stages = build_stages(args, proto.pipeline)
 
     scored_samples: List[Dict[str, Any]] = [None] * len(samples)
     resumed_count = 0
@@ -328,20 +331,20 @@ def score_result_file(result_file: str, args) -> Dict[str, Any]:
             continue
         uncached_samples.append((idx, sample))
 
-    # Threads only help when samples block on API calls (llm matchers); for
-    # pure-rule chains and local graders the GIL makes them a net slowdown
-    # (measured ~3x on 10k samples). Default to serial there; an explicit
+    # Threads only help when samples block on API calls (LLM stages); for
+    # judge-free pipelines the GIL makes them a net slowdown (measured
+    # ~3x on 10k samples). Default to serial there; an explicit
     # --parallel_per_task always wins.
-    uses_api = any(n.strip().startswith("llm") for n in proto.matching_order.split(",") if n.strip())
-    if "parallel_per_task" in getattr(args, "_explicit_flags", frozenset()) or uses_api:
-        sample_workers = max(1, int(getattr(args, "parallel_per_task", 1)))
+    uses_api = any(n in LLM_STAGE_NAMES for n in proto.pipeline)
+    if "score_parallel_per_task" in getattr(args, "_explicit_flags", frozenset()) or uses_api:
+        sample_workers = max(1, int(getattr(args, "score_parallel_per_task", 1)))
     else:
         sample_workers = 1
     processed_new = 0
 
     if sample_workers <= 1 or len(uncached_samples) <= 1:
         for idx, sample in uncached_samples:
-            i, scored = _score_sample_at(idx, sample, args, matchers, proto)
+            i, scored = _score_sample_at(idx, sample, args, stages, proto)
             scored_samples[i] = scored
             processed_new += 1
             if pbar is not None:
@@ -351,7 +354,7 @@ def score_result_file(result_file: str, args) -> Dict[str, Any]:
     else:
         with ThreadPoolExecutor(max_workers=sample_workers) as executor:
             futures = [
-                executor.submit(_score_sample_at, idx, sample, args, matchers, proto)
+                executor.submit(_score_sample_at, idx, sample, args, stages, proto)
                 for idx, sample in uncached_samples
             ]
             for future in as_completed(futures):
@@ -380,7 +383,6 @@ def score_result_file(result_file: str, args) -> Dict[str, Any]:
             # cached rows against this block, so it must stay a superset of
             # every fingerprint key.
             **fingerprint,
-            "score_type": proto.score_type,
             "task_type": proto.task_type,
             "official_protocol": proto.official_protocol,
             "knob_sources": proto.knob_sources,
@@ -391,7 +393,7 @@ def score_result_file(result_file: str, args) -> Dict[str, Any]:
             "score_progress_bar": args.score_progress_bar,
             "score_resume": args.score_resume,
             "score_save_freq": args.score_save_freq,
-            "parallel_per_task": sample_workers,
+            "score_parallel_per_task": sample_workers,
             "resumed_count": resumed_count,
             "provenance": _provenance(),
             # List of notes: the scorer-wide caveat, rubric degradations, the

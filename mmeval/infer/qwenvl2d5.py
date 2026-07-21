@@ -32,10 +32,16 @@ class TaskRunner(Task):
     def load_model(self, args):
         self.model = Qwen2_5_VLForConditionalGeneration.from_pretrained(args.model_name_or_path, torch_dtype=self.dtype, **self.model_kwargs)
         self.tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
-        # Aligned with VLMEvalKit: do NOT pass min/max_pixels, so the processor's
-        # defaults apply (min_pixels=3136, max_pixels=12845056 ≈ 12.8M). The previous
-        # cap of max_pixels=1280*28*28 (~1MP) was ~12.8x lower and downscaled images.
-        self.processor = AutoProcessor.from_pretrained(args.model_name_or_path)
+        # Aligned with VLMEvalKit: do NOT pass min/max_pixels by default, so the
+        # processor's defaults apply (min_pixels=3136, max_pixels=12845056 ≈ 12.8M).
+        # The previous cap of max_pixels=1280*28*28 (~1MP) was ~12.8x lower and
+        # downscaled images. --min_pixels/--max_pixels override per run.
+        processor_kwargs = {}
+        if getattr(args, "min_pixels", None) is not None:
+            processor_kwargs["min_pixels"] = args.min_pixels
+        if getattr(args, "max_pixels", None) is not None:
+            processor_kwargs["max_pixels"] = args.max_pixels
+        self.processor = AutoProcessor.from_pretrained(args.model_name_or_path, **processor_kwargs)
 
     def parse_input(self, message):
         question = message["prompt"]

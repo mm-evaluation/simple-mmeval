@@ -33,7 +33,10 @@
         "eval-id": 204,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -70,7 +73,10 @@
         "eval-id": 217,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -108,7 +114,10 @@
         "eval-id": 244,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -146,7 +155,10 @@
         "eval-id": 260,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -184,7 +196,10 @@
         "eval-id": 712,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -210,7 +225,7 @@
             {
                 "role": "assistant",
                 "response": [
-                    "The image shows the word \"Ford\" in white text on a black background. This is a simple text display, and it does not contain any data structure or Python code.\n\nLet's analyze the options:\n\n- **A.** This creates a dictionary with keys \"name\", \"age\", and \"country\", and prints it. It does not match the image.\n- **B.** This creates a dictionary with keys \"brand\", \"model\", and \"year\", and prints it. The key \"brand\" is \"Ford\", which matches the image.\n- **C.** This prints the value of the \"brand\" key,"
+                    "The image shows the word \"Ford\" in white text on a black background. This is a simple text string.\n\nNow, let's analyze the options:\n\n- **A.** This creates a dictionary with keys \"name\", \"age\", and \"country\", and prints it. It does not contain \"Ford\" as a key.\n- **B.** This creates a dictionary with keys \"brand\", \"model\", and \"year\", and prints it. The key \"brand\" is set to \"Ford\", which matches the image.\n- **C.** This creates a dictionary with \"brand\" as \"Ford\", but it only"
                 ]
             }
         ],
@@ -222,7 +237,10 @@
         "eval-id": 767,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -248,7 +266,7 @@
             {
                 "role": "assistant",
                 "response": [
-                    "The formula shown in the image is $ \\pi r^2 $, which is the standard formula for the area of a circle, where $ r $ is the radius of the circle.\n\n- A circle's area is calculated using $ \\pi r^2 $.\n- A square's area is $ s^2 $, where $ s $ is the side length.\n- A rectangle's area is $ l \\times w $, where $ l $ is the length and $ w $ is the width.\n- A triangle's area is $ \\frac{1}{2} \\times b \\times h $, where $ b"
+                    "The formula shown in the image is $ \\pi r^2 $, which is the standard formula for the area of a circle.\n\n- The area of a circle is calculated using the formula $ A = \\pi r^2 $, where $ r $ is the radius of the circle.\n- The image displays the symbol $ \\pi $ (pi) and the superscript 2, which indicates squaring the radius.\n- This formula is not used for squares, rectangles, or triangles.\n\nTherefore, the correct answer is:\n\nA. Circle."
                 ]
             }
         ],
@@ -260,7 +278,10 @@
         "eval-id": 839,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -298,7 +319,10 @@
         "eval-id": 912,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -336,7 +360,10 @@
         "eval-id": 1143,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -374,7 +401,10 @@
         "eval-id": 1628,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -412,7 +442,10 @@
         "eval-id": 1791,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -450,7 +483,10 @@
         "eval-id": 1828,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -488,7 +524,10 @@
         "eval-id": 1905,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -514,7 +553,7 @@
             {
                 "role": "assistant",
                 "response": [
-                    "Based on the information provided in the table:\n\n- The Akkadian Empire ended around 2190 BCE.\n- The Neo-Sumerian Empire started ruling Mesopotamia around 2100 BCE.\n- The Neo-Sumerian Empire was conquered by the Elamites around 2004 BCE.\n- The Babylonian Empire started ruling Mesopotamia around 1792 BCE.\n\nThe question asks for the empire that started controlling Mesopotamia **after** the Akkadian Empire ended, which would be around the 1790s BCE.\n\nThe correct answer is the one"
+                    "Based on the information provided in the table:\n\n- The Akkadian Empire ended around 2190 BCE.\n- After the Akkadian Empire's end, the Neo-Sumerian Empire began ruling Mesopotamia around 2100 BCE.\n- The Babylonian Empire started ruling Mesopotamia around 1792 BCE.\n\nThe question asks for the empire that started controlling Mesopotamia around the 1790s BCE.\n\n- The Neo-Sumerian Empire started around 2100 BCE, which is after the 1790s BCE.\n- The Babylonian"
                 ]
             }
         ],
@@ -526,7 +565,10 @@
         "eval-id": 2006,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -564,7 +606,10 @@
         "eval-id": 2253,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -590,7 +635,7 @@
             {
                 "role": "assistant",
                 "response": [
-                    "Based on the image provided, let's analyze the positions of the objects:\n\n- There is a gray circle on the left side of the image.\n- There is a cyan shape, which appears to be a square or a diamond, on the right side of the image.\n\nNow, let's evaluate each option:\n\n- **A. A cyan square is to the left of a gray circle.**  \n  This is incorrect because the cyan shape is on the right, and the gray circle is on the left. The cyan shape is to the right of the gray circle.\n\n- **B. A cyan ellipse is to the right of a gray"
+                    "Based on the image provided, let's analyze the positions of the objects:\n\n- There is a gray circle on the left side of the image.\n- There is a cyan shape on the right side of the image. The shape is a diamond (or square) oriented diagonally, but it is a cyan color.\n\nNow, let's evaluate each option:\n\n- **A. A cyan square is to the left of a gray circle.**  \n  This is incorrect. The cyan shape is on the right, and the gray circle is on the left. The cyan shape is to the right of the gray circle.\n\n- **B. A"
                 ]
             }
         ],
@@ -602,7 +647,10 @@
         "eval-id": 3456,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -640,7 +688,10 @@
         "eval-id": 4139,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -678,7 +729,10 @@
         "eval-id": 4467,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -704,7 +758,7 @@
             {
                 "role": "assistant",
                 "response": [
-                    "A. if anyone has super mario maker 2, make sure to stop by my account and play a few of my levels. most of these levels are from 4-1 years ago, tho, i do have a super world in the works!"
+                    "Based on the visual information in the image, let's analyze the content and the options.\n\n- The image is a screenshot of a game profile for a user named \"SuperBro91\" on a game platform that appears to be a mobile game or a game console. The game is \"Super Mario Maker 2\" (as indicated by the character Mario and the game's interface). The user has uploaded 41 out of 100 courses, and their profile shows a high score of 168 in the \"Endless Challenge\" mode.\n\n- The user's name is \"SuperBro91\", which is a"
                 ]
             }
         ],
@@ -716,7 +770,10 @@
         "eval-id": 4597,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     },
@@ -754,7 +811,10 @@
         "eval-id": 4837,
         "dataset_meta": {
             "task_type": "multiple_choice_qa",
-            "score_type": "llm_extract",
+            "score_pipeline": [
+                "rule-match",
+                "llm-match"
+            ],
             "score_note": "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
         }
     }

@@ -7,7 +7,7 @@ export PYTHONPATH=./:$PYTHONPATH
 # (--sample_num/--sample_order/--sample_seed, see docs/en/USAGE.md "Run a
 # subset of samples"), scores it, and asserts every sample is gradable.
 # Score the local-JSON outputs (Tests 1-2) with:
-#   PYTHONPATH=. python3 mmeval/score.py --out_dir <out_dir> --no_score_resume
+#   PYTHONPATH=. python3 mmeval/score.py --score_out_dir <out_dir> --no_score_resume
 
 # Test 1: Local JSON with template file path
 python mmeval/run.py \
@@ -60,9 +60,9 @@ python mmeval/run.py \
 
 # Score Test 4 and gate the fixture: every sample must be gradable.
 python mmeval/score.py \
-    --out_dir work_dirs/examples/prompt_template/hf_template \
+    --score_out_dir work_dirs/examples/prompt_template/hf_template \
     --score_result_glob 'result.json' \
-    --matching_order exact,template \
+    --score_pipeline exact-match,rule-match \
     --no_score_resume
 python3 - <<'PY'
 import json

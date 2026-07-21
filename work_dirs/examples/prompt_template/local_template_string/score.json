@@ -8,8 +8,8 @@
     "mean_score": 1.0,
     "invalid": 0,
     "llm_errors": 0,
-    "by_matcher": {
-      "template": {
+    "by_stage": {
+      "rule-match": {
         "total": 2,
         "correct": 2
       }
@@ -22,8 +22,10 @@
     }
   },
   "config": {
-    "matching_order": "exact,template",
-    "grader": null,
+    "score_pipeline": [
+      "exact-match",
+      "rule-match"
+    ],
     "score_gt_field": "answer",
     "score_pred_field": "messages[-1].response",
     "score_question_type": "auto",
@@ -31,11 +33,10 @@
     "score_numeric_abs_tol": 0.0,
     "score_string_match": "exact",
     "score_anls_threshold": 0.5,
-    "score_type": null,
     "task_type": null,
     "official_protocol": null,
     "knob_sources": {
-      "matching_order": "default",
+      "score_pipeline": "default",
       "score_numeric_rel_tol": "default",
       "score_numeric_abs_tol": "default",
       "score_string_match": "default",
@@ -48,7 +49,7 @@
     "score_progress_bar": true,
     "score_resume": false,
     "score_save_freq": 20,
-    "parallel_per_task": 1,
+    "score_parallel_per_task": 1,
     "resumed_count": 0,
     "provenance": {
       "git_commit": null,
@@ -67,8 +68,9 @@
       "pred": [
         "(A) A truck"
       ],
-      "matcher_used": "template",
+      "decided_by": "rule-match",
       "matched": "A",
+      "score": 1.0,
       "is_correct": 1,
       "status": "ok"
     },
@@ -79,8 +81,9 @@
       "pred": [
         "(C) A boat"
       ],
-      "matcher_used": "template",
+      "decided_by": "rule-match",
       "matched": "C",
+      "score": 1.0,
       "is_correct": 1,
       "status": "ok"
     }
