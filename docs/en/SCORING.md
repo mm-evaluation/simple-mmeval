@@ -30,10 +30,11 @@ metrics (grader stages).
 | `anls` | grader, fractional | ANLS: `1 − min` normalized Levenshtein distance over the references, zeroed below the threshold. |
 
 The two LLM stages run their judge through a configurable provider
-(`--judge_provider`): `local` (an in-process open-weight model loaded with the
-framework's own conventions — no external service), `openai`, or
-`azure_openai`. The stage logic, prompt, retry, and `llm_error` accounting are
-identical across providers.
+(`--judge_provider`): `local` (an in-process open-weight model — no external
+service), `openai`, or `azure_openai`. The stage logic, prompt, retry, and
+`llm_error` accounting are identical across providers. For running the local
+open-weight judge and how its scores relate to GPT-judged numbers, see
+[OPEN_JUDGE.md](OPEN_JUDGE.md).
 
 ### Execution semantics
 
@@ -116,16 +117,14 @@ injects into every sample (so it travels inside `result.json`):
 Datasets with no `score_pipeline` declaration score under the default
 pipeline with `official_protocol: null` (unknown).
 
-### Published metadata
+### Metadata schema
 
-Every dataset on the mm-eval org declares `score_pipeline` natively
-(org-wide migration completed 2026-07-19; the loader's temporary
-`score_type`→`score_pipeline` translation boundary is deleted). The retired
-composite `score_type` vocabulary is rejected everywhere with an actionable
-error: the loader refuses a metadata.json that still carries it (re-push the
-dataset), and the scorer refuses a `result.json` whose `dataset_meta`
-contains it (produced by an older loader — re-run inference or upgrade the
-file).
+Every dataset on the mm-eval org declares its scoring protocol with
+`score_pipeline` (described above). A `score_type` key is not supported and is
+rejected with an actionable error: the loader refuses a metadata.json that
+carries it, and the scorer refuses a `result.json` whose `dataset_meta`
+carries it. In both cases the fix is the same — declare the protocol with the
+`score_pipeline` schema, then re-run inference.
 
 The audited per-subset pipeline for all published datasets is listed in
 [SCORING_COVERAGE.md](SCORING_COVERAGE.md).
@@ -133,9 +132,17 @@ The audited per-subset pipeline for all published datasets is listed in
 ## Resume
 
 Scoring resumes from `score.json` / `score.json.tmp` caches keyed by a config
-fingerprint that captures everything verdict-determining: the resolved
-pipeline, stage params, and — only when an LLM stage is present — the
-judge identity (provider/model/temperature/include_reason/resolved
-max_tokens). Any change invalidates the cache; rule-only pipelines survive
-judge-config edits. Rows that failed with `llm_error` are always re-scored.
+fingerprint that captures everything verdict-determining: the **dataset
+identity** (`dataset_name` / `subset` / `split`, carried in each sample's
+`dataset_meta`), the resolved pipeline, stage params, and — only when an LLM
+stage is present — the judge identity
+(provider/model/temperature/include_reason/resolved max_tokens), plus the
+model's resolved snapshot revision for the `local` provider. Any change
+invalidates the cache; rule-only pipelines survive judge-config edits. The
+dataset-identity keys mean a cache produced for a different split/subset (or a
+re-pushed dataset) scored into the same `out_dir` is discarded rather than
+reused with colliding eval-ids — an old `result.json` without identity keys
+matches only another identity-less run. The fingerprint is embedded verbatim
+in `score.json`'s `config` block, so a score file is self-describing about
+what it scored. Rows that failed with `llm_error` are always re-scored.
 Reruns of an unchanged config are byte-identical.

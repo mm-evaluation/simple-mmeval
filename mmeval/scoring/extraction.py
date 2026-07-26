@@ -336,7 +336,7 @@ def infer_question_type(sample: Dict[str, Any], question_type: str = "auto", gt:
     if forced in QUESTION_TYPES:
         return forced
 
-    # Per-sample field contract: exactly the four grading values. A 2026-07-19
+    # Per-sample field contract: exactly the four grading values. A full-org
     # sweep of every mm-eval dataset/split (577k+ rows, datasets-server
     # statistics API) found ONLY these; dataset-level task_type stays in
     # metadata, source-benchmark labels stay in `source_question_type`.

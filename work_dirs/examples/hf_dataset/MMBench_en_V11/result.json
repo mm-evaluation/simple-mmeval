@@ -32,6 +32,9 @@
         "source_index": "1000586",
         "eval-id": 204,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -72,6 +75,9 @@
         "source_index": "1000609",
         "eval-id": 217,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -113,6 +119,9 @@
         "source_index": "1000661",
         "eval-id": 244,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -154,6 +163,9 @@
         "source_index": "1000692",
         "eval-id": 260,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -195,6 +207,9 @@
         "source_index": "1001511",
         "eval-id": 712,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -236,6 +251,9 @@
         "source_index": "1001636",
         "eval-id": 767,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -277,6 +295,9 @@
         "source_index": "1001757",
         "eval-id": 839,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -318,6 +339,9 @@
         "source_index": "1001898",
         "eval-id": 912,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -359,6 +383,9 @@
         "source_index": "1003380",
         "eval-id": 1143,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -400,6 +427,9 @@
         "source_index": "1574",
         "eval-id": 1628,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -441,6 +471,9 @@
         "source_index": "1851",
         "eval-id": 1791,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -482,6 +515,9 @@
         "source_index": "1917",
         "eval-id": 1828,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -523,6 +559,9 @@
         "source_index": "2000054",
         "eval-id": 1905,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -564,6 +603,9 @@
         "source_index": "2000461",
         "eval-id": 2006,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -605,6 +647,9 @@
         "source_index": "2000987",
         "eval-id": 2253,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -646,6 +691,9 @@
         "source_index": "3000926",
         "eval-id": 3456,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -687,6 +735,9 @@
         "source_index": "3003458",
         "eval-id": 4139,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -728,6 +779,9 @@
         "source_index": "3544",
         "eval-id": 4467,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -769,6 +823,9 @@
         "source_index": "494",
         "eval-id": 4597,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",
@@ -810,6 +867,9 @@
         "source_index": "943",
         "eval-id": 4837,
         "dataset_meta": {
+            "dataset_name": "mm-eval/MMBench-V11",
+            "subset": "en",
+            "split": "dev",
             "task_type": "multiple_choice_qa",
             "score_pipeline": [
                 "rule-match",

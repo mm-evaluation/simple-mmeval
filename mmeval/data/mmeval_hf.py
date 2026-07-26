@@ -59,12 +59,19 @@ class MMEvalHFDataset(BaseDataset):
         if "score_type" in subset_block:
             raise ValueError(
                 f"{self.dataset_name} subset {self.subset!r}: metadata.json "
-                f"declares the retired composite `score_type` vocabulary "
-                f"(retired org-wide 2026-07-19) — re-push the dataset with the "
-                f"`score_pipeline` schema (docs/en/SCORING.md, 'Dataset "
-                f"metadata contract')."
+                f"contains an unsupported `score_type` key. Declare the protocol "
+                f"with the `score_pipeline` schema instead (docs/en/SCORING.md, "
+                f"'Dataset metadata contract'), then re-run inference."
             )
-        meta_block = {}
+        # Dataset identity always travels in result.json, even when no scoring
+        # protocol is declared, so the scorer's resume fingerprint can tell
+        # apart caches produced for a different split/subset/dataset scored
+        # into the same out_dir (eval-ids 0..N would otherwise collide).
+        meta_block = {
+            "dataset_name": self.dataset_name,
+            "subset": self.subset,
+            "split": self.split,
+        }
         for key in ("task_type", "score_params"):
             value = subset_block.get(key)
             if value:
@@ -76,7 +83,7 @@ class MMEvalHFDataset(BaseDataset):
         note = ((subset_block.get("score_protocol") or {}).get("note") or "").strip()
         if note:
             meta_block["score_note"] = note
-        self._dataset_meta = meta_block or None
+        self._dataset_meta = meta_block
 
         # Prefer multi-config layout: HF config name == mm-eval subset name.
         # Fall back to the single-`default` config layout, where one config

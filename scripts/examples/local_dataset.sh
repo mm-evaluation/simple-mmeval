@@ -1,5 +1,11 @@
 export PYTHONPATH=./:$PYTHONPATH
 
+# Inference-only example. These inputs are modality / text smoke samples
+# (tests/samples/*.json) that carry NO ground truth, so scoring them would be
+# 100% invalid and verify nothing — no score.json fixture is committed and the
+# `invalid == 0` fixture gate (see hf_dataset.sh) does not apply here. The
+# committed result.json shows the inference output format for local@json.
+
 python mmeval/run.py \
     --model_name_or_path Qwen/Qwen3-VL-2B-Instruct \
     --dataset local@json \

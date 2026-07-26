@@ -117,8 +117,8 @@ class ScoreArguments:
     score_string_match: str = field(default="exact", metadata={"help": "rule-chain text comparison: exact|contains|anls (contains = OCRBench substring protocol; anls = threshold ANLS)"})
     score_anls_threshold: float = field(default=0.5, metadata={"help": "ANLS threshold (string_match=anls and the anls grader)"})
 
-    judge_provider: Optional[str] = field(default=None, metadata={"help": "llm judge provider: local (in-process open-weight model, framework-native loading) | openai | azure_openai"})
-    judge_model: Optional[str] = field(default=None, metadata={"help": "llm judge model/deployment name"})
+    judge_provider: Optional[str] = field(default=None, metadata={"help": "llm judge provider: local (in-process open-weight text LLM, loaded as a causal LM) | openai | azure_openai"})
+    judge_model: Optional[str] = field(default=None, metadata={"help": "llm judge model/deployment name; for local, an open-weight text LLM HF id (e.g. Qwen/Qwen2.5-7B-Instruct)"})
     # For the three knobs below, resolution order is: CLI flag > env var > default
     # (env names JUDGE_MAX_RETRY / JUDGE_MAX_CONCURRENCY / JUDGE_MAX_TOKENS).
     judge_max_retry: Optional[int] = field(default=None, metadata={"help": "llm judge max attempts per call (default: env JUDGE_MAX_RETRY or 3)"})

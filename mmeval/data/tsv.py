@@ -58,7 +58,8 @@ class TSVDataset(BaseDataset):
         self.dataset_dir = os.getenv('DATASET_DIR') or "./datasets"
         self.dataset_url = None
         self.resize = args.resize
-        
+        self.split = getattr(args, "split", None)
+
         if args.dataset.startswith("http"):
             self.file_name = args.dataset.split('/')[-1].replace('.tsv', '')
             self.dataset_url = args.dataset
@@ -66,6 +67,16 @@ class TSVDataset(BaseDataset):
             self.file_name = args.dataset.split('/')[-1].replace('.tsv', '')
         else:
             self.file_name = args.dataset
+
+        # Dataset identity injected into every sample's dataset_meta (see
+        # mmeval_hf.py) so the scorer's resume fingerprint discards a cache
+        # produced for a different TSV scored into the same out_dir. A TSV is a
+        # single flat file, so it has no subset.
+        self._dataset_meta = {
+            "dataset_name": self.file_name,
+            "subset": None,
+            "split": self.split,
+        }
 
         super().__init__(args)
     
@@ -165,7 +176,8 @@ class TSVDataset(BaseDataset):
         sample.pop("image", None)
         sample.pop("image_url", None)
         sample["media"] = media_list
-        
+        sample.setdefault("dataset_meta", dict(self._dataset_meta))
+
         return sample
 
     def __repr__(self):

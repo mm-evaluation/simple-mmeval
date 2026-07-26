@@ -19,21 +19,21 @@ from mmeval.scoring.extraction import (
 
 
 class _LocalJudgeClient:
-    """In-process open-weight judge (judge_provider=local). Loads judge_model
-    with the framework's native loading conventions (mmeval/infer/qwen3d5.py:
-    AutoModelForImageTextToText + AutoProcessor, dtype/device_map auto) inside
-    the model's registry-declared environment, and exposes the minimal
-    chat-completions surface the judge stages consume — so prompts, parsing,
-    retry/llm_error accounting and the semaphore are identical across
-    providers. Generation is serialized by a lock: the bound is the GPU, not
-    an API rate limit."""
+    """In-process open-weight judge (judge_provider=local). The judge is a
+    text-only task — both LLM stages build pure-text prompts and this client
+    only ever tokenizes text — so the model is loaded as a causal LM
+    (AutoModelForCausalLM + AutoTokenizer, dtype/device_map auto), which admits
+    the strong instruction-following LLMs best suited to judging. It exposes the
+    minimal chat-completions surface the judge stages consume, so prompts,
+    parsing, retry/llm_error accounting and the semaphore are identical across
+    providers. Generation is serialized by a lock: the bound is the GPU, not an
+    API rate limit."""
 
     def __init__(self, model_name: str):
         import types as _types
-        from transformers import AutoModelForImageTextToText, AutoProcessor
-        self._processor = AutoProcessor.from_pretrained(model_name)
-        self._tok = getattr(self._processor, "tokenizer", self._processor)
-        self._model = AutoModelForImageTextToText.from_pretrained(
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+        self._tok = AutoTokenizer.from_pretrained(model_name)
+        self._model = AutoModelForCausalLM.from_pretrained(
             model_name, dtype="auto", device_map="auto")
         self._model.eval()
         self._lock = threading.Lock()
@@ -330,7 +330,21 @@ class LLMJudgeStage(_LLMStageBase):
             try:
                 return self._normalize_judge_obj(json.loads(match.group(0)))
             except Exception:
-                return None
+                pass
+        # Transport-level recovery from slightly malformed JSON that still carries
+        # an UNAMBIGUOUS verdict (e.g. some instruct models drop the "reason" key:
+        # {"is_correct": 1, ""}). This recovers the value the judge already
+        # produced; it does NOT change how correctness is decided and never
+        # guesses — only a single, consistent 0/1 (or true/false) is accepted, so
+        # conflicting or absent verdicts remain llm_errors.
+        verdicts = {v.lower() for v in re.findall(
+            r'"is_correct"\s*:\s*(true|false|0|1)\b', text, flags=re.IGNORECASE)}
+        if len(verdicts) == 1:
+            v = verdicts.pop()
+            reason = re.search(r'"reason"\s*:\s*"([^"]*)"', text)
+            return self._normalize_judge_obj(
+                {"is_correct": 1 if v in ("1", "true") else 0,
+                 "reason": reason.group(1) if reason else ""})
         return None
 
     @staticmethod

@@ -109,16 +109,15 @@ def _explicit(args) -> frozenset:
 def resolve_protocol(args, dataset_meta: Optional[Dict[str, Any]], result_file: str) -> ResolvedProtocol:
     """Apply the per-knob precedence CLI > dataset_meta > default. Raises
     ValueError for unsupported protocols (unless the user explicitly forced a
-    pipeline via --score_pipeline) and for the retired composite metadata schema."""
+    pipeline via --score_pipeline) and for an unsupported `score_type` key."""
     explicit = _explicit(args)
     meta = dataset_meta or {}
     if "score_type" in meta:
         raise ValueError(
-            f"{result_file}: dataset_meta uses the retired composite `score_type` "
-            f"vocabulary — this result.json was produced by an older loader. "
-            f"Re-run inference with the current loader (it translates published "
-            f"metadata to `score_pipeline`), or re-push the dataset with the "
-            f"score_pipeline schema."
+            f"{result_file}: dataset_meta contains an unsupported `score_type` "
+            f"key. Declare the protocol with the `score_pipeline` schema in the "
+            f"dataset's metadata.json (docs/en/SCORING.md, 'Dataset metadata "
+            f"contract'), then re-run inference to regenerate this result.json."
         )
     declared = meta.get("score_pipeline")
     params = meta.get("score_params") or {}

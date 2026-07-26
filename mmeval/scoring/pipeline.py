@@ -5,7 +5,7 @@ import platform
 import subprocess
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from mmeval.scoring.stages import INVALID, LLM_STAGE_NAMES, SCORE, STAGE_REGISTRY
 from mmeval.scoring.stages.llm import _resolve_setting, local_judge_revision
@@ -42,12 +42,22 @@ def build_stages(args, pipeline):
     return [STAGE_REGISTRY[name](args) for name in pipeline]
 
 
-def _resume_fingerprint(args, proto: ResolvedProtocol) -> Dict[str, Any]:
+def _resume_fingerprint(args, proto: ResolvedProtocol,
+                        dataset_meta: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """The RESOLVED config subset that determines a sample's verdict (post
     CLI/dataset_meta/default precedence). Cached rows produced under a different
     fingerprint must not be reused — resuming a rule-only run into a
     `rule-match,llm-match` rerun would silently keep the old verdicts."""
+    meta = dataset_meta or {}
     fingerprint = {
+        # Dataset identity binds the cache to WHAT was scored, not just the
+        # out_dir folder: a different split/subset/dataset scored into the same
+        # directory (eval-ids 0..N collide) is a cache miss and re-scored.
+        # Absent-vs-absent (old result.json / local@json) matches on None;
+        # absent-vs-present discards the stale cache.
+        "dataset_name": meta.get("dataset_name"),
+        "subset": meta.get("subset"),
+        "split": meta.get("split"),
         "score_pipeline": list(proto.pipeline),
         "score_gt_field": args.score_gt_field,
         "score_pred_field": args.score_pred_field,
@@ -294,7 +304,7 @@ def score_result_file(result_file: str, args) -> Dict[str, Any]:
 
     out_path = os.path.join(os.path.dirname(result_file), args.score_output_name)
     tmp_path = f"{out_path}.tmp"
-    fingerprint = _resume_fingerprint(args, proto)
+    fingerprint = _resume_fingerprint(args, proto, dataset_meta)
     cached_by_id = _load_cached_results(out_path=out_path, resume_enabled=args.score_resume, fingerprint=fingerprint)
     stages = build_stages(args, proto.pipeline)
 
