@@ -19,7 +19,7 @@ if __name__ == "__main__":
     args = parse_args()
 
     model_name_or_path = args.model_name_or_path
-    series = get_series(model_name_or_path.split("/")[-1])
+    series = args.model_series or get_series(model_name_or_path.split("/")[-1])
     
     infer_file = series_infer_env_mapping[series]["infer_file"]
     infer_env = series_infer_env_mapping[series]["env"]

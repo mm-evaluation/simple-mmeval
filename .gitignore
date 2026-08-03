@@ -173,4 +173,7 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 mydata
+datasets
+.claude
+work_dirs
 .tmp/

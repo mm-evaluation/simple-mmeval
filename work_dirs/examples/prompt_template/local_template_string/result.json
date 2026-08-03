@@ -8,7 +8,6 @@
             {
                 "role": "user",
                 "question": "<image> What is shown in the image?",
-                "answer": "A",
                 "options": {
                     "A": "A truck",
                     "B": "A dog",
@@ -32,7 +31,8 @@
             }
         ],
         "comment": "Test template rendering with ABCD options and hint.",
-        "eval-id": 0
+        "eval-id": 0,
+        "answer": "A"
     },
     {
         "id": 1,
@@ -43,7 +43,6 @@
             {
                 "role": "user",
                 "question": "<image> What is shown in the image?",
-                "answer": "C",
                 "options": {
                     "A": "A truck",
                     "B": "A dog",
@@ -67,6 +66,7 @@
             }
         ],
         "comment": "Test template rendering with ABCD options and hint.",
-        "eval-id": 1
+        "eval-id": 1,
+        "answer": "C"
     }
 ]

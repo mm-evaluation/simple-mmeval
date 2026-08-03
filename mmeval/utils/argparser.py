@@ -1,5 +1,7 @@
 import argparse
 import inspect
+import os
+import sys
 import warnings
 from dataclasses import dataclass, field, fields
 from typing import Dict, Optional, Sequence, get_args
@@ -7,6 +9,7 @@ from typing import Dict, Optional, Sequence, get_args
 @dataclass
 class ModelArguments:
     model_name_or_path: Optional[str] = field(default=None)
+    model_series: Optional[str] = field(default=None)
 
     # parameters for model
     low_cpu_mem_usage: Optional[bool] = field(default=None, metadata={"help": "Tries to not use more than 1x model size in CPU memory (including peak memory) while loading the model."})
@@ -14,6 +17,8 @@ class ModelArguments:
 
     # parameters for model inference
     dtype: Optional[str] = field(default=None, metadata={"help": "Override the default torch.dtype and load the model under a specific dtype."})
+    min_pixels: Optional[int] = field(default=None, metadata={"help": "Image processor min_pixels override (Qwen-VL family); None keeps the runner's default."})
+    max_pixels: Optional[int] = field(default=None, metadata={"help": "Image processor max_pixels override (Qwen-VL family); None keeps the runner's default."})
     device_map: Optional[str] = field(default=None, metadata={"help": "A map that specifies where each submodule should go."})
     
     # parameters that control the length of the output
@@ -84,7 +89,48 @@ class ExperimentArguments:
     no_conda: bool = field(default=False, metadata={"help": "use current python env instead of conda"})
 
 
-ARGUMENT_DATACLASSES = (ModelArguments, DataArguments, InferenceArguments, ExperimentArguments)
+@dataclass
+class ScoreRuntimeArguments:
+    # Score-mode CLI convention: every dest is prefixed `score_` (scoring
+    # pipeline/IO/knobs) or `judge_` (the LLM-judge client group — already
+    # score-mode-only and self-descriptive; `score_judge_*` would stutter).
+    # No unprefixed or infer-colliding dests.
+    score_out_dir: Optional[str] = field(default=None, metadata={"help": "output directory containing result.json files"})
+    score_parallel_per_task: int = field(default=4, metadata={"help": "number of sample workers inside each result.json"})
+
+
+@dataclass
+class ScoreArguments:
+    score_result_glob: str = field(default="**/result.json", metadata={"help": "glob pattern for result files in score mode"})
+    score_output_name: str = field(default="score.json", metadata={"help": "output score json file name"})
+    score_progress_bar: bool = field(default=True, metadata={"help": "show progress bar while scoring samples"})
+    score_resume: bool = field(default=True, metadata={"help": "resume scoring from score tmp/final files when available"})
+    score_save_freq: int = field(default=20, metadata={"help": "flush frequency for score resume tmp file"})
+    score_debug: bool = field(default=False, metadata={"help": "write per-stage trace into score outputs"})
+    score_pipeline: str = field(default="exact-match,rule-match", metadata={"help": "ordered scoring pipeline: comma-separated atomic stage names (exact-match, rule-match, llm-match, llm-judge, vqa-accuracy, anls)"})
+
+    score_gt_field: str = field(default="answer", metadata={"help": "field name for ground-truth in result sample"})
+    score_pred_field: str = field(default="messages[-1].response", metadata={"help": "field path for prediction in result sample"})
+    score_question_type: str = field(default="auto", metadata={"help": "question type: auto|mcq|yes_no|numeric|open. auto = read the sample's question_type field (recognized values only), then infer from gt shape"})
+    score_numeric_rel_tol: float = field(default=0.0, metadata={"help": "relative tolerance for numeric answers (0 = exact float equality)"})
+    score_numeric_abs_tol: float = field(default=0.0, metadata={"help": "absolute tolerance for numeric answers (0 = off; DynaMath uses 0.001)"})
+    score_string_match: str = field(default="exact", metadata={"help": "rule-chain text comparison: exact|contains|anls (contains = OCRBench substring protocol; anls = threshold ANLS)"})
+    score_anls_threshold: float = field(default=0.5, metadata={"help": "ANLS threshold (string_match=anls and the anls grader)"})
+
+    judge_provider: Optional[str] = field(default=None, metadata={"help": "llm judge provider: local (in-process open-weight text LLM, loaded as a causal LM) | openai | azure_openai"})
+    judge_model: Optional[str] = field(default=None, metadata={"help": "llm judge model/deployment name; for local, an open-weight text LLM HF id (e.g. Qwen/Qwen2.5-7B-Instruct)"})
+    # For the three knobs below, resolution order is: CLI flag > env var > default
+    # (env names JUDGE_MAX_RETRY / JUDGE_MAX_CONCURRENCY / JUDGE_MAX_TOKENS).
+    judge_max_retry: Optional[int] = field(default=None, metadata={"help": "llm judge max attempts per call (default: env JUDGE_MAX_RETRY or 3)"})
+    judge_temperature: float = field(default=0.0, metadata={"help": "llm judge generation temperature"})
+    judge_concurrency: Optional[int] = field(default=None, metadata={"help": "max concurrent llm judge calls, process-wide (default: env JUDGE_MAX_CONCURRENCY or 4)"})
+    judge_max_tokens: Optional[int] = field(default=None, metadata={"help": "llm judge max completion tokens (default: env JUDGE_MAX_TOKENS or 2048)"})
+    judge_include_reason: bool = field(default=False, metadata={"help": "include llm judge reason in output"})
+
+
+ARGUMENT_DATACLASSES = (ModelArguments, DataArguments, InferenceArguments, ExperimentArguments, ScoreArguments)
+INFER_ARGUMENT_DATACLASSES = (ModelArguments, DataArguments, InferenceArguments, ExperimentArguments)
+SCORE_ARGUMENT_DATACLASSES = (ScoreRuntimeArguments, ScoreArguments)
 
 
 BOOL_DEFAULTS = {
@@ -100,9 +146,8 @@ BOOL_DEFAULTS = {
     )
 }
 
-def parse_args():
-    parser = argparse.ArgumentParser()
-    for dc in ARGUMENT_DATACLASSES:
+def _add_dataclass_arguments(parser, dataclasses, suppress_defaults=False):
+    for dc in dataclasses:
         for f in fields(dc):
             tp = f.type
             type_args = getattr(tp, '__args__', None)
@@ -114,23 +159,57 @@ def parse_args():
                 if f.default is True:
                     parser.add_argument(f"--no-{cli_name}", f"--no_{f.name}",
                                         dest=f.name, action="store_false",
-                                        default=True, help=help_text)
+                                        default=argparse.SUPPRESS if suppress_defaults else True,
+                                        help=help_text)
                 elif f.default is False:
                     parser.add_argument(f"--{cli_name}", f"--{f.name}",
                                         dest=f.name, action="store_true",
-                                        default=False, help=help_text)
+                                        default=argparse.SUPPRESS if suppress_defaults else False,
+                                        help=help_text)
                 else:
                     parser.add_argument(f"--{cli_name}", f"--{f.name}",
                                         dest=f.name, action="store_true",
-                                        default=None, help=help_text)
+                                        default=argparse.SUPPRESS if suppress_defaults else None,
+                                        help=help_text)
                     parser.add_argument(f"--no-{cli_name}", f"--no_{f.name}",
-                                        dest=f.name, action="store_false")
+                                        dest=f.name, action="store_false",
+                                        **({"default": argparse.SUPPRESS} if suppress_defaults else {}))
             else:
                 parser.add_argument(f"--{cli_name}", f"--{f.name}",
                                     dest=f.name, type=tp,
-                                    default=f.default, help=help_text)
-    return parser.parse_args()
+                                    default=argparse.SUPPRESS if suppress_defaults else f.default,
+                                    help=help_text)
 
+
+def _track_explicit_flags(args, argv):
+    """Record which score-mode dests the user explicitly provided (shadow parse
+    with suppressed defaults). The scorer's per-knob resolution needs this:
+    explicit CLI flag > dataset_meta from result.json > built-in default."""
+    shadow = argparse.ArgumentParser()
+    _add_dataclass_arguments(shadow, SCORE_ARGUMENT_DATACLASSES, suppress_defaults=True)
+    args._explicit_flags = frozenset(vars(shadow.parse_known_args(argv)[0]).keys())
+    return args
+
+
+def parse_args(mode: str = "auto"):
+    mode = (mode or "auto").strip().lower()
+    if mode == "auto":
+        script_name = os.path.basename(sys.argv[0])
+        mode = "score" if script_name == "score.py" else "infer"
+
+    if mode == "infer":
+        dataclasses = INFER_ARGUMENT_DATACLASSES
+    elif mode == "score":
+        dataclasses = SCORE_ARGUMENT_DATACLASSES
+    else:
+        raise ValueError(f"Unsupported parse mode: {mode}. Expected infer|score|auto.")
+
+    parser = argparse.ArgumentParser()
+    _add_dataclass_arguments(parser, dataclasses)
+    args = parser.parse_args()
+    if mode == "score":
+        args = _track_explicit_flags(args, sys.argv[1:])
+    return args
 def parse_model_kwargs(args, default_kwargs=None):
     default_kwargs = default_kwargs or {}
     model_kwargs = {}

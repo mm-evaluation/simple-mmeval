@@ -1,0 +1,334 @@
+{
+  "summary": {
+    "total": 20,
+    "valid": 20,
+    "correct": 13,
+    "accuracy": 0.65,
+    "accuracy_valid": 0.65,
+    "mean_score": 0.65,
+    "invalid": 0,
+    "llm_errors": 0,
+    "by_stage": {
+      "exact-match": {
+        "total": 13,
+        "correct": 13
+      },
+      "undecided": {
+        "total": 7,
+        "correct": 0
+      }
+    },
+    "by_question_type": {
+      "mcq": {
+        "total": 20,
+        "correct": 13
+      }
+    }
+  },
+  "config": {
+    "dataset_name": "mm-eval/MMBench-V11",
+    "subset": "en",
+    "split": "dev",
+    "score_pipeline": [
+      "exact-match",
+      "rule-match"
+    ],
+    "score_gt_field": "answer",
+    "score_pred_field": "messages[-1].response",
+    "score_question_type": "auto",
+    "score_numeric_rel_tol": 0.0,
+    "score_numeric_abs_tol": 0.0,
+    "score_string_match": "exact",
+    "score_anls_threshold": 0.5,
+    "task_type": "multiple_choice_qa",
+    "official_protocol": false,
+    "knob_sources": {
+      "score_pipeline": "cli",
+      "score_numeric_rel_tol": "default",
+      "score_numeric_abs_tol": "default",
+      "score_string_match": "default",
+      "score_anls_threshold": "default"
+    },
+    "judge_provider": null,
+    "judge_model": null,
+    "judge_temperature": 0.0,
+    "judge_include_reason": false,
+    "score_progress_bar": true,
+    "score_resume": false,
+    "score_save_freq": 20,
+    "score_parallel_per_task": 1,
+    "resumed_count": 0,
+    "provenance": {
+      "git_commit": "3aa72c0df8914fc88ae0a213496e8eb26b69960c",
+      "python": "3.13.13",
+      "openai": "2.44.0"
+    },
+    "protocol_notes": [
+      "Per-sample scoring; official aggregations noted per dataset in these notes are not reproduced. LLM failures are marked wrong and counted in summary.llm_errors (never randomly guessed, unlike VLMEvalKit).",
+      "explicit --score_pipeline overrides the dataset's declared pipeline ['rule-match', 'llm-match']: the official protocol is NOT being executed; numbers are not comparable to official results.",
+      "Official protocol is CircularEval: a question counts correct only if all option rotations are correct. The mm-eval copy ships pre-rotated rows (VLMEvalKit index convention: rotation ids = base_id + k*1e6, verified via HF rows, e.g. mmbench_en_dev_1001484 / mmbench_cc_test_1000524); a per-sample scorer reports vanilla per-rotation accuracy, systematically higher than official CircularEval. Circular group id is derivable as int(id_suffix) % 1e6. en test split ships empty answers (official answers withheld, submission-only) \u2014 only dev is locally scorable (verified via HF rows)."
+    ]
+  },
+  "samples": [
+    {
+      "eval-id": 204,
+      "question_type": "mcq",
+      "gt": "A",
+      "pred": [
+        "A. making tea"
+      ],
+      "decided_by": "exact-match",
+      "matched": "A",
+      "score": 1.0,
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 217,
+      "question_type": "mcq",
+      "gt": "C",
+      "pred": [
+        "C. sphere"
+      ],
+      "decided_by": "exact-match",
+      "matched": "C",
+      "score": 1.0,
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 244,
+      "question_type": "mcq",
+      "gt": "B",
+      "pred": [
+        "C. two"
+      ],
+      "decided_by": null,
+      "matched": null,
+      "score": 0.0,
+      "is_correct": 0,
+      "status": "ok"
+    },
+    {
+      "eval-id": 260,
+      "question_type": "mcq",
+      "gt": "B",
+      "pred": [
+        "B. Mona Lisa"
+      ],
+      "decided_by": "exact-match",
+      "matched": "B",
+      "score": 1.0,
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 712,
+      "question_type": "mcq",
+      "gt": "A",
+      "pred": [
+        "B. top-right"
+      ],
+      "decided_by": null,
+      "matched": null,
+      "score": 0.0,
+      "is_correct": 0,
+      "status": "ok"
+    },
+    {
+      "eval-id": 767,
+      "question_type": "mcq",
+      "gt": "C",
+      "pred": [
+        "The image shows the word \"Ford\" in white text on a black background. This is a simple text string.\n\nNow, let's analyze the options:\n\n- **A.** This creates a dictionary with keys \"name\", \"age\", and \"country\", and prints it. It does not contain \"Ford\" as a key.\n- **B.** This creates a dictionary with keys \"brand\", \"model\", and \"year\", and prints it. The key \"brand\" is set to \"Ford\", which matches the image.\n- **C.** This creates a dictionary with \"brand\" as \"Ford\", but it only"
+      ],
+      "decided_by": null,
+      "matched": null,
+      "score": 0.0,
+      "is_correct": 0,
+      "status": "ok"
+    },
+    {
+      "eval-id": 839,
+      "question_type": "mcq",
+      "gt": "A",
+      "pred": [
+        "The formula shown in the image is $ \\pi r^2 $, which is the standard formula for the area of a circle.\n\n- The area of a circle is calculated using the formula $ A = \\pi r^2 $, where $ r $ is the radius of the circle.\n- The image displays the symbol $ \\pi $ (pi) and the superscript 2, which indicates squaring the radius.\n- This formula is not used for squares, rectangles, or triangles.\n\nTherefore, the correct answer is:\n\nA. Circle."
+      ],
+      "decided_by": "exact-match",
+      "matched": "A",
+      "score": 1.0,
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 912,
+      "question_type": "mcq",
+      "gt": "B",
+      "pred": [
+        "B. A man in a suit with his hands in his pockets stands among a sea of yellow flowers"
+      ],
+      "decided_by": "exact-match",
+      "matched": "B",
+      "score": 1.0,
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 1143,
+      "question_type": "mcq",
+      "gt": "A",
+      "pred": [
+        "A. not soluble"
+      ],
+      "decided_by": "exact-match",
+      "matched": "A",
+      "score": 1.0,
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 1628,
+      "question_type": "mcq",
+      "gt": "B",
+      "pred": [
+        "B. sketch"
+      ],
+      "decided_by": "exact-match",
+      "matched": "B",
+      "score": 1.0,
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 1791,
+      "question_type": "mcq",
+      "gt": "A",
+      "pred": [
+        "A. east"
+      ],
+      "decided_by": "exact-match",
+      "matched": "A",
+      "score": 1.0,
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 1828,
+      "question_type": "mcq",
+      "gt": "D",
+      "pred": [
+        "D. A man with his guitar on his back stands in the street performing"
+      ],
+      "decided_by": "exact-match",
+      "matched": "D",
+      "score": 1.0,
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 1905,
+      "question_type": "mcq",
+      "gt": "C",
+      "pred": [
+        "C. A grey and white bird with red feet and eyes perches on a branch."
+      ],
+      "decided_by": "exact-match",
+      "matched": "C",
+      "score": 1.0,
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 2006,
+      "question_type": "mcq",
+      "gt": "D",
+      "pred": [
+        "Based on the information provided in the table:\n\n- The Akkadian Empire ended around 2190 BCE.\n- After the Akkadian Empire's end, the Neo-Sumerian Empire began ruling Mesopotamia around 2100 BCE.\n- The Babylonian Empire started ruling Mesopotamia around 1792 BCE.\n\nThe question asks for the empire that started controlling Mesopotamia around the 1790s BCE.\n\n- The Neo-Sumerian Empire started around 2100 BCE, which is after the 1790s BCE.\n- The Babylonian"
+      ],
+      "decided_by": null,
+      "matched": null,
+      "score": 0.0,
+      "is_correct": 0,
+      "status": "ok"
+    },
+    {
+      "eval-id": 2253,
+      "question_type": "mcq",
+      "gt": "C",
+      "pred": [
+        "C. Hong Kong"
+      ],
+      "decided_by": "exact-match",
+      "matched": "C",
+      "score": 1.0,
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 3456,
+      "question_type": "mcq",
+      "gt": "D",
+      "pred": [
+        "Based on the image provided, let's analyze the positions of the objects:\n\n- There is a gray circle on the left side of the image.\n- There is a cyan shape on the right side of the image. The shape is a diamond (or square) oriented diagonally, but it is a cyan color.\n\nNow, let's evaluate each option:\n\n- **A. A cyan square is to the left of a gray circle.**  \n  This is incorrect. The cyan shape is on the right, and the gray circle is on the left. The cyan shape is to the right of the gray circle.\n\n- **B. A"
+      ],
+      "decided_by": null,
+      "matched": null,
+      "score": 0.0,
+      "is_correct": 0,
+      "status": "ok"
+    },
+    {
+      "eval-id": 4139,
+      "question_type": "mcq",
+      "gt": "D",
+      "pred": [
+        "C. Right side"
+      ],
+      "decided_by": null,
+      "matched": null,
+      "score": 0.0,
+      "is_correct": 0,
+      "status": "ok"
+    },
+    {
+      "eval-id": 4467,
+      "question_type": "mcq",
+      "gt": "A",
+      "pred": [
+        "A. Creating and blowing bubbles"
+      ],
+      "decided_by": "exact-match",
+      "matched": "A",
+      "score": 1.0,
+      "is_correct": 1,
+      "status": "ok"
+    },
+    {
+      "eval-id": 4597,
+      "question_type": "mcq",
+      "gt": "A",
+      "pred": [
+        "Based on the visual information in the image, let's analyze the content and the options.\n\n- The image is a screenshot of a game profile for a user named \"SuperBro91\" on a game platform that appears to be a mobile game or a game console. The game is \"Super Mario Maker 2\" (as indicated by the character Mario and the game's interface). The user has uploaded 41 out of 100 courses, and their profile shows a high score of 168 in the \"Endless Challenge\" mode.\n\n- The user's name is \"SuperBro91\", which is a"
+      ],
+      "decided_by": null,
+      "matched": null,
+      "score": 0.0,
+      "is_correct": 0,
+      "status": "ok"
+    },
+    {
+      "eval-id": 4837,
+      "question_type": "mcq",
+      "gt": "D",
+      "pred": [
+        "D. warning and guiding drivers"
+      ],
+      "decided_by": "exact-match",
+      "matched": "D",
+      "score": 1.0,
+      "is_correct": 1,
+      "status": "ok"
+    }
+  ]
+}

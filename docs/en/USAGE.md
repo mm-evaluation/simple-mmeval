@@ -42,7 +42,8 @@ Run evaluation on a HuggingFace-hosted dataset with built-in prompt templates:
 ```bash
 python mmeval/run.py \
     --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct \
-    --dataset mmeval_hf@mm-eval/MMBench-en-V11 \
+    --dataset mmeval_hf@mm-eval/MMBench-V11 \
+    --subset en \
     --split test \
     --out_dir work_dirs/mmbench_test \
     --gpu_per_parallel 1 \
@@ -98,7 +99,8 @@ Distribute inference across multiple GPUs with automatic data sharding:
 ```bash
 python mmeval/run.py \
     --model_name_or_path Qwen/Qwen2.5-VL-72B-Instruct \
-    --dataset mmeval_hf@mm-eval/MMBench-en-V11 \
+    --dataset mmeval_hf@mm-eval/MMBench-V11 \
+    --subset en \
     --split test \
     --out_dir work_dirs/mmbench_72b \
     --gpu_per_parallel 4 \
@@ -114,7 +116,8 @@ Run a quick deterministic smoke test on 20 randomly selected samples:
 ```bash
 python mmeval/run.py \
     --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct \
-    --dataset mmeval_hf@mm-eval/MMBench-en-V11 \
+    --dataset mmeval_hf@mm-eval/MMBench-V11 \
+    --subset en \
     --split test \
     --out_dir work_dirs/mmbench_smoke \
     --gpu_per_parallel 1 \

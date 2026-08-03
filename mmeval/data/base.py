@@ -9,7 +9,6 @@ from typing import List, Dict, Any, Optional, Set, Tuple, Union
 from jinja2 import Environment
 
 
-
 class BaseDataset(ABC):
     """Dataset base class for loading and processing datasets.
     
@@ -209,7 +208,7 @@ class BaseDataset(ABC):
             Rendered template string
         """
         env = Environment()
-        env.globals.update({'zip': zip, 'enumerate': enumerate, 'len': len, 'range': range, 'list': list, 
+        env.globals.update({'zip': zip, 'enumerate': enumerate, 'len': len, 'range': range, 'list': list,
         'dict': dict, 'str': str, 'int': int, 'float': float, 'bool': bool, 'sum': sum, 'max': max, 'min': min})
         template = env.from_string(prompt_template)
         return template.render(**sample)
