@@ -18,7 +18,7 @@
 
 - **Simple** -- Set up a conda environment and run inference with a single command; no complex configuration or pipeline assembly required
 - **Self-contained** -- Each model series has its own complete inference implementation in a single file and its own conda environment, eliminating dependency conflicts
-- **Scalable** -- Automatic multi-GPU parallel scheduling with worker-based data sharding; lazy loading for memory-efficient processing of large datasets
+- **Scalable** -- Automatic multi-GPU parallel scheduling with worker-based data sharding; lazy loading for memory-efficient processing of large datasets. Sweep many models over many datasets in one command with VRAM-aware GPU allocation via [batch inference](docs/en/USAGE.md#batch-inference)
 - **Modular** -- Pluggable dataset loaders (local JSON, HuggingFace, VLMEvalKit TSV), Jinja2 prompt templates, and a registry-based model system that can be extended independently
 
 ## Installation

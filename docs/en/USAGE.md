@@ -198,6 +198,118 @@ All arguments are passed to `python mmeval/run.py` and organized into the follow
 
 ---
 
+## Batch Inference
+
+`mmeval/run.py` evaluates **one** model on **one** dataset. To sweep many
+models over many datasets in a single command, use `mmeval/batch_infer.py`. It is
+a thin scheduler on top of `run.py`: for each model it estimates peak VRAM,
+decides how many GPUs a shard needs and how many shards can run in parallel, then
+calls `run.py` once per dataset.
+
+```bash
+# Two models on one HuggingFace benchmark, GPUs allocated automatically
+python mmeval/batch_infer.py \
+    --models Qwen2.5-VL-7B-Instruct InternVL3-8B \
+    --datasets mmeval_hf@mm-eval/MMBench-en-V11:test \
+    --out-dir work_dirs/batch
+```
+
+Results are written to `<out-dir>/<dataset>/<model>/result.json`, the same
+per-run layout `run.py` produces.
+
+### Selecting models
+
+Choose models by name or by series (the two are mutually exclusive); pass `all`
+to select everything. Selection is then narrowed by filters:
+
+```bash
+# Every model in two series, newest first
+python mmeval/batch_infer.py --model-series qwenvl2d5 internvl3 --sort-by newest ...
+
+# All instruct-tuned, non-quantized local models that support video
+python mmeval/batch_infer.py --models all --modalities multi_video_interleave ...
+```
+
+| Filter | Default | Description |
+|--------|---------|-------------|
+| `--model-type` | `non-pretrain` | `pretrain`, `instruct`, `reasoning`, `non-pretrain`, or `all` |
+| `--quantization` | `false` | `true`, `false`, or `all` |
+| `--api` | `false` | `false` = local only, `true` = API only, `all` = both |
+| `--modalities` | -- | keep models supporting at least one listed modality |
+| `--sort-by` | registry order | `newest`, `oldest`, `largest`, `smallest` |
+
+Preview the resolved selection without running anything:
+
+```bash
+python mmeval/batch_infer.py --model-series qwenvl2d5 --list-models
+```
+
+### Specifying datasets
+
+`--datasets` accepts one or more specs in the form `<type>@<value>`:
+
+| Spec | Expands to |
+|------|------------|
+| `mmeval_hf@org/name:split` | `--dataset mmeval_hf@org/name --split split` |
+| `evalkit@Name` | `--dataset evalkit@Name` |
+| `local@/path/file.json[:/img_dir]` | `--dataset local@json --infile … [--img_dir …]` |
+| `tsv@name-or-path-or-url` | `--dataset name-or-path-or-url` |
+
+### GPU allocation
+
+Each model's VRAM is estimated from its size and architecture (recorded in
+`mmeval/model_metadata.json`). A model is given the fewest GPUs that fit it, and
+the remaining GPUs run additional shards in parallel; a model that cannot fit on
+the available GPUs is **skipped** (reported in the summary). Override the
+detected per-GPU VRAM — or disable specific GPUs — with `--gpu-memory` (values in
+GiB, in visible-GPU order, `0` to disable):
+
+```bash
+# 80GiB on GPU0/GPU1, GPU2 disabled, 40GiB on GPU3
+python mmeval/batch_infer.py ... --gpu-memory 80 80 0 40
+```
+
+API models need no GPU; control their concurrency with `--api-parallel`.
+
+### Forwarding generation/inference options
+
+Any flag `batch_infer` does not recognize is forwarded verbatim to every `run.py`
+invocation, so all [generation](#generation-arguments) and
+[inference](#inference-arguments) arguments work unchanged:
+
+```bash
+python mmeval/batch_infer.py --models all --datasets evalkit@MMBench_dev_en \
+    --out-dir work_dirs/batch --max_new_tokens 256 --sample_num 50 --circular
+```
+
+(The per-task `--model_name_or_path`, `--dataset`, `--out_dir`,
+`--gpu_per_parallel`, and `--parallel_per_task` are managed by `batch_infer` and
+cannot be forwarded.) Add `--save-log` to write a JSON run log to `--out-dir`.
+
+### Maintaining the model metadata
+
+`mmeval/model_metadata.json` is a companion to `mmeval/registry.py`: `registry.py`
+remains the source of truth for which models exist and which environment runs
+them, while this file adds the size/architecture/modality fields the scheduler
+needs. It is a JSON object keyed by model name; for example:
+
+```json
+"Qwen2.5-VL-7B-Instruct": {"hf_path": "Qwen/Qwen2.5-VL-7B-Instruct", "series": "qwenvl2d5",
+  "model_type": "instruct", "api_model": false, "quantization": false,
+  "modalities": ["multi_image_video_interleave", "text"], "parameter_count": 8292166656,
+  "num_hidden_layers": 28, "hidden_size": 3584, "num_attention_heads": 28,
+  "num_key_value_heads": 4, "max_position_embeddings": 128000, "required_gpu_count": 1}
+```
+
+After adding models to `registry.py`, refresh the auto-derived fields (parameter
+count, architecture, etc.) and check the two stay in sync with:
+
+```bash
+HF_TOKEN=hf_xxx python scripts/update_model_metadata.py
+```
+
+---
+
 ## Prompt Template System
 
 Simple-MMEval uses [Jinja2](https://jinja.palletsprojects.com/) templates to construct prompts from structured sample data. Templates are resolved in the following priority order:
